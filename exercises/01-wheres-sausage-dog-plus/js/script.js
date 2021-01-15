@@ -12,7 +12,7 @@ When successfull, the sausage dog will start spinning
 Additional features : 
 - Start & End screens
 - Restart game
-
+- Background music and sound effects
 
 ******************/
 
@@ -22,6 +22,12 @@ const
     NUM_ANIMAL_DISPLAY = 100, //Number of img to display
     ANIMALS_IMG = `assets/images/animal`,
     SAUSAGE_DOG_IMG = `assets/images/sausage-dog.png`;
+
+// Constants for sound loading
+const
+    BACKGROUND_MUSIC = `assets/sounds/elevator-music.mp3`,
+    BARK_SOUND = `assets/sounds/bark.wav`;
+
 
 // Arrays of the loaded imgs
 let animalImages = [];
@@ -33,18 +39,27 @@ let sausageDog;
 // Sausage dog image
 let sausageDogImg;
 
+// Music and sound
+let bgSFX;
+let barkSFX;
+
 // current game state
 let state = `start`;
 
 // Loads all the animal images and sausage image
+// Loads music and sound
 function preload() {
-
+    // Imgs
     for (let i = 0; i < NUM_ANIMAL_IMG; i++) {
         let animalImage = loadImage(`${ANIMALS_IMG}${i}.png`);
         animalImages.push(animalImage);
     }
 
     sausageDogImg = loadImage(`${SAUSAGE_DOG_IMG}`);
+
+    // Sounds
+    bgSFX = loadSound(`${BACKGROUND_MUSIC}`);
+    barkSFX = loadSound(`${BARK_SOUND}`);
 }
 
 // Creates all the animal objects and sausage dog object
@@ -107,9 +122,12 @@ function updateSausageDog() {
     sausageDog.update();
 }
 
-// Calls the mousePressed() method in js/Sausage-dog.js 
+// MousePressed events 
 function mousePressed() {
+    // Calls the mousePressed() method in js/Sausage-dog.js 
     sausageDog.mousePressed();
+    
+    // Navigates to the next screen
     if (state == `start`) {
         state = `play`;
     }
@@ -132,4 +150,12 @@ function displayText(string, size, x, y, alpha) {
     fill(255, 255, 255, alpha);
     text(string, x, y);
     pop();
+}
+
+// Play music in loop
+function playMusic() {
+    if (!bgSFX.isPlaying()) {
+        bgSFX.setVolume(0.3)
+        bgSFX.loop();
+    }
 }
