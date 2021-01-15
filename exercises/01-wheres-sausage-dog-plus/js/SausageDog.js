@@ -13,8 +13,9 @@ class SausageDog extends Animal {
         super.update();
         if (this.found) {
             this.angle += this.rotationSpeed;
+            displayText(`YOU FOUND ME!`, 32, this.x, this.y - 100, `red`);
             setTimeout(() => {
-               state = `end`;
+                state = `end`;
             }, 2000);
         }
     }

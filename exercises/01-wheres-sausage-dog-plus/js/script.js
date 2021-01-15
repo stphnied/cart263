@@ -13,6 +13,7 @@ Additional features :
 - Start & End screens
 - Restart game
 - Background music and sound effects
+- Images randomly reversed horizontaly 
 
 ******************/
 
@@ -27,7 +28,6 @@ const
 const
     BACKGROUND_MUSIC = `assets/sounds/elevator-music.mp3`,
     BARK_SOUND = `assets/sounds/bark.wav`;
-
 
 // Arrays of the loaded imgs
 let animalImages = [];
@@ -143,11 +143,11 @@ function keyPressed() {
 }
 
 // Text configuration
-function displayText(string, size, x, y, alpha) {
+function displayText(string, size, x, y, color) {
     push();
     textAlign(CENTER, CENTER);
     textSize(size);
-    fill(255, 255, 255, alpha);
+    fill(color);
     text(string, x, y);
     pop();
 }

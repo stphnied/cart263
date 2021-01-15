@@ -1,9 +1,15 @@
+// Animal class
+// Definining an animal and displays its image
 class Animal {
+    // Stores pos and image as propreties
+    // Create an angle propety for potential rotation
+    // Generate random number to reverse the img
     constructor(x, y, image) {
         this.x = x;
         this.y = y;
         this.image = image;
         this.angle = 0;
+        this.randomNb = random([-1, 1]);
     }
 
     // Calls the display() method
@@ -16,7 +22,8 @@ class Animal {
         push();
         imageMode(CENTER);
         translate(this.x, this.y);
-        rotate(this.angle)
+        rotate(this.angle);
+        scale(this.randomNb, 1);
         image(this.image, 0, 0);
         pop();
     }
