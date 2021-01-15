@@ -2,12 +2,17 @@
 
 /*****************
 
-Activity 01 : Where's Sausage dog?
+Activity 01 : Where's Sausage dog? - PLUS EDITION
 Stephanie Dang
 
 Try finding the sausage dog among other animals!
 The player has to click on the sausage dog to win the game.
 When successfull, the sausage dog will start spinning
+
+Additional features : 
+- Start & End screens
+- Restart game
+
 
 ******************/
 
@@ -23,12 +28,13 @@ let animalImages = [];
 // Arrays for animals object
 let animals = [];
 
-
 // Sausage dog object
-let sausageDog; 
+let sausageDog;
 // Sausage dog image
 let sausageDogImg;
 
+// current game state
+let state = `start`;
 
 // Loads all the animal images and sausage image
 function preload() {
@@ -40,7 +46,6 @@ function preload() {
 
     sausageDogImg = loadImage(`${SAUSAGE_DOG_IMG}`);
 }
-
 
 // Creates all the animal objects and sausage dog object
 function setup() {
@@ -75,8 +80,17 @@ function createSausageDog() {
 function draw() {
     background(255);
 
-    updateAnimals();
-    updateSausageDog();
+    switch (state) {
+        case `start`:
+            start();
+            break;
+        case `play`:
+            play();
+            break;
+        case `end`:
+            end();
+            break;
+    }
 }
 
 // Calls the update() method for all animals
@@ -93,8 +107,29 @@ function updateSausageDog() {
     sausageDog.update();
 }
 
-
 // Calls the mousePressed() method in js/Sausage-dog.js 
 function mousePressed() {
     sausageDog.mousePressed();
+    if (state == `start`) {
+        state = `play`;
+    }
+}
+
+// Allows to restart the game by pressing ENTER once the game ended
+function keyPressed() {
+    if (state == `end`) {
+        if (keyCode === ENTER) {
+            location.reload();
+        }
+    }
+}
+
+// Text configuration
+function displayText(string, size, x, y, alpha) {
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(size);
+    fill(255, 255, 255, alpha);
+    text(string, x, y);
+    pop();
 }

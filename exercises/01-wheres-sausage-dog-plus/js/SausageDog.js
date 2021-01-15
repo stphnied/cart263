@@ -13,6 +13,10 @@ class SausageDog extends Animal {
         super.update();
         if (this.found) {
             this.angle += this.rotationSpeed;
+
+            setTimeout(() => {
+               state = `end`;
+            }, 2000);
         }
     }
     // Checks if this sausage was clicked and remembers it was found
