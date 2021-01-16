@@ -6,7 +6,7 @@
 function start() {
     background(255,150,100);
     displayText(`Where's Mr. Sausage Dog?`, 72, width / 2, height / 2.5,255);
-    displayText(`Activity 01`, 56, width / 2, height / 2,255);
+    displayText(`Press ENTER to start`, 48, width / 2, height / 2,`brown`);
     
     playMusic()
     createSausageDog();

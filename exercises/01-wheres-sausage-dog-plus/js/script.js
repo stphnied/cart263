@@ -9,7 +9,7 @@ Try finding the sausage dog among other animals!
 The player has to click on the sausage dog to win the game.
 When successfull, the sausage dog will start spinning
 
-Additional features : 
+Additional features: 
 - Start & End screens
 - Restart game
 - Background music and sound effects
@@ -27,7 +27,8 @@ const
 // Constants for sound loading
 const
     BACKGROUND_MUSIC = `assets/sounds/elevator-music.mp3`,
-    BARK_SOUND = `assets/sounds/bark.wav`;
+    BARK_SOUND = `assets/sounds/bark.wav`,
+    INCORRECT_SOUND = `assets/sounds/incorrect.mp3`;
 
 // Arrays of the loaded imgs
 let animalImages = [];
@@ -42,6 +43,7 @@ let sausageDogImg;
 // Music and sound
 let bgSFX;
 let barkSFX;
+let incorrectSFX;
 
 // current game state
 let state = `start`;
@@ -60,6 +62,7 @@ function preload() {
     // Sounds
     bgSFX = loadSound(`${BACKGROUND_MUSIC}`);
     barkSFX = loadSound(`${BARK_SOUND}`);
+    incorrectSFX = loadSound(`${INCORRECT_SOUND}`);
 }
 
 // Creates all the animal objects and sausage dog object
@@ -125,16 +128,24 @@ function updateSausageDog() {
 // MousePressed events 
 function mousePressed() {
     // Calls the mousePressed() method in js/Sausage-dog.js 
-    sausageDog.mousePressed();
-    
-    // Navigates to the next screen
-    if (state == `start`) {
-        state = `play`;
+    if (state == `play`) {
+        sausageDog.mousePressed();
+
+        // Calls the mousePressed() methos in js/Animal.js
+        for (let i = 0; i < animals.length; i++) {
+            animals[i].mousePressed();
+        }
     }
 }
 
+// keyPressed function 
+// Navigates to the next screen
 // Allows to restart the game by pressing ENTER once the game ended
 function keyPressed() {
+    if (state == `start`) {
+        state = `play`;
+    }
+
     if (state == `end`) {
         if (keyCode === ENTER) {
             location.reload();

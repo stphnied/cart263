@@ -28,6 +28,15 @@ class Animal {
         pop();
     }
 
+    // Checks if one of the animals were clicked
+    // Plays a sound if yes
+    mousePressed() {
+        if (this.overlap(mouseX, mouseY)) {
+            incorrectSFX.setVolume(0.2);
+            incorrectSFX.play();
+        }
+    }
+
     // Checks whether the position x,y is inside this animal's image
     // Return true if click was inside the img and false otherwise
     overlap(x, y) {
