@@ -5,8 +5,9 @@
 // Displays the start screen
 function start() {
     background(255,150,100);
-    displayText(`Where's Mr. Sausage Dog?`, 72, width / 2, height / 2.5,255);
-    displayText(`Press ENTER to start`, 48, width / 2, height / 2,`brown`);
+    displayText(`Where's Mr.Sausage Dog?`, 72, width / 2, height / 2.5,255);
+    displayText(`Mr.Sausage hid inside the mighty jungle... Help us find him!`,48,width/2,height/2,255);
+    displayText(`Press ENTER to start`, 48, width / 2, height / 1.5,`brown`);
     
     playMusic()
     createSausageDog();

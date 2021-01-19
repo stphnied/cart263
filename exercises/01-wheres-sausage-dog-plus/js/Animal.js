@@ -31,7 +31,7 @@ class Animal {
     // Checks if one of the animals were clicked
     // Plays a sound if yes
     mousePressed() {
-        if (this.overlap(mouseX, mouseY)) {
+        if (!sausageDog.found&&this.overlap(mouseX, mouseY)) {
             incorrectSFX.setVolume(0.2);
             incorrectSFX.play();
         }

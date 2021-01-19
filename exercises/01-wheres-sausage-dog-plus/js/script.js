@@ -96,7 +96,7 @@ function createSausageDog() {
 
 // Draws the background and updates all animals and sausage dog
 function draw() {
-    background(255);
+    background(`#4d934d`);
 
     switch (state) {
         case `start`:
