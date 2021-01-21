@@ -11,10 +11,6 @@ This week's topic and experiments includes :
 let phrase = `Would you like a cup of tea ?`;
 let saying = ``;
 
-function preload() {
-
-}
-
 
 function setup() {
     createCanvas(500, 500);
