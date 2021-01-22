@@ -2,7 +2,7 @@
 
 /*****************
 
-Activity 03: Slamina
+Activity 02: Slamina
 Stephanie Dang
 
 The program will speak the name of a common animal backwards and the user will have to say (with their voice) what they think it is in the form “I think it is x.”
@@ -49,7 +49,7 @@ function setup() {
 //else : nothing
 function draw() {
     background(0);
-    
+
     push();
     fill(255);
     text(instructionTxt, width / 2, height / 2);
