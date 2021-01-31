@@ -6,23 +6,24 @@ Exercise 02: Slamina
 Stephanie Dang
 
 The program will speak the name of a common animal backwards and the user will have to say (with their voice) what they think it is in the form “I think it is x.”
- If they get it right, their guess will be displayed in green, if they get it wrong, their guess will be displayed in red.
+If they get it right, their guess will be displayed in green, if they get it wrong, their guess will be displayed in red.
 ******************/
 
 // Variables ----------------------------------
 
 // Current animal name to guess
-let currentAnimal = "";
+let currentChampion = "";
 // Current user guess
 let currentAnswer = "";
 // Instruction text
+let state = "menu";
 let instructionTxt = "Click to start";
 
 // setup()
 // Setting up canvas
 // Setting up Annyang with text defaults
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(1000, 750);
 
     // Check if annyang is available
     if (annyang) {
@@ -48,24 +49,38 @@ function setup() {
 //if correct answer, displays it
 //else : nothing
 function draw() {
-    background(0);
+    background(255);
 
-    push();
-    fill(255);
-    text(instructionTxt, width / 2, height / 2);
-    pop();
-
-    displayAnswer();
+    switch (state) {
+        case "menu":
+            menu();
+            break;
+        case "play":
+            play();
+    }
 }
+
+// keyPressed function 
+// Navigates to the next screen
+// Allows to restart the game by pressing ENTER once the game ended
+function keyPressed() {
+    if (state == `menu`) {
+        state = `play`;
+    }
+}
+
 
 // When user clicks : says the animal name backward
 function mousePressed() {
-    currentAnimal = random(animals);
-    let reverseAnimal = reverseString(currentAnimal);
-    responsiveVoice.speak(reverseAnimal, "UK English Male");
-    console.log(currentAnimal);
+    if (state === "play") {
+        currentChampion = random(teas);
+        let reverseAnimal = reverseString(currentChampion);
+        responsiveVoice.speak(reverseAnimal, "UK English Male");
+        console.log(currentChampion);
 
-    instructionTxt = "";
+        instructionTxt = "";
+    }
+
 }
 
 // Called by annyang
@@ -90,11 +105,22 @@ function reverseString(string) {
 
 // Display the current in green if right
 function displayAnswer() {
-    if (currentAnswer === currentAnimal) {
+    if (currentAnswer === currentChampion) {
         fill(0, 255, 0);
     } else {
         fill(0, 0, 0);
     }
 
     text(currentAnswer, width / 2, height / 2);
+}
+
+
+// Text configuration
+function displayText(string, size, x, y, color) {
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(size);
+    fill(color);
+    text(string, x, y);
+    pop();
 }
