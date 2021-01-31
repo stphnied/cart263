@@ -19,6 +19,17 @@ let currentFruit = ``;
 let currentAnswer = ``;
 // Instruction text
 let instructionTxt = `Guess the fruit by saying "I think it is"`;
+//Constant for loading sound
+const BACKGROUND_MUSIC = `assets/sounds/piece-of-cake.mp3`;
+// Music
+let bgSFX;
+
+
+// preload()
+// Loads the music
+function preload() {
+    bgSFX = loadSound(`${BACKGROUND_MUSIC}`)
+}
 
 // setup()
 // Setting up canvas
@@ -42,6 +53,7 @@ function setup() {
     textSize(36);
     textStyle(BOLD);
     textAlign(CENTER);
+    noStroke();
 }
 
 
@@ -66,14 +78,16 @@ function draw() {
 // Allows to restart the game by pressing ENTER once the game ended
 function keyPressed() {
     if (state == `menu`) {
-        state = `play`;
+        if (keyCode === ENTER) {
+            state = `play`;
+        }
     }
 }
 
 // When user clicks : says the fruit name backward
 function mousePressed() {
     if (state === "play") {
-        currentFruit = random(teas);
+        currentFruit = random(fruits);
         let reverseAnimal = reverseString(currentFruit);
         responsiveVoice.speak(reverseAnimal, "UK English Male");
         console.log(currentFruit);
@@ -115,6 +129,13 @@ function displayAnswer() {
 }
 
 
+// Display the buton for the next guess
+function displayNextBtn() {
+    fill(`#026440`);
+    displayText(`NEW FRUIT`,14,width/2,height/1.16,0)
+    ellipse(width/2,height/1.1,50,50);
+}
+
 // Text configuration
 function displayText(string, size, x, y, color) {
     push();
@@ -123,4 +144,12 @@ function displayText(string, size, x, y, color) {
     fill(color);
     text(string, x, y);
     pop();
+}
+
+// Play music in loop
+function playMusic() {
+    if (!bgSFX.isPlaying()) {
+        bgSFX.setVolume(0.05)
+        bgSFX.loop();
+    }
 }
