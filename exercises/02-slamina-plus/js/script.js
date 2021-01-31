@@ -11,13 +11,14 @@ If they get it right, their guess will be displayed in green, if they get it wro
 
 // Variables ----------------------------------
 
+// States
+let state = `menu`;
 // Current fruit name to guess
-let currentFruit = "";
+let currentFruit = ``;
 // Current user guess
-let currentAnswer = "";
+let currentAnswer = ``;
 // Instruction text
-let state = "menu";
-let instructionTxt = "Click to start";
+let instructionTxt = `Guess the fruit by saying "I think it is"`;
 
 // setup()
 // Setting up canvas
@@ -38,7 +39,7 @@ function setup() {
     }
 
     // Text defaults
-    textSize(55);
+    textSize(36);
     textStyle(BOLD);
     textAlign(CENTER);
 }
@@ -49,7 +50,7 @@ function setup() {
 //if correct answer, displays it
 //else : nothing
 function draw() {
-    background(255);
+    background(250);
 
     switch (state) {
         case "menu":
@@ -69,7 +70,6 @@ function keyPressed() {
     }
 }
 
-
 // When user clicks : says the fruit name backward
 function mousePressed() {
     if (state === "play") {
@@ -78,7 +78,7 @@ function mousePressed() {
         responsiveVoice.speak(reverseAnimal, "UK English Male");
         console.log(currentFruit);
 
-        instructionTxt = "";
+        // instructionTxt = "";
     }
 
 }
