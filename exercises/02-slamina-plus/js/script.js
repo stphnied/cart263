@@ -2,17 +2,17 @@
 
 /*****************
 
-Exercise 02: Slamina
+Exercise 02: Slamina : Fruit basket
 Stephanie Dang
 
-The program will speak the name of a common animal backwards and the user will have to say (with their voice) what they think it is in the form “I think it is x.”
+The program will speak the name of a common fruit in a distorted voice and the user will have to say (with their voice) what they think it is in the form “I think it is x.”
 If they get it right, their guess will be displayed in green, if they get it wrong, their guess will be displayed in red.
 ******************/
 
 // Variables ----------------------------------
 
-// Current animal name to guess
-let currentChampion = "";
+// Current fruit name to guess
+let currentFruit = "";
 // Current user guess
 let currentAnswer = "";
 // Instruction text
@@ -29,7 +29,7 @@ function setup() {
     if (annyang) {
         // Create commands
         let commands = {
-            'I think it is *animal': guessAnimal
+            'I think it is *fruit': guessFruit
         };
 
         // Add and calls commands
@@ -70,13 +70,13 @@ function keyPressed() {
 }
 
 
-// When user clicks : says the animal name backward
+// When user clicks : says the fruit name backward
 function mousePressed() {
     if (state === "play") {
-        currentChampion = random(teas);
-        let reverseAnimal = reverseString(currentChampion);
+        currentFruit = random(teas);
+        let reverseAnimal = reverseString(currentFruit);
         responsiveVoice.speak(reverseAnimal, "UK English Male");
-        console.log(currentChampion);
+        console.log(currentFruit);
 
         instructionTxt = "";
     }
@@ -85,9 +85,9 @@ function mousePressed() {
 
 // Called by annyang
 // User making guess
-// animal param = user's guess
-function guessAnimal(animal) {
-    currentAnswer = animal.toLowerCase();
+// fruit param = user's guess
+function guessFruit(fruit) {
+    currentAnswer = fruit.toLowerCase();
     console.log(currentAnswer);
 }
 
@@ -105,7 +105,7 @@ function reverseString(string) {
 
 // Display the current in green if right
 function displayAnswer() {
-    if (currentAnswer === currentChampion) {
+    if (currentAnswer === currentFruit) {
         fill(0, 255, 0);
     } else {
         fill(0, 0, 0);
