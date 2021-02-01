@@ -5,8 +5,16 @@
 Exercise 02: Slamina : Fruit basket
 Stephanie Dang
 
-The program will speak the name of a common fruit in a distorted voice and the user will have to say (with their voice) what they think it is in the form “I think it is x.”
+The program will speak the name of a common fruit by spelling each letters in a distorted voice
+and the user will have to say (with their voice) what they think it is in the form “Answer x.”
+
 If they get it right, their guess will be displayed in green, if they get it wrong, their guess will be displayed in red.
+
+New features:
+- FRUITS
+- MUSIC
+- DIFFERENT RESPONSIVE VOICE 
+- START SCREEN
 ******************/
 
 // Variables ----------------------------------
@@ -17,12 +25,18 @@ let state = `menu`;
 let currentFruit = ``;
 // Current user guess
 let currentAnswer = ``;
-// Instruction text
-let instructionTxt = `Guess the fruit by saying "I think it is"`;
+// Constant for instruction text
+const INSTRUCTION_TEXT = `Guess the fruit by saying "Answer [fruit]"`;
 //Constant for loading sound
 const BACKGROUND_MUSIC = `assets/sounds/piece-of-cake.mp3`;
 // Music
 let bgSFX;
+// Circle button
+let circle = {
+    x: 0,
+    y: 0,
+    size: 50
+}
 
 
 // preload()
@@ -41,7 +55,7 @@ function setup() {
     if (annyang) {
         // Create commands
         let commands = {
-            'I think it is *fruit': guessFruit
+            'Answer *fruit': guessFruit
         };
 
         // Add and calls commands
@@ -54,8 +68,11 @@ function setup() {
     textStyle(BOLD);
     textAlign(CENTER);
     noStroke();
-}
 
+    // Circle setup
+    circle.x = width / 2;
+    circle.y = height / 1.1;
+}
 
 // draw()
 // Display background
@@ -84,15 +101,24 @@ function keyPressed() {
     }
 }
 
-// When user clicks : says the fruit name backward
+// mousePressed()
+// When user clicks the program spells the fruit's letter one by one
+// Empties the current answer if there is one
 function mousePressed() {
     if (state === "play") {
-        currentFruit = random(fruits);
-        let reverseAnimal = reverseString(currentFruit);
-        responsiveVoice.speak(reverseAnimal, "UK English Male");
-        console.log(currentFruit);
+        let d = dist(mouseX, mouseY, circle.x, circle.y);
 
-        // instructionTxt = "";
+        if (d < circle.size / 2) {
+            currentFruit = random(fruits);
+            let reverseAnimal = reverseString(currentFruit);
+            responsiveVoice.speak(reverseAnimal, "Japanese Female", {
+                rate: 1.3
+            });
+            console.log(currentFruit);
+
+            currentAnswer = "";
+        }
+
     }
 
 }
@@ -110,9 +136,10 @@ function reverseString(string) {
     // Split the string into an array of characters
     let characters = string.split('');
     // Reverse the array of characters
-    let reverseCharacters = characters.reverse();
+    // let reverseCharacters = characters.reverse();
     // Join the array of characters back into a string
-    let result = reverseCharacters.join('');
+    // let result = reverseCharacters.join('');
+    let result = characters.join();
     // Return the result
     return result;
 }
@@ -122,7 +149,7 @@ function displayAnswer() {
     if (currentAnswer === currentFruit) {
         fill(0, 255, 0);
     } else {
-        fill(0, 0, 0);
+        fill(255, 0, 0);
     }
 
     text(currentAnswer, width / 2, height / 2);
@@ -132,8 +159,8 @@ function displayAnswer() {
 // Display the buton for the next guess
 function displayNextBtn() {
     fill(`#026440`);
-    displayText(`NEW FRUIT`,14,width/2,height/1.16,0)
-    ellipse(width/2,height/1.1,50,50);
+    displayText(`NEW FRUIT`, 14, width / 2, height / 1.16, 0)
+    ellipse(circle.x, circle.y, circle.size);
 }
 
 // Text configuration
