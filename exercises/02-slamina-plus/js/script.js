@@ -24,8 +24,15 @@ const INSTRUCTION_TEXT = `Guess the fruit by saying "Answer [fruit]"`;
 //Constant for loading sound
 const BACKGROUND_MUSIC = `assets/sounds/piece-of-cake.mp3`;
 // Constant for loading images
-const GOOD_JOB_IMG = `assets/images/happi-oranji.png`,
+const
+    GOOD_JOB_IMG = `assets/images/happi-oranji.png`,
     BAD_JOB_IMG = `assets/images/angy-tomato.png`;
+
+// Constants for colors
+const 
+    ORANGE_COLOR = `#ffb733`,
+    BROWN_COLOR = `#322001`,
+    RED_COLOR = `#ff3333`;
 
 // States
 let state = `menu`;
@@ -90,7 +97,7 @@ function setup() {
 //if correct answer, displays it
 //else : nothing
 function draw() {
-    background(100);
+    background(250);
 
     switch (state) {
         case "menu":
@@ -154,21 +161,21 @@ function splitString(string) {
 // Display nothing when it's a new guess
 function displayAnswer() {
     if (currentAnswer === currentFruit && currentFruit != "") {
-        fill(0, 255, 0);
+        fill(ORANGE_COLOR);
         answerImg = new AnswerImages(orangeImg);
         answerImg.display();
     }
     else if (currentAnswer != currentFruit && currentAnswer != "") {
         answerImg = new AnswerImages(tomatoImg);
         answerImg.display();
-        fill(255, 0, 0);
+        fill(RED_COLOR);
     }
     else {
         answerImg = new AnswerImages(tomatoImg);
-        // answerImg.update();
         answerImg.hide();
     }
 
+    // displays the current answer
     text(currentAnswer, width / 2, height / 2);
 }
 

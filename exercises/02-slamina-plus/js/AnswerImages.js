@@ -1,5 +1,8 @@
 // Image class
 // Definining an fruit and displays image depending on the answer 
+    // Stores image as propreties
+    // fixed position x and y 
+    // fixed image size
 class AnswerImages {
     constructor(img) {
         this.img = img;
@@ -8,10 +11,12 @@ class AnswerImages {
         this.size = 150;
     }
 
+    // Calls the display() method
     update() {
         this.display();
     }
 
+    // Displays the answer's image on the canvas 
     display() {
         push();
         imageMode(CENTER);
@@ -19,19 +24,11 @@ class AnswerImages {
         pop();
     }
 
+    // Hides the answer's image by using tint()
     hide() {
         push();
         tint(255, 0);
         image(this.img,this.x,this.y,this.size,this.size);
         pop();
-    }
-
-    mousePressed() {
-        if(currentAnswer == currentFruit) {
-            this.img = orangeImg;
-        }
-        else if(currentAnswer != currentFruit){
-            this.img = tomatoImg;
-        }
     }
 }
