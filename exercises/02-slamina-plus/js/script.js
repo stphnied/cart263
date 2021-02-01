@@ -19,30 +19,40 @@ New features:
 
 // Variables ----------------------------------
 
+// Constant for instruction text
+const INSTRUCTION_TEXT = `Guess the fruit by saying "Answer [fruit]"`;
+//Constant for loading sound
+const BACKGROUND_MUSIC = `assets/sounds/piece-of-cake.mp3`;
+// Constant for loading images
+const GOOD_JOB_IMG = `assets/images/happi-oranji.png`,
+    BAD_JOB_IMG = `assets/images/angy-tomato.png`;
+
 // States
 let state = `menu`;
 // Current fruit name to guess
 let currentFruit = ``;
 // Current user guess
 let currentAnswer = ``;
-// Constant for instruction text
-const INSTRUCTION_TEXT = `Guess the fruit by saying "Answer [fruit]"`;
-//Constant for loading sound
-const BACKGROUND_MUSIC = `assets/sounds/piece-of-cake.mp3`;
-// Music
-let bgSFX;
 // Circle button
 let circle = {
     x: 0,
     y: 0,
     size: 50
-}
+};
 
+// Music
+let bgSFX;
+// Images
+let orangeImg;
+let tomatoImg;
 
 // preload()
 // Loads the music
+// loads the images
 function preload() {
-    bgSFX = loadSound(`${BACKGROUND_MUSIC}`)
+    bgSFX = loadSound(`${BACKGROUND_MUSIC}`);
+    orangeImg = loadImage(`${GOOD_JOB_IMG}`);
+    tomatoImg = loadImage(`${BAD_JOB_IMG}`);
 }
 
 // setup()
@@ -87,6 +97,7 @@ function draw() {
             break;
         case "play":
             play();
+            break;
     }
 }
 
@@ -102,25 +113,23 @@ function keyPressed() {
 }
 
 // mousePressed()
-// When user clicks the program spells the fruit's letter one by one
+// When user clicks on the NEXT btn the program spells the fruit's letter one by one
 // Empties the current answer if there is one
 function mousePressed() {
     if (state === "play") {
-        let d = dist(mouseX, mouseY, circle.x, circle.y);
 
+        let d = dist(mouseX, mouseY, circle.x, circle.y);
         if (d < circle.size / 2) {
             currentFruit = random(fruits);
-            let reverseAnimal = reverseString(currentFruit);
-            responsiveVoice.speak(reverseAnimal, "Japanese Female", {
+            let splitFruit = splitString(currentFruit);
+            responsiveVoice.speak(splitFruit, "Japanese Female", {
                 rate: 1.3
             });
             console.log(currentFruit);
 
             currentAnswer = "";
         }
-
     }
-
 }
 
 // Called by annyang
@@ -132,13 +141,9 @@ function guessFruit(fruit) {
 }
 
 // Reverses the provided string
-function reverseString(string) {
+function splitString(string) {
     // Split the string into an array of characters
     let characters = string.split('');
-    // Reverse the array of characters
-    // let reverseCharacters = characters.reverse();
-    // Join the array of characters back into a string
-    // let result = reverseCharacters.join('');
     let result = characters.join();
     // Return the result
     return result;
@@ -151,15 +156,13 @@ function displayAnswer() {
     } else {
         fill(255, 0, 0);
     }
-
     text(currentAnswer, width / 2, height / 2);
 }
-
 
 // Display the buton for the next guess
 function displayNextBtn() {
     fill(`#026440`);
-    displayText(`NEW FRUIT`, 14, width / 2, height / 1.16, 0)
+    displayText(`NEW FRUIT`, 14, width / 2, height / 1.16, 0);
     ellipse(circle.x, circle.y, circle.size);
 }
 
@@ -176,7 +179,7 @@ function displayText(string, size, x, y, color) {
 // Play music in loop
 function playMusic() {
     if (!bgSFX.isPlaying()) {
-        bgSFX.setVolume(0.05)
+        bgSFX.setVolume(0.05);
         bgSFX.loop();
     }
 }
