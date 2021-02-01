@@ -45,6 +45,7 @@ let bgSFX;
 // Images
 let orangeImg;
 let tomatoImg;
+let answerImg;
 
 // preload()
 // Loads the music
@@ -89,7 +90,7 @@ function setup() {
 //if correct answer, displays it
 //else : nothing
 function draw() {
-    background(250);
+    background(100);
 
     switch (state) {
         case "menu":
@@ -117,7 +118,6 @@ function keyPressed() {
 // Empties the current answer if there is one
 function mousePressed() {
     if (state === "play") {
-
         let d = dist(mouseX, mouseY, circle.x, circle.y);
         if (d < circle.size / 2) {
             currentFruit = random(fruits);
@@ -149,13 +149,26 @@ function splitString(string) {
     return result;
 }
 
-// Display the current in green if right
+// Display happi oranji if right
+// Display angy tomato if wrong
+// Display nothing when it's a new guess
 function displayAnswer() {
-    if (currentAnswer === currentFruit) {
+    if (currentAnswer === currentFruit && currentFruit != "") {
         fill(0, 255, 0);
-    } else {
+        answerImg = new AnswerImages(orangeImg);
+        answerImg.display();
+    }
+    else if (currentAnswer != currentFruit && currentAnswer != "") {
+        answerImg = new AnswerImages(tomatoImg);
+        answerImg.display();
         fill(255, 0, 0);
     }
+    else {
+        answerImg = new AnswerImages(tomatoImg);
+        // answerImg.update();
+        answerImg.hide();
+    }
+
     text(currentAnswer, width / 2, height / 2);
 }
 

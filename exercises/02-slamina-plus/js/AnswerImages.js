@@ -26,12 +26,12 @@ class AnswerImages {
         pop();
     }
 
-    // mousePressed() {
-    //     if(currentAnswer == currentFruit) {
-    //         this.img = orangeImg;
-    //     }
-    //     else if(currentAnswer != currentFruit){
-    //         this.img = tomatoImg;
-    //     }
-    // }
+    mousePressed() {
+        if(currentAnswer == currentFruit) {
+            this.img = orangeImg;
+        }
+        else if(currentAnswer != currentFruit){
+            this.img = tomatoImg;
+        }
+    }
 }
