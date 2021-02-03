@@ -13,8 +13,10 @@ If they get it right, their guess will be displayed in green, if they get it wro
 New features:
 - FRUITS
 - MUSIC
-- DIFFERENT RESPONSIVE VOICE 
+- CUTE RESPONSIVE VOICE 
 - START SCREEN
+
+hint : If you open the console, you can guess all the fruits like a wizard!
 ******************/
 
 // Variables ----------------------------------
@@ -32,7 +34,8 @@ const
 const 
     ORANGE_COLOR = `#ffb733`,
     BROWN_COLOR = `#322001`,
-    RED_COLOR = `#ff3333`;
+    RED_COLOR = `#ff3333`,
+    GREEN_COLOR = `#026440`;
 
 // States
 let state = `menu`;

@@ -9,6 +9,7 @@ class AnswerImages {
         this.x = width/1.25;
         this.y = height/2;
         this.size = 150;
+        this.randomSpeed = random(-1,1);
     }
 
     // Calls the display() method
@@ -20,6 +21,7 @@ class AnswerImages {
     display() {
         push();
         imageMode(CENTER);
+        translate(random(-2,2),random(-2,2));
         image(this.img,this.x,this.y,this.size,this.size);
         pop();
     }

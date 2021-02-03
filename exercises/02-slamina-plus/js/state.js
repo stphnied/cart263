@@ -4,8 +4,8 @@
 
 // Displays the start screen
 function menu() {
-    displayText(`FRUIT BASKET`, 72, width / 2, height / 2.5, BROWN_COLOR);
-    displayText(`Try to guess as many fruits as you can`, 28, width / 2, height / 2, BROWN_COLOR);
+    displayText(`FRUIT BASKET`, 72, width / 2, height / 2.5, GREEN_COLOR);
+    displayText(`Reverse spelling bee where you have to guess the fruit!`, 28, width / 2, height / 2, BROWN_COLOR);
     displayText(`Press ENTER to start`, 32, width / 2, height / 1.5, ORANGE_COLOR);
     playMusic();
 }
