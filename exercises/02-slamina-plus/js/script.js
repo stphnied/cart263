@@ -31,7 +31,7 @@ const
     BAD_JOB_IMG = `assets/images/angy-tomato.png`;
 
 // Constants for colors
-const 
+const
     ORANGE_COLOR = `#ffb733`,
     BROWN_COLOR = `#322001`,
     RED_COLOR = `#ff3333`,
@@ -49,7 +49,8 @@ let circle = {
     y: 0,
     size: 50
 };
-
+// Storing the points earned from user
+let score = 0;
 // Music
 let bgSFX;
 // Images
@@ -138,6 +139,7 @@ function mousePressed() {
             console.log(currentFruit);
 
             currentAnswer = "";
+            loop();
         }
     }
 }
@@ -167,19 +169,23 @@ function displayAnswer() {
         fill(ORANGE_COLOR);
         answerImg = new AnswerImages(orangeImg);
         answerImg.display();
-    }
-    else if (currentAnswer != currentFruit && currentAnswer != "") {
+        addScore();
+    } else if (currentAnswer != currentFruit && currentAnswer != "") {
         answerImg = new AnswerImages(tomatoImg);
         answerImg.display();
         fill(RED_COLOR);
-    }
-    else {
+    } else {
         answerImg = new AnswerImages(tomatoImg);
         answerImg.hide();
     }
 
     // displays the current answer
     text(currentAnswer, width / 2, height / 2);
+
+    push();
+    fill(GREEN_COLOR);
+    text("score:" + score, width / 2, height / 3);
+    pop();
 }
 
 // Display the buton for the next guess
@@ -205,4 +211,10 @@ function playMusic() {
         bgSFX.setVolume(0.05);
         bgSFX.loop();
     }
+}
+
+// Add one points for each good answer
+function addScore() {
+    score++;
+    noLoop();
 }
