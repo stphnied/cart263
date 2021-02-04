@@ -15,6 +15,7 @@ New features:
 - MUSIC
 - CUTE RESPONSIVE VOICE 
 - START SCREEN
+- SCORE
 
 hint : If you open the console, you can guess all the fruits like a wizard!
 ******************/
