@@ -140,7 +140,6 @@ function mousePressed() {
             console.log(currentFruit);
 
             currentAnswer = "";
-            loop();
         }
     }
 }
@@ -148,9 +147,13 @@ function mousePressed() {
 // Called by annyang
 // User making guess
 // fruit param = user's guess
+// Adds a point to the score
 function guessFruit(fruit) {
     currentAnswer = fruit.toLowerCase();
     console.log(currentAnswer);
+    if (currentAnswer === currentFruit && currentFruit != "") {
+        score++;
+    }
 }
 
 // Reverses the provided string
@@ -170,7 +173,6 @@ function displayAnswer() {
         fill(ORANGE_COLOR);
         answerImg = new AnswerImages(orangeImg);
         answerImg.display();
-        addScore();
     } else if (currentAnswer != currentFruit && currentAnswer != "") {
         answerImg = new AnswerImages(tomatoImg);
         answerImg.display();
@@ -212,10 +214,4 @@ function playMusic() {
         bgSFX.setVolume(0.05);
         bgSFX.loop();
     }
-}
-
-// Add one points for each good answer
-function addScore() {
-    score++;
-    noLoop();
 }
