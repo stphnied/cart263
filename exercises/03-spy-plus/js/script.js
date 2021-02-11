@@ -9,9 +9,12 @@ When the user first loads our program it will ask for their name in a text promp
 Once provided, the program will generate and save the user’s super secret spy profile using random JSON data to determine an alias,
 secret weapon, and password. When the user comes back later, they will need to enter their generated password to view their profile again.
 
+// composure = password
+
 ******************/
 
 // Variables
+let state = `menu`;
 // Spy profile data displays
 let spyProfile = {
     name: `**REDACTED**`,
@@ -24,14 +27,17 @@ let spyProfile = {
 let tarotData;
 let objectData;
 let instrumentData;
-
+let dogData;
+let countryData;
 
 // Constants
 // URL to data
 const
     TAROT_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`,
-    OBJECT_DATA_URL= `https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`,
-    INSTRUMENT_DATA_URL= `https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`;
+    OBJECT_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`,
+    INSTRUMENT_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`,
+    DOG_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/dogs.json`,
+    COUNTRY_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/geography/countries.json`;
 // Colors code
 const
     COLOR_GREEN = `#39FF14`,
@@ -44,6 +50,8 @@ function preload() {
     tarotData = loadJSON(TAROT_DATA_URL);
     objectData = loadJSON(OBJECT_DATA_URL);
     instrumentData = loadJSON(INSTRUMENT_DATA_URL);
+    dogData = loadJSON(DOG_DATA_URL);
+    countryData = loadJSON(COUNTRY_DATA_URL);
 }
 
 // setup()
@@ -52,18 +60,58 @@ function preload() {
 function setup() {
     // creates canvas
     createCanvas(windowWidth, windowHeight);
+
+    // Check if annyang is available
+    if (annyang) {
+        // Create commands
+        let commands = {
+            'My name is *name': loadProfile
+        };
+
+        // Add and calls commands
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+
+
     // load data
-    let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
     // Check if there's a data to load
+    // if (state == `mainpage`) {
+    //     if (data !== null) {
+    //         // Asks for password
+    //         // If matches, displays profile
+    //         let password = prompt(`What's your code?`);
+    //         if (password === data.password) {
+    //             spyProfile = data;
+    //         }
+    //     }
+    //     // If not, generate a new profile
+    //     else {
+    //         generateSpyProfile();
+    //     }
+    // }
+}
+
+
+// Called by annyang
+function loadProfile(name) {
+    let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
+    state = `mainpage`;
+    // Checks if there's data
     if (data !== null) {
-        // Asks for password
-        // If matches, displays profile
-        let password = prompt(`What's your code?`);
-        if (password === data.password) {
-            spyProfile = data;
+        // If name is in data
+        if (name === data.name) {
+            // Asks for password
+            let password = prompt(`What's your code?`);
+            // If matches, displays profile
+            if (password === data.password) {
+                spyProfile = data;
+            }
+        }
+        else {
+            generateSpyProfile();
         }
     }
-    // If not, generate a new profile
     else {
         generateSpyProfile();
     }
@@ -74,42 +122,37 @@ function setup() {
 function draw() {
     background(COLOR_BLACK);
 
-    // string template
-    let profile = `** SPY PROFILE **    
-    name: ${spyProfile.name}
-    alias: ${spyProfile.alias}
-    secret weapon: ${spyProfile.secretWeapon}
-    password: ${spyProfile.password}`;
-
-    push();
-    fill(COLOR_GREEN);
-    textSize(32);
-    textStyle(BOLD);
-    textAlign(TOP, LEFT);
-    textFont(`Courier, monospace`);
-    text(profile, 100, 100);
-    pop();
+    switch (state) {
+        case "menu":
+            menu();
+            break;
+        case "mainpage":
+            mainpage();
+            break;
+    }
 }
-
 
 // Generates spy profile from JSON data
 function generateSpyProfile() {
     // Ask for agent's name and stores it
-    spyProfile.name = prompt(`Identify yourself, Agent`, `name`);
+    spyProfile.name = prompt(`You're new huh? Write your name down here`, `name`);
     // random instrument
     spyProfile.alias = `the ${random(instrumentData.instruments)}`;
+    // random location
+    spyProfile.headquater = random(countryData.countries);
     // random object
     spyProfile.secretWeapon = random(objectData.objects);
+    // random companion
+    spyProfile.companion = random(dogData.dogs);
     // random tarot card as password
     let card = random(tarotData.tarot_interpretations);
     spyProfile.password = random(card.keywords);
-
     //Saving generated profile
     localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
 }
 
 function keyPressed() {
-    if(keyCode === ENTER) {
+    if (keyCode === ENTER) {
         // localStorage.removeItem(`spy-profile-date`);
         // generateSpyProfile();
         console.log("pressed");
@@ -122,6 +165,7 @@ function displayText(string, size, x, y, color) {
     textAlign(CENTER, CENTER);
     textSize(size);
     fill(color);
+    textFont(`Courier, monospace`);
     text(string, x, y);
     pop();
 }
