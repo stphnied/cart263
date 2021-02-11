@@ -25,13 +25,13 @@ function menu() {
 // Calls the function to display the answer and the next guess 
 function mainpage() {
     // string template
-    let profile = `** SPY PROFILE **    
-    name: ${spyProfile.name}
-    alias: ${spyProfile.alias}
-    headquater: ${spyProfile.headquater}
-    secret weapon: ${spyProfile.secretWeapon}
-    companion: ${spyProfile.companion}
-    password: ${spyProfile.password}`;
+    let profile = `//:AGENT_PROFILE     
+    *name: ${spyProfile.name}
+    *alias: ${spyProfile.alias}
+    *headquater: ${spyProfile.headquater}
+    *secret weapon: ${spyProfile.secretWeapon}
+    *companion: ${spyProfile.companion}
+    *password: ${spyProfile.password}`;
 
     push();
     fill(COLOR_GREEN);
@@ -41,4 +41,6 @@ function mainpage() {
     textFont(`Courier, monospace`);
     text(profile, 100, 100);
     pop();
+
+    displayText(`To terminate your contract, press [ENTER]`,12,width - 200,height-50,255);
 }

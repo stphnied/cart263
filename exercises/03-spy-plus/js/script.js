@@ -15,6 +15,7 @@ secret weapon, and password. When the user comes back later, they will need to e
 - Annyang
 - More categories (headquaters,companion)
 - Create new profile
+- Delete account
 
 ******************/
 
@@ -78,27 +79,11 @@ function setup() {
         annyang.start();
     }
 
-
-    // load data
-    // Check if there's a data to load
-    // if (state == `mainpage`) {
-    //     if (data !== null) {
-    //         // Asks for password
-    //         // If matches, displays profile
-    //         let password = prompt(`What's your code?`);
-    //         if (password === data.password) {
-    //             spyProfile = data;
-    //         }
-    //     }
-    //     // If not, generate a new profile
-    //     else {
-    //         generateSpyProfile();
-    //     }
-    // }
 }
 
 
 // Called by annyang
+// Loads an agent profile if there is one if not creates a new one
 function loadProfile(name) {
     let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
     state = `mainpage`;
@@ -123,7 +108,7 @@ function loadProfile(name) {
 }
 
 // draw()
-// Displays current profile
+// Displays current state
 function draw() {
     background(COLOR_BLACK);
 
@@ -139,25 +124,26 @@ function draw() {
 
 // Generates spy profile from JSON data
 function generateSpyProfile() {
-    // Ask for agent's name and stores it
-    spyProfile.name = prompt(`You're new huh? Write your name down here`, `name`);
-    // random instrument
-    spyProfile.alias = `the ${random(instrumentData.instruments)}`;
-    // random location
-    spyProfile.headquater = random(countryData.countries);
-    // random object
-    spyProfile.secretWeapon = random(objectData.objects);
-    // random companion
-    spyProfile.companion = random(dogData.dogs);
-    // random tarot card as password
-    let card = random(tarotData.tarot_interpretations);
-    spyProfile.password = random(card.keywords);
-    //Saving generated profile
-    localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
+        // Ask for agent's name and stores it
+        spyProfile.name = prompt(`You're new huh? Write your name down here`, `name`);
+        // random instrument
+        spyProfile.alias = `the ${random(instrumentData.instruments)}`;
+        // random location
+        spyProfile.headquater = random(countryData.countries);
+        // random object
+        spyProfile.secretWeapon = random(objectData.objects);
+        // random companion
+        spyProfile.companion = random(dogData.dogs);
+        // random tarot card as password
+        let card = random(tarotData.tarot_interpretations);
+        spyProfile.password = random(card.keywords);
+        //Saving generated profile
+        localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
 }
 
+// Press enter to delete profile
 function keyPressed() {
-    if(state ==`mainpage`){
+    if (state == `mainpage`) {
         if (keyCode === ENTER) {
             alert(`You have terminated your contract. Goodbye ${spyProfile.name}`);
             localStorage.removeItem(`spy-profile-data`);
