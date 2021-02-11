@@ -29,8 +29,8 @@ let instrumentData;
 // Constants
 // URL to data
 const
-    TAROT_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`;,
-    OBJECT_DATA_URL= `https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`;,
+    TAROT_DATA_URL = `https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`,
+    OBJECT_DATA_URL= `https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`,
     INSTRUMENT_DATA_URL= `https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`;
 // Colors code
 const
@@ -69,7 +69,6 @@ function setup() {
     }
 }
 
-
 // draw()
 // Displays current profile
 function draw() {
@@ -107,4 +106,12 @@ function generateSpyProfile() {
 
     //Saving generated profile
     localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
+}
+
+function keyPressed() {
+    if(keyCode === ENTER) {
+        // localStorage.removeItem(`spy-profile-date`);
+        // generateSpyProfile();
+        console.log("pressed");
+    }
 }
