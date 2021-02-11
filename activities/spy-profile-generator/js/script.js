@@ -8,6 +8,8 @@ Stephanie Dang
 When the user first loads our program it will ask for their name in a text prompt.
 Once provided, the program will generate and save the user’s super secret spy profile using random JSON data to determine an alias,
 secret weapon, and password. When the user comes back later, they will need to enter their generated password to view their profile again.
+
+// password : disruption
 ******************/
 
 let spyProfile = {
@@ -33,16 +35,20 @@ function preload() {
     instrumentData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`);
 }
 
-
 // setup()
 // Creating canvas
-// Calls the generating spy profile function
+// Displays the generated profile if there is one
+// Users has to enter correct password
+// If wrong do nothing
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
     let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
     if (data !== null) {
-        spyProfile = data;
+        let password = prompt(`What's your code?`);
+        if (password === data.password) {
+            spyProfile = data;
+        }
     }
     else {
         generateSpyProfile();
