@@ -17,6 +17,10 @@ let spyProfile = {
     password: `**REDACTED**`
 };
 
+let tarotData;
+let objectData;
+let instrumentData;
+
 const
     COLOR_GREEN = `#39FF14`,
     COLOR_BLACK = `#000000`;
@@ -25,14 +29,18 @@ const
 // Description of preload
 function preload() {
 
+    tarotData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`);
+    objectData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`);
+    instrumentData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`);
 }
 
 
 // setup()
-// Description of setup
+// Creating canvas
+// Calls the generating spy profile function
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    spyProfile.name = prompt(`Identify yourself, Agent`,`name`);
+    generateSpyProfile();
 }
 
 
@@ -57,4 +65,13 @@ function draw() {
     textFont(`Courier, monospace`);
     text(profile, 100, 100);
     pop();
+}
+
+function generateSpyProfile() {
+    let card = random(tarotData.tarot_interpretations);
+
+    spyProfile.name = prompt(`Identify yourself, Agent`,`name`);
+    spyProfile.alias = `The ${random(instrumentData.instruments)}`;
+    spyProfile.secretWeapon = random(objectData.objects);
+    spyProfile.password = random(card.keywords);
 }
