@@ -63,8 +63,4 @@ function mainpage() {
     pop();
 
     displayText(`To terminate your contract, press [ENTER]`, 12, width - 200, height - 50, 255);
-
-
-
-
 }

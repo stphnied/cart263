@@ -1,7 +1,6 @@
 "use strict";
 
 /*****************
-
 Spy profile generator ++
 Stephanie Dang
 
@@ -14,7 +13,7 @@ secret weapon, and password. When the user comes back later, they will need to e
 - More categories (headquaters,companion)
 - Create new profile
 - Delete account
-
+- KINDA COOL BG FOR PROFILE(?)
 ******************/
 
 // Variables
@@ -34,7 +33,7 @@ let instrumentData;
 let dogData;
 let countryData;
 
-// Array to store rect y positions
+// Array to store rectangles `y` positions
 let yPos = [];
 
 // Constants
@@ -81,7 +80,6 @@ function setup() {
     }
 
 }
-
 
 // Called by annyang
 // Loads an agent profile if there is one if not creates a new one
