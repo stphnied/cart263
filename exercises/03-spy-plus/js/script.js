@@ -9,8 +9,6 @@ When the user first loads our program it will ask for their name in a text promp
 Once provided, the program will generate and save the user’s super secret spy profile using random JSON data to determine an alias,
 secret weapon, and password. When the user comes back later, they will need to enter their generated password to view their profile again.
 
-// implementation = pass
-
 ** NEW FEATURES
 - Annyang
 - More categories (headquaters,companion)
@@ -35,6 +33,9 @@ let objectData;
 let instrumentData;
 let dogData;
 let countryData;
+
+// Array to store rect y positions
+let yPos = [];
 
 // Constants
 // URL to data
@@ -97,12 +98,10 @@ function loadProfile(name) {
             if (password === data.password) {
                 spyProfile = data;
             }
-        }
-        else {
+        } else {
             generateSpyProfile();
         }
-    }
-    else {
+    } else {
         generateSpyProfile();
     }
 }
@@ -124,21 +123,21 @@ function draw() {
 
 // Generates spy profile from JSON data
 function generateSpyProfile() {
-        // Ask for agent's name and stores it
-        spyProfile.name = prompt(`You're new huh? Write your name down here`, `name`);
-        // random instrument
-        spyProfile.alias = `the ${random(instrumentData.instruments)}`;
-        // random location
-        spyProfile.headquater = random(countryData.countries);
-        // random object
-        spyProfile.secretWeapon = random(objectData.objects);
-        // random companion
-        spyProfile.companion = random(dogData.dogs);
-        // random tarot card as password
-        let card = random(tarotData.tarot_interpretations);
-        spyProfile.password = random(card.keywords);
-        //Saving generated profile
-        localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
+    // Ask for agent's name and stores it
+    spyProfile.name = prompt(`You're new huh? Write your name down here`, `name`);
+    // random instrument
+    spyProfile.alias = `the ${random(instrumentData.instruments)}`;
+    // random location
+    spyProfile.headquater = random(countryData.countries);
+    // random object
+    spyProfile.secretWeapon = random(objectData.objects);
+    // random companion
+    spyProfile.companion = random(dogData.dogs);
+    // random tarot card as password
+    let card = random(tarotData.tarot_interpretations);
+    spyProfile.password = random(card.keywords);
+    //Saving generated profile
+    localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
 }
 
 // Press enter to delete profile
@@ -161,5 +160,14 @@ function displayText(string, size, x, y, color) {
     fill(color);
     textFont(`Courier, monospace`);
     text(string, x, y);
+    pop();
+}
+
+// Drawing multiples rectangle to create a line background
+function drawLines(config) {
+    push();
+    fill(config.color);
+    rectMode(config.mode);
+    rect(config.x, config.y, config.w, config.h);
     pop();
 }

@@ -17,13 +17,33 @@ function menu() {
     to obtain information from your personal credit profile from xxx.
     You authorize PIPPINB, Inc.to obtain such information solely to confirm
     your identity and display your credit data to you.`,
-    12, width / 2, height /1.1, COLOR_GREEN);
+        12, width / 2, height / 1.1, COLOR_GREEN);
+
+
 }
 
 // Displays the gameplay screen
 // Display instruction text
 // Calls the function to display the answer and the next guess 
 function mainpage() {
+    // Creates line background
+    for (let i = 0; i < 15; i++) {
+        yPos.push(random() * height);
+    }
+
+    // Configuration for the lines background
+    for (let i = 0; i < 50; i++) {
+        let config = {
+            x: width / 2,
+            y: yPos[i],
+            w: windowWidth,
+            h: 1.25,
+            color: 'rgba(0,255,0, 0.25)',
+            mode: CENTER
+        }
+        drawLines(config);
+    }
+
     // string template
     let profile = `//:AGENT_PROFILE     
     *name: ${spyProfile.name}
@@ -42,5 +62,9 @@ function mainpage() {
     text(profile, 100, 100);
     pop();
 
-    displayText(`To terminate your contract, press [ENTER]`,12,width - 200,height-50,255);
+    displayText(`To terminate your contract, press [ENTER]`, 12, width - 200, height - 50, 255);
+
+
+
+
 }
