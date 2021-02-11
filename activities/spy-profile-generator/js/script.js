@@ -16,7 +16,6 @@ let spyProfile = {
     secretWeapon: `**REDACTED**`,
     password: `**REDACTED**`
 };
-
 let tarotData;
 let objectData;
 let instrumentData;
@@ -40,7 +39,14 @@ function preload() {
 // Calls the generating spy profile function
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    generateSpyProfile();
+
+    let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
+    if (data !== null) {
+        spyProfile = data;
+    }
+    else {
+        generateSpyProfile();
+    }
 }
 
 
@@ -70,8 +76,11 @@ function draw() {
 function generateSpyProfile() {
     let card = random(tarotData.tarot_interpretations);
 
-    spyProfile.name = prompt(`Identify yourself, Agent`,`name`);
-    spyProfile.alias = `The ${random(instrumentData.instruments)}`;
+    spyProfile.name = prompt(`Identify yourself, Agent`, `name`);
+    spyProfile.alias = `the ${random(instrumentData.instruments)}`;
     spyProfile.secretWeapon = random(objectData.objects);
     spyProfile.password = random(card.keywords);
+
+    //Saving generated profile
+    localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
 }
