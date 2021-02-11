@@ -9,7 +9,12 @@ When the user first loads our program it will ask for their name in a text promp
 Once provided, the program will generate and save the user’s super secret spy profile using random JSON data to determine an alias,
 secret weapon, and password. When the user comes back later, they will need to enter their generated password to view their profile again.
 
-// composure = password
+// implementation = pass
+
+** NEW FEATURES
+- Annyang
+- More categories (headquaters,companion)
+- Create new profile
 
 ******************/
 
@@ -152,10 +157,13 @@ function generateSpyProfile() {
 }
 
 function keyPressed() {
-    if (keyCode === ENTER) {
-        // localStorage.removeItem(`spy-profile-date`);
-        // generateSpyProfile();
-        console.log("pressed");
+    if(state ==`mainpage`){
+        if (keyCode === ENTER) {
+            alert(`You have terminated your contract. Goodbye ${spyProfile.name}`);
+            localStorage.removeItem(`spy-profile-data`);
+            location.reload();
+            console.log("pressed");
+        }
     }
 }
 
