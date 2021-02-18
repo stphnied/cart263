@@ -21,6 +21,7 @@ class Bubble {
         } else if(this.activeColor){
             noStroke();
             fill(ORANGE_COLOR);
+            this.addingScore();
         }
         // display bubble
         ellipse(this.x, this.y, this.size);
@@ -43,4 +44,15 @@ class Bubble {
         this.y = height;
     }
 
+    // lits up the bubbles
+    lit() {
+        let d = dist(pin.tip.x, pin.tip.y, this.x, this.y);
+        if (d < this.size / 2) {
+            this.activeColor = true;
+        }
+    }
+
+    addingScore() {
+        bubblesCounter++;
+    }
 }

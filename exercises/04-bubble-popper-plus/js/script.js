@@ -12,11 +12,15 @@ NEW FEATURES:
 - Lighting bubbles on fire
 - Loading, Instruction and Ending screen
 - New (HOTTER) index finger design
+
+**ISSUE: I am trying to keep count of all the bubbles lit up and once all of them
+are lit up, to proceed to the ending scene, however, I am not capable of making the counter stops.
+I also want to keep the bubbles on the canvas when they are lit up...
 ******************/
 
 // variables
 // state of game
-let state = `ending`;
+let state = `gameplay`;
 // user webcam
 let video = undefined;
 // handpose model
@@ -26,6 +30,7 @@ let predictions = [];
 // The bubbles
 let bubble = undefined;
 let bubbles = [];
+let numBubbles = 3;
 let bubblesCounter = 0;
 // The pin 
 let pin = {
@@ -137,7 +142,7 @@ function displayText(string, size, x, y, color) {
 
 // Adds bubbles in the scene
 function addBubbles() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numBubbles; i++) {
         let x = random(0,width);
         let y = height;
         let size = random(20,60);

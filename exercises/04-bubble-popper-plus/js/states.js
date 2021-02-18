@@ -30,27 +30,19 @@ function gameplay() {
     // outlines index finger
     if (predictions.length > 0) {
         updatePin();
-        // Check bubble popping
-        let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
-        // reset to bottom if reach top
-        if (d < bubble.size / 2) {
-            bubble.activeColor = true;
-            bubblesCounter++;
-            bubble.display();
-        }
-
-        if(bubblesCounter == 5) {
-            state = `ending`;
-            console.log(`done`);
-        }
         displayPin();
     }
 
     // Display array of bubbles
-    for (let i = 0; i < 5; i++) {
-        let bubble = bubbles[i];
-            bubble.display();
-            bubble.move();
+    for (let i = 0; i < numBubbles; i++) {
+        bubble = bubbles[i];
+        bubble.display();
+        bubble.move();
+        bubble.lit();
+    }
+    
+    if (bubblesCounter == numBubbles) {
+        state = `ending`;
     }
 }
 
