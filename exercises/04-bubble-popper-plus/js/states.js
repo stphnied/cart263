@@ -6,61 +6,42 @@
 // Displays title and description of the game
 // Call the function to play the background music
 function menu() {
-    displayText(`loading your profile`, 72, width / 2, height / 2.5, COLOR_GREEN);
-    displayText(`please state your name`, 42, width / 2, height / 2, COLOR_GREEN);
-    displayText(`[My name is ...]`, 32, width / 2, height / 1.75, COLOR_GREEN);
-    displayText(`
-    CAUTION:
-    By entering this website...
-    you are providing written instructions
-    to PIPPINB Interactive, Inc. authorizing CART-263, Inc.
-    to obtain information from your personal credit profile from xxx.
-    You authorize PIPPINB, Inc.to obtain such information solely to confirm
-    your identity and display your credit data to you.`,
-        12, width / 2, height / 1.1, COLOR_GREEN);
+    background(RED_COLOR);
+    displayText(`BURN UP PLUS ULTRA`, 42, width / 2, height / 2.5, 255);
+    displayText(`press [ENTER] to continue`, 28, width / 2, height / 1.75, CHARCOAL_COLOR);
+}
 
 
+// Display instruction text
+function instruction() {
+    displayText(`Instruction`, 42, width / 2, height / 4, 255);
+    displayText(
+        `
+    Activate your webcam
+    pop the bubble with your index finger
+    press [enter] to start`,
+        28, width / 2, height / 2, 255
+    )
 }
 
 // Displays the gameplay screen
-// Display instruction text
-// Calls the function to display the answer and the next guess 
-function mainpage() {
-    // Creates line background
-    for (let i = 0; i < 15; i++) {
-        yPos.push(random() * height);
-    }
-
-    // Configuration for the lines background
-    for (let i = 0; i < 50; i++) {
-        let config = {
-            x: width / 2,
-            y: yPos[i],
-            w: windowWidth,
-            h: 1.25,
-            color: 'rgba(0,255,0, 0.25)',
-            mode: CENTER
+function gameplay() {
+    // checks if there is a hand 
+    // outlines index finger
+    if (predictions.length > 0) {
+        updatePin();
+        // Check bubble popping
+        let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
+        // reset to bottom if reach top
+        if (d < bubble.size / 2) {
+            resetBubble();
         }
-        drawLines(config);
+        displayPin();
     }
+    displayBubble();
+}
 
-    // string template
-    let profile = `//:AGENT_PROFILE     
-    *name: ${spyProfile.name}
-    *alias: ${spyProfile.alias}
-    *headquater: ${spyProfile.headquater}
-    *secret weapon: ${spyProfile.secretWeapon}
-    *companion: ${spyProfile.companion}
-    *password: ${spyProfile.password}`;
-
-    push();
-    fill(COLOR_GREEN);
-    textSize(32);
-    textStyle(BOLD);
-    textAlign(TOP, LEFT);
-    textFont(`Courier, monospace`);
-    text(profile, 100, 100);
-    pop();
-
-    displayText(`To terminate your contract, press [ENTER]`, 12, width - 200, height - 50, 255);
+function ending() {
+    imageMode(CENTER);
+    image(elmoImg, width / 2, height / 2, width, height);
 }

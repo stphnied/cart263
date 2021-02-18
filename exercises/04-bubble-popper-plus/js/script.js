@@ -1,16 +1,22 @@
 "use strict";
 
 /*****************
-Bubble Popper
+Light up the sky
 Stephanie Dang
 
-Using hand tracking we turn the user’s index finger into a pin on our program’s canvas.
-A bubble floats upward repeatedly and the user can pop the bubble with the pointy end of their pin-finger.
+Using hand tracking, we turn the user's index finger into an allumette on our program's canvas.
+Bubbles will float around repeatedly and the user will have to light them up with the round point of their allumette-finger
 
 NEW FEATURES:
+- FIRE
+- Lighting bubbles on fire
+- Loading, Instruction and Ending screen
+- New (HOTTER) index finger design
 ******************/
 
 // variables
+// state of game
+let state = `menu`;
 // user webcam
 let video = undefined;
 // handpose model
@@ -31,6 +37,16 @@ let pin = {
         size: 50
     }
 }
+
+let elmoImg =undefined;
+
+// Constants colors
+const
+    BROWN_COLOR = `#964B00`,
+    RED_COLOR = `#BF2A2E`,
+    ORANGE_COLOR = `#E87A00`,
+    CHARCOAL_COLOR = `#171d22`;
+const ELMO_IMG_URL = `https://media.tenor.com/images/172d63b92f17fb1d90eb37e64bbee10e/tenor.gif`;
 
 // setup()
 function setup() {
@@ -62,48 +78,45 @@ function setup() {
         vx: 0,
         vy: -2
     };
+
+    // setting elmo's BURNING IMAGE
+    elmoImg = loadImage(ELMO_IMG_URL);
 }
 
 // draw()
 function draw() {
-
-    background(0);
-
-    // checks if there is a hand 
-    // outlines index finger
-    if (predictions.length > 0) {
-        updatePin();
-        // Check bubble popping
-        let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
-        // reset to bottom if reach top
-        if (d < bubble.size / 2) {
-            resetBubble();
-        }
-        displayPin();
+    background(CHARCOAL_COLOR);
+    switch (state) {
+        case "menu":
+            menu();
+            break;
+        case "instruction":
+            instruction();
+            break;
+        case "gameplay":
+        gameplay();
+            break;
     }
-    displayBubble();
 }
 
 // Display the pin based from hand fingers
 function displayPin() {
-    // Pin body
+    // Allumetete head
     push();
-    noFill();
-    stroke(255, 255, 255);
-    strokeWeight(3);
-    line(pin.tip.x, pin.tip.y, pin.top.x, pin.top.y);
+    fill(BROWN_COLOR);
+    ellipse(pin.tip.x,pin.tip.y,20);
     pop();
 
-    // Pin head
+    // allumette body
     push();
-    noStroke();
-    fill(255, 0, 0);
-    ellipse(pin.top.x, pin.top.y, 20);
+    strokeWeight(5);
+    stroke(RED_COLOR);
+    line(pin.top.x, pin.top.y,pin.tip.x, pin.tip.y);
     pop();
 }
 
 // Updates position of pin (index finger)
-function updatePin(prediction) {
+function updatePin() {
     let hand = predictions[0];
     let index = hand.annotations.indexFinger;
     pin.tip.x = index[3][0];
@@ -117,8 +130,9 @@ function updatePin(prediction) {
 function displayBubble() {
     // display bubble
     push();
-    fill(10, 100, 150);
-    noStroke();
+    stroke(ORANGE_COLOR);
+    strokeWeight(2);
+    noFill();
     ellipse(bubble.x, bubble.y, bubble.size);
     pop();
 
