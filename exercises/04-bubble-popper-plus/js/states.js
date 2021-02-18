@@ -34,11 +34,24 @@ function gameplay() {
         let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
         // reset to bottom if reach top
         if (d < bubble.size / 2) {
-            resetBubble();
+            bubble.activeColor = true;
+            bubblesCounter++;
+            bubble.display();
+        }
+
+        if(bubblesCounter == 5) {
+            state = `ending`;
+            console.log(`done`);
         }
         displayPin();
     }
-    displayBubble();
+
+    // Display array of bubbles
+    for (let i = 0; i < 5; i++) {
+        let bubble = bubbles[i];
+            bubble.display();
+            bubble.move();
+    }
 }
 
 function ending() {

@@ -16,15 +16,17 @@ NEW FEATURES:
 
 // variables
 // state of game
-let state = `menu`;
+let state = `ending`;
 // user webcam
 let video = undefined;
 // handpose model
 let handpose = undefined;
 // current set of predictions
 let predictions = [];
-// The bubble
+// The bubbles
 let bubble = undefined;
+let bubbles = [];
+let bubblesCounter = 0;
 // The pin 
 let pin = {
     tip: {
@@ -37,8 +39,8 @@ let pin = {
         size: 50
     }
 }
-
-let elmoImg =undefined;
+// Image of elmo rising from hell
+let elmoImg = undefined;
 
 // Constants colors
 const
@@ -69,18 +71,11 @@ function setup() {
         console.log(results);
         predictions = results;
     });
-
-    // bubble obj propreties
-    bubble = {
-        x: random(width),
-        y: (height),
-        size: 50,
-        vx: 0,
-        vy: -2
-    };
-
     // setting elmo's BURNING IMAGE
     elmoImg = loadImage(ELMO_IMG_URL);
+
+    // set bubbles on canvas
+    addBubbles();
 }
 
 // draw()
@@ -94,7 +89,10 @@ function draw() {
             instruction();
             break;
         case "gameplay":
-        gameplay();
+            gameplay();
+            break;
+        case `ending`:
+            ending();
             break;
     }
 }
@@ -103,15 +101,16 @@ function draw() {
 function displayPin() {
     // Allumetete head
     push();
+    noStroke();
     fill(BROWN_COLOR);
-    ellipse(pin.tip.x,pin.tip.y,20);
+    ellipse(pin.tip.x, pin.tip.y, 20);
     pop();
 
     // allumette body
     push();
     strokeWeight(5);
     stroke(RED_COLOR);
-    line(pin.top.x, pin.top.y,pin.tip.x, pin.tip.y);
+    line(pin.top.x, pin.top.y, pin.tip.x, pin.tip.y);
     pop();
 }
 
@@ -125,33 +124,6 @@ function updatePin() {
     pin.top.y = index[0][1];
 }
 
-// displays bubble 
-// moves  bubble
-function displayBubble() {
-    // display bubble
-    push();
-    stroke(ORANGE_COLOR);
-    strokeWeight(2);
-    noFill();
-    ellipse(bubble.x, bubble.y, bubble.size);
-    pop();
-
-    // move bubble
-    bubble.x += bubble.vx;
-    bubble.y += bubble.vy;
-
-    // Moves bubble back down if reach top
-    if (bubble.y < 0) {
-        resetBubble();
-    }
-}
-
-// Puts bubble to a random width and bottom of screen
-function resetBubble() {
-    bubble.x = random(width);
-    bubble.y = height;
-}
-
 // Text configuration
 function displayText(string, size, x, y, color) {
     push();
@@ -161,4 +133,15 @@ function displayText(string, size, x, y, color) {
     textFont(`Trebuchet MS, monospace`);
     text(string, x, y);
     pop();
+}
+
+// Adds bubbles in the scene
+function addBubbles() {
+    for (let i = 0; i < 5; i++) {
+        let x = random(0,width);
+        let y = height;
+        let size = random(20,60);
+        bubble = new Bubble(x, y, size);
+        bubbles.push(bubble);
+    }
 }
