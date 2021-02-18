@@ -1,15 +1,16 @@
 "use strict";
 
 /*****************
-
 Bubble Popper
 Stephanie Dang
 
 Using hand tracking we turn the user’s index finger into a pin on our program’s canvas.
 A bubble floats upward repeatedly and the user can pop the bubble with the pointy end of their pin-finger.
-******************/
-// variables
 
+NEW FEATURES:
+******************/
+
+// variables
 // user webcam
 let video = undefined;
 // handpose model
@@ -18,18 +19,31 @@ let handpose = undefined;
 let predictions = [];
 // The bubble
 let bubble = undefined;
+// The pin 
+let pin = {
+    tip: {
+        x: undefined,
+        y: undefined
+    },
+    top: {
+        x: undefined,
+        y: undefined,
+        size: 50
+    }
+}
 
 // setup()
-// Description of setup
 function setup() {
-    createCanvas(640,480);
+    createCanvas(640, 480);
 
     // Acess user's webcam
     video = createCapture(VIDEO);
     video.hide();
 
-    handpose = ml5.handpose(video, {flipHorizontal: true}, 
-        function() {
+    handpose = ml5.handpose(video, {
+            flipHorizontal: true
+        },
+        function () {
             console.log(`Model loaded.`);
         });
 
@@ -42,68 +56,95 @@ function setup() {
 
     // bubble obj propreties
     bubble = {
-        x:random(width),
-        y:(height),
-        size:50,
-        vx:0,
-        vy:-2
+        x: random(width),
+        y: (height),
+        size: 50,
+        vx: 0,
+        vy: -2
     };
 }
 
-
 // draw()
-// Description of draw()
 function draw() {
 
     background(0);
-    if(predictions.length>0) {
-        let hand = predictions[0];
-        let index = hand.annotations.indexFinger;
-        let tip = index[3];
-        let base = index[0];
-        let tipX = tip[0];
-        let tipY = tip[1];
-        let baseX = base[0];
-        let baseY = base[1];
 
-        // Pin body
-        push();
-        noFill();
-        stroke(255,255,255);
-        strokeWeight(3);
-        line(baseX,baseY,tipX,tipY);
-        pop();
-
-        // Pin head
-        push();
-        noStroke();
-        fill(255,0,0);
-        ellipse(baseX,baseY,20);
-        pop();
-
+    // checks if there is a hand 
+    // outlines index finger
+    if (predictions.length > 0) {
+        updatePin();
         // Check bubble popping
-        let d = dist(tipX,tipY,bubble.x,bubble.y);
-        if(d < bubble.size/2) {
-            bubble.x = random(width);
-            bubble.y = height;
+        let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
+        // reset to bottom if reach top
+        if (d < bubble.size / 2) {
+            resetBubble();
         }
+        displayPin();
     }
+    displayBubble();
+}
+
+// Display the pin based from hand fingers
+function displayPin() {
+    // Pin body
+    push();
+    noFill();
+    stroke(255, 255, 255);
+    strokeWeight(3);
+    line(pin.tip.x, pin.tip.y, pin.top.x, pin.top.y);
+    pop();
+
+    // Pin head
+    push();
+    noStroke();
+    fill(255, 0, 0);
+    ellipse(pin.top.x, pin.top.y, 20);
+    pop();
+}
+
+// Updates position of pin (index finger)
+function updatePin(prediction) {
+    let hand = predictions[0];
+    let index = hand.annotations.indexFinger;
+    pin.tip.x = index[3][0];
+    pin.tip.y = index[3][1];
+    pin.top.x = index[0][0];
+    pin.top.y = index[0][1];
+}
+
+// displays bubble 
+// moves  bubble
+function displayBubble() {
+    // display bubble
+    push();
+    fill(10, 100, 150);
+    noStroke();
+    ellipse(bubble.x, bubble.y, bubble.size);
+    pop();
 
     // move bubble
     bubble.x += bubble.vx;
     bubble.y += bubble.vy;
 
     // Moves bubble back down if reach top
-    if(bubble.y < 0) {
-        bubble.x = random(width);
-        bubble.y = height;
+    if (bubble.y < 0) {
+        resetBubble();
     }
+}
 
-    // display bubble
+// Puts bubble to a random width and bottom of screen
+function resetBubble() {
+    bubble.x = random(width);
+    bubble.y = height;
+}
+
+// Text configuration
+function displayText(string, size, x, y, color) {
     push();
-    fill(10,100,150);
-    noStroke();
-    ellipse(bubble.x,bubble.y,bubble.size);
+    textAlign(CENTER, CENTER);
+    textSize(size);
+    fill(color);
+    textFont(`Trebuchet MS, monospace`);
+    text(string, x, y);
     pop();
-
 }
