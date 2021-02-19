@@ -40,6 +40,10 @@ function gameplay() {
         bubble.move();
         bubble.lit();
     }
+
+    if(bubblesCounter == numBubbles) {
+        state = `ending`;
+    }
 }
 
 // Display the ending surprise

@@ -8,6 +8,7 @@ class Bubble {
         this.vy = random(-5,-1);
         this.color = 0;
         this.activeColor = false;
+        this.cantTouchTwice = undefined;
     }
 
     // display the bubble apperance
@@ -18,10 +19,11 @@ class Bubble {
             stroke(ORANGE_COLOR);
             strokeWeight(2);
             noFill();
+            this.cantTouchTwice = false;
         } else if(this.activeColor){
-            this.touched = true;
             noStroke();
             fill(ORANGE_COLOR);
+            this.cantTouchTwice = true;
         }
         // display bubble
         ellipse(this.x, this.y, this.size);
@@ -49,7 +51,6 @@ class Bubble {
         let d = dist(pin.tip.x, pin.tip.y, this.x, this.y);
         if (d < this.size / 2) {
             this.activeColor = true;
-            this.touched = true;
             this.addingScore();
         }
     }
@@ -57,11 +58,13 @@ class Bubble {
     // adds a count each time a bubble lit up
     addingScore() {
         if(this.activeColor) {
-            bubblesCounter++;
             console.log(bubblesCounter);
+            if(this.activeColor && !this.cantTouchTwice) {
+                bubblesCounter++;
+            }
         }
         // when they all lit up, show ending screen
-        if (bubblesCounter == numBubbles) {
+        if (bubblesCounter > numBubbles) {
             state = `ending`;
         }
     }

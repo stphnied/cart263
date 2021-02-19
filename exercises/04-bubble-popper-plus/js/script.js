@@ -13,9 +13,6 @@ NEW FEATURES:
 - Loading, Instruction and Ending screen
 - New (HOTTER) index finger design
 
-**ISSUE:
-For some reason, I have a hard time testing my program and therefore I can't tell if the ending is working as intended
-ENDING = When user lit up all the bubbles -> Ending screen appears
 ******************/
 
 // variables
@@ -143,10 +140,10 @@ function displayText(string, size, x, y, color) {
 // Adds bubbles in the scene
 function addBubbles() {
     for (let i = 0; i < numBubbles; i++) {
-        let x = random(0,width);
+        let x = random(0, width);
         let y = height;
-        let size = random(20,60);
+        let size = random(20, 60);
         bubble = new Bubble(x, y, size);
         bubbles.push(bubble);
-    }
+        }
 }
