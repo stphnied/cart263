@@ -18,7 +18,7 @@ NEW FEATURES:
 
 // variables
 // state of game
-let state = `gameplay`;
+let state = `menu`;
 // user webcam
 let video = undefined;
 // handpose model
