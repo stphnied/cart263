@@ -6,7 +6,10 @@ function mainMenu() {
     // Changing the angle mode to DEGREE
     canvas.drawingContext.setLineDash([1,55]);
     angleMode(DEGREES);
-    
+    displayText(`
+    To activate BAYMAX
+    state your name by saying "My name is [name]"
+    `,32,width/2,height/4,0,50);
     loadingCircle();
 
 }

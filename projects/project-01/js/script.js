@@ -14,7 +14,7 @@ Introducing BAYMAX, your personal healthcare robot.
 // preload()
 // Description of preload
 function preload() {
-
+    myFont = loadFont(ACENTONE_FONT_URL);
 }
 
 
@@ -50,13 +50,22 @@ function draw() {
 // Using a circle stroke and lined dashed
 function loadingCircle() {
     push()
-    translate(width/2, height/2);
-    angle += radians(50);
+    translate(width / 2, height / 2);
     rotate(angle);
     noFill();
-    stroke(255);
+    stroke(2,100);
     strokeWeight(20);
     ellipseMode(CENTER);
+    // If true animates the circle and go to next screen
+    if (!true) {
+        stroke(255);
+        angle += radians(50);
+        setTimeout(() => {
+
+            state = `instruction`;
+        }, 3000);
+    }
+    // displays circle
     ellipse(0, 0, 300, 300);
     pop();
 }
@@ -72,4 +81,15 @@ function keyPressed() {
             state = `gameplay`;
         }
     }
+}
+
+// Text configuration
+function displayText(string, size, x, y, color, alpha) {
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(size);
+    fill(color, alpha);
+    textFont(myFont);
+    text(string, x, y);
+    pop();
 }
