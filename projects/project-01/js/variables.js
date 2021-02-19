@@ -1,6 +1,11 @@
 // Variables
 let state = `menu`;
-let baymaxMenu = {
+// canvas property
+let canvas;
+// angle of rotation
+let angle = 0;
+// Baymax visual
+let baymax = {
     face: {
         x: undefined,
         y: undefined,
@@ -25,7 +30,13 @@ let baymaxMenu = {
         roundness: undefined
     }
 }
-
 // Constant for colors
 const
-    BLACK_COLOR = `#171d22`;
+    BLACK_COLOR = `#171d22`,
+    RED_COLOR = `#FF1919`;
+
+
+// Dialogues
+let dialogues = [
+    
+]
