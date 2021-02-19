@@ -8,19 +8,19 @@ Using hand tracking, we turn the user's index finger into an allumette on our pr
 Bubbles will float around repeatedly and the user will have to light them up with the round point of their allumette-finger
 
 NEW FEATURES:
-- FIRE
 - Lighting bubbles on fire
+- More bubbles
 - Loading, Instruction and Ending screen
 - New (HOTTER) index finger design
 
-**ISSUE: I am trying to keep count of all the bubbles lit up and once all of them
-are lit up, to proceed to the ending scene, however, I am not capable of making the counter stops.
-I also want to keep the bubbles on the canvas when they are lit up...
+**ISSUE:
+For some reason, I have a hard time testing my program and therefore I can't tell if the ending is working as intended
+ENDING = When user lit up all the bubbles -> Ending screen appears
 ******************/
 
 // variables
 // state of game
-let state = `gameplay`;
+let state = `menu`;
 // user webcam
 let video = undefined;
 // handpose model
@@ -30,7 +30,7 @@ let predictions = [];
 // The bubbles
 let bubble = undefined;
 let bubbles = [];
-let numBubbles = 3;
+let numBubbles = 5;
 let bubblesCounter = 0;
 // The pin 
 let pin = {

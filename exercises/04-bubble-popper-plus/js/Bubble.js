@@ -19,9 +19,9 @@ class Bubble {
             strokeWeight(2);
             noFill();
         } else if(this.activeColor){
+            this.touched = true;
             noStroke();
             fill(ORANGE_COLOR);
-            this.addingScore();
         }
         // display bubble
         ellipse(this.x, this.y, this.size);
@@ -49,10 +49,20 @@ class Bubble {
         let d = dist(pin.tip.x, pin.tip.y, this.x, this.y);
         if (d < this.size / 2) {
             this.activeColor = true;
+            this.touched = true;
+            this.addingScore();
         }
     }
 
+    // adds a count each time a bubble lit up
     addingScore() {
-        bubblesCounter++;
+        if(this.activeColor) {
+            bubblesCounter++;
+            console.log(bubblesCounter);
+        }
+        // when they all lit up, show ending screen
+        if (bubblesCounter == numBubbles) {
+            state = `ending`;
+        }
     }
 }
