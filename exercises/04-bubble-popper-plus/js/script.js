@@ -12,12 +12,13 @@ NEW FEATURES:
 - More bubbles
 - Loading, Instruction and Ending screen
 - New (HOTTER) index finger design
+- Sound effects
 
 ******************/
 
 // variables
 // state of game
-let state = `menu`;
+let state = `gameplay`;
 // user webcam
 let video = undefined;
 // handpose model
@@ -43,6 +44,9 @@ let pin = {
 }
 // Image of elmo rising from hell
 let elmoImg = undefined;
+// Sound effects
+let igniteSFX;
+let bgSFX;
 
 // Constants colors
 const
@@ -50,13 +54,34 @@ const
     RED_COLOR = `#BF2A2E`,
     ORANGE_COLOR = `#E87A00`,
     CHARCOAL_COLOR = `#171d22`;
+// Constant for img URL
 const ELMO_IMG_URL = `https://media.tenor.com/images/172d63b92f17fb1d90eb37e64bbee10e/tenor.gif`;
+// Constant for sound URL
+const FIRE_SFX_URL = `assets/sounds/FireIgnite.mp3`;
+const FIRE_BG_URL = `assets/sounds/burn_no_autostart.mp3`;
+
+
+
+// Loading sounds and img
+function preload() {
+    igniteSFX = loadSound(`${FIRE_SFX_URL}`);
+    bgSFX = loadSound(`${FIRE_BG_URL}`);
+    // setting elmo's BURNING IMAGE
+    elmoImg = loadImage(ELMO_IMG_URL);
+}
 
 // setup()
 function setup() {
     createCanvas(640, 480);
+    // Ml5.js set up
+    setupMl5();
+    // set bubbles on canvas
+    addBubbles();
+}
 
-    // Acess user's webcam
+// Loading ml5.js 
+function setupMl5() {
+// Acess user's webcam
     video = createCapture(VIDEO);
     video.hide();
 
@@ -73,11 +98,6 @@ function setup() {
         console.log(results);
         predictions = results;
     });
-    // setting elmo's BURNING IMAGE
-    elmoImg = loadImage(ELMO_IMG_URL);
-
-    // set bubbles on canvas
-    addBubbles();
 }
 
 // draw()
@@ -101,18 +121,18 @@ function draw() {
 
 // Display the pin based from hand fingers
 function displayPin() {
-    // Allumetete head
-    push();
-    noStroke();
-    fill(BROWN_COLOR);
-    ellipse(pin.tip.x, pin.tip.y, 20);
-    pop();
-
     // allumette body
     push();
     strokeWeight(5);
-    stroke(RED_COLOR);
+    stroke(BROWN_COLOR);
     line(pin.top.x, pin.top.y, pin.tip.x, pin.tip.y);
+    pop();
+
+    // Allumetete head
+    push();
+    noStroke();
+    fill(RED_COLOR);
+    ellipse(pin.tip.x, pin.tip.y, 20);
     pop();
 }
 
@@ -146,4 +166,12 @@ function addBubbles() {
         bubble = new Bubble(x, y, size);
         bubbles.push(bubble);
         }
+}
+
+// Play music in loop
+function playBgMusic() {
+    if (!bgSFX.isPlaying()) {
+        bgSFX.setVolume(0.5);
+        bgSFX.loop();
+    }
 }

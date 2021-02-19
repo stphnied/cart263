@@ -5,7 +5,7 @@ class Bubble {
         this.y = y;
         this.size = size;
         this.vx = 0;
-        this.vy = random(-5,-1);
+        this.vy = random(-5, -1);
         this.color = 0;
         this.activeColor = false;
         this.cantTouchTwice = undefined;
@@ -20,7 +20,7 @@ class Bubble {
             strokeWeight(2);
             noFill();
             this.cantTouchTwice = false;
-        } else if(this.activeColor){
+        } else if (this.activeColor) {
             noStroke();
             fill(ORANGE_COLOR);
             this.cantTouchTwice = true;
@@ -51,21 +51,23 @@ class Bubble {
         let d = dist(pin.tip.x, pin.tip.y, this.x, this.y);
         if (d < this.size / 2) {
             this.activeColor = true;
+            // adds a score
             this.addingScore();
+            // Plays a igniting sound effect
+            if (!igniteSFX.isPlaying()) {
+                bgSFX.setVolume(0.5);
+                igniteSFX.play();
+            }
         }
     }
 
     // adds a count each time a bubble lit up
     addingScore() {
-        if(this.activeColor) {
+        if (this.activeColor) {
             console.log(bubblesCounter);
-            if(this.activeColor && !this.cantTouchTwice) {
+            if (this.activeColor && !this.cantTouchTwice) {
                 bubblesCounter++;
             }
-        }
-        // when they all lit up, show ending screen
-        if (bubblesCounter > numBubbles) {
-            state = `ending`;
         }
     }
 }

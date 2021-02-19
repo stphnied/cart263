@@ -3,8 +3,6 @@
 "use strict";
 
 // Displays the start screen
-// Displays title and description of the game
-// Call the function to play the background music
 function menu() {
     background(RED_COLOR);
     displayText(`BURN UP PLUS ULTRA`, 42, width / 2, height / 2.5, 255);
@@ -41,6 +39,7 @@ function gameplay() {
         bubble.lit();
     }
 
+    // If all the bubbles are lit up, END SCENE
     if(bubblesCounter == numBubbles) {
         state = `ending`;
     }
@@ -50,4 +49,5 @@ function gameplay() {
 function ending() {
     imageMode(CENTER);
     image(elmoImg, width / 2, height / 2, width, height);
+    playBgMusic();
 }
