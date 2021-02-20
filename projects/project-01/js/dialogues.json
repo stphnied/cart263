@@ -16,6 +16,21 @@
         ],
         "deactivate": [
             "You are satisfied with your care."
+        ],
+        "random": [
+            "It is alright to cry.",
+            "I have some concerns.",
+            "My programming prevents me from injuring a human being.",
+            "I am a robot. I cannot be offended.",
+            "Excuse me while I let out some air.",
+            "“Bah-a-la-la-la.",
+            "There there.",
+            "You have been a good boy, Have a lollipop!",
+            "...Crying is a natural response to pain.",
+            "Would you like a hug?",
+            "Hello... I am Baymax... your personal... healthcare companion... what seems to be the problem?",
+            "Hairy baby!",
+            "You have sustained no injuries. However, your hormone and neurotransmitter levels indicate that you are experiencing mood swings, common in adolescence. Diagnosis? Puberty."
         ]
     }
 }

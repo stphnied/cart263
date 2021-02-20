@@ -7,25 +7,29 @@ class Baymax {
         this.faceW = 300;
         this.faceH = 250;
         // Eyes
-        this.eyeLX = width/2.5;
-        this.eyeLY = height/2;
-        this.eyeRX = width/1.75;
-        this.eyeRY = height/2;
+        this.eyeLX = width / 2.5;
+        this.eyeLY = height / 2;
+        this.eyeRX = width / 1.75;
+        this.eyeRY = height / 2;
         this.eyeSize = 30;
         // Body
-        this.bodyX = width/2.02;
+        this.bodyX = width / 2.02;
         this.bodyY = height;
         this.bodyW = 500;
         this.bodyH = 800;
         this.bodyRound = 200;
+        // Speed
+        this.vx = 0;
+        this.vy = 0.5;
     }
 
     display() {
         ellipseMode(CENTER);
+        noStroke();
         // Head
         push();
-        noStroke();
         fill(255);
+        this.move();
         ellipse(this.faceX, this.faceY, this.faceW, this.faceH, this.faceH);
         pop();
 
@@ -46,10 +50,24 @@ class Baymax {
 
         //body
         push();
-        noStroke();
         rectMode(CENTER);
         rect(this.bodyX, this.bodyY, this.bodyW, this.bodyH, this.bodyRound);
+
+        // Lower body
+        ellipse(this.bodyX, this.bodyY, this.bodyW + 110, this.bodyH, this.bodyRound);
         pop();
+
+        // Logo
+        push()
+        stroke(222);
+        strokeWeight(3)
+        fill(GREY_COLOR);
+        ellipse(this.bodyX * 1.2, this.bodyY / 1.5, 40, 40, this.bodyRound);
+        pop();
+    }
+
+    // Move head
+    move() {
     }
 
     // Activating Baymax
@@ -60,6 +78,15 @@ class Baymax {
 
     talk() {
         responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+    }
+
+    // Checks if user mouse is over the logo
+    clickLogo() {
+        let d = dist(mouseX, mouseY, this.bodyX * 1.2, this.bodyY / 1.5);
+        if (d < 40 / 2) {
+            console.log("hola");
+            // responsiveVoice.speak(dialoguesData.dialogues.random[random()], "UK English Male", {});
+        }
     }
 
 }

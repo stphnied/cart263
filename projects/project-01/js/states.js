@@ -1,10 +1,21 @@
 // 1st screen : Loading screen
-// Displays a loading circle animation
+// User has to state their name
 function mainMenu() {
+    displayText(`
+    Greetings,
+    please state your name while we boot the system.`, 42, width / 2, 200,BLACK_COLOR);
+    // Ask for user's name after 2s
+    setTimeout(saveName, 2000);
+}
+
+// 2nd screen: Instruction
+// Gives instruction to proceed to next step
+// Displays a loading circle animation
+function instruction() {
     background(RED_COLOR);
     // Setting the canva drawing lines to dashed lines
     canvas.drawingContext.setLineDash([1, 55]);
-
+    displayText(username.name, 42,width/2,100,0,50);
     displayText(`
     To activate BAYMAX one must be hurt.
     Pinch yourself and say "ouch".
@@ -22,40 +33,15 @@ function mainMenu() {
     }
     // loads and display circles
     loadingCircle(config);
+
 }
 
-function instruction() {
+function gameplay() {
     canvas.drawingContext.setLineDash([]);
-    // baymaxConfig = {
-    //     face: {
-    //         x: width / 2.05,
-    //         y: height / 2,
-    //         w: 300,
-    //         h: 250,
-    //         eyeL: {
-    //             x: width / 2.5,
-    //             y: height / 2,
-    //             size: 30
-    //         },
-    //         eyeR: {
-    //             x: width / 1.75,
-    //             y: height / 2,
-    //             size: 30
-    //         }
-    //     },
-    //     body: {
-    //         x: width / 2.02,
-    //         y: height,
-    //         w: 500,
-    //         h: 800,
-    //         roundness: 200
-    //     }
-    // };
+    background(0);
     baymax.display();
 
-
+    createPainImg();
 }
-
-function gameplay() {}
 
 function ending() {}

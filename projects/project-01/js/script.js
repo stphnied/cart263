@@ -15,26 +15,28 @@ function preload() {
     myFont = loadFont(ACENTONE_FONT_URL);
     dialoguesData = loadJSON(dialogue_JSON_URL);
     // Images
-    for (let i = 1; i < NUM_PAIN_SCALE; i++) {
+    for (let i = 0; i < NUM_PAIN_SCALE; i++) {
         let painImg = loadImage(`${PAIN_LEVEL_IMG}${i}.png`);
         painImgs.push(painImg);
     }
+    console.log(painImgs);
 }
 
 // setup()
 // Setting up the canvas, Annyang
 function setup() {
+    // create canvas
     canvas = createCanvas(1000, windowHeight);
     // Changing the angle mode to DEGREE
     angleMode(DEGREES);
     // Create Baymax
     baymax = new Baymax();
+
     // Check if annyang is available
     if (annyang) {
         // Create commands
         let commands = {
-            'Ouch': baymax.activate,
-            'My name is *name': sayName
+            'Ouch': baymax.activate
         };
 
         // Add and calls commands
@@ -49,7 +51,7 @@ function draw() {
     background(244);
     // Calls the different state
     switch (state) {
-        case `menu`:
+        case `mainMenu`:
             mainMenu();
             break;
         case `instruction`:
@@ -68,7 +70,7 @@ function draw() {
 // Using a circle stroke and lined dashed
 function loadingCircle(config) {
     push()
-    translate(width / 2, height / 2);
+    translate(width / 2, height / 1.8);
     rotate(angle);
     noFill();
     stroke(config.color, 100);
@@ -80,7 +82,7 @@ function loadingCircle(config) {
         stroke(config.color, 255);
         angle += radians(50);
         setTimeout(() => {
-            state = `instruction`;
+            state = `gameplay`;
             baymax.talk();
         }, 3000);
     }
@@ -91,7 +93,7 @@ function loadingCircle(config) {
 
 // Going onto next state when pressing `ENTER`
 function keyPressed() {
-    if (state == `menu`) {
+    if (state == `mainMenu`) {
         if (keyCode === ENTER) {
             state = `instruction`;
         }
@@ -113,6 +115,23 @@ function displayText(string, size, x, y, color, alpha) {
     pop();
 }
 
-function sayName() {
+// Storing the user's name in Localstorage
+function saveName() {
+    if (state == `mainMenu`) {
+        username.name = prompt(`Provide your name here`, `[Name]`);
+        localStorage.setItem(`user-name`, JSON.stringify(username));
+        state = `instruction`;
+        console.log(username.name);
+    }
+}
 
+function createPainImg() {
+    for (let i = 0; i < NUM_PAIN_SCALE; i++) {
+        let x = painPos[i];
+        let y = 200;
+        let painImg = painImgs[i];
+        let pain = new Pain(x, y, painImg);
+        pains.push(pain);
+        pains[i].update();
+    }
 }
