@@ -3,20 +3,29 @@
 function mainMenu() {
     background(RED_COLOR);
     // Setting the canva drawing lines to dashed lines
-    // Changing the angle mode to DEGREE
     canvas.drawingContext.setLineDash([1,55]);
-    angleMode(DEGREES);
+ 
     displayText(`
-    To activate BAYMAX
-    state your name by saying "My name is [name]"
+    To activate BAYMAX one must be hurt.
+    Pinch yourself and say "ouch".
     `,32,width/2,height/4,0,50);
-    loadingCircle();
 
+    // circle configuration
+     let config = {
+      x:0,
+      y:0,
+      w:300,
+      h:300,
+      color:2,
+      weight:20,
+      mode:CENTER
+    }
+    // loads and display circles
+    loadingCircle(config);
 }
 
 function instruction() {
-        canvas.drawingContext.setLineDash([]);
-    angleMode(DEGREES);
+    canvas.drawingContext.setLineDash([]);
     push();
     noStroke();
     fill(255);
@@ -38,7 +47,6 @@ function instruction() {
     noStroke();
     rectMode(CENTER);
     rect(width / 2.02, height, 500, 800, 200, 200, 0);
-    rect(x, y, w, h, [tl], [tr], [br], [bl])
     pop();
 }
 

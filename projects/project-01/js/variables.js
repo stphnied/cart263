@@ -4,6 +4,8 @@ let state = `menu`;
 let canvas;
 // Font
 let myFont;
+// username 
+let hurt = false;
 // angle of rotation
 let angle = 0;
 // Baymax visual
@@ -31,14 +33,15 @@ let baymax = {
         h: undefined,
         roundness: undefined
     }
-}
+};
+
+let dialoguesData;
 // Constant for colors
 const
     BLACK_COLOR = `#171d22`,
-    RED_COLOR = `#FF1919`;
+    RED_COLOR = `#FF1919`,
+    WHITE_COLOR = 250;
 const
     ACENTONE_FONT_URL = `assets/fonts/ACETONE.otf`;
-// Dialogues
-let dialogues = [
-    
-]
+const
+    dialogue_JSON_URL = `js/dialogues.json`;

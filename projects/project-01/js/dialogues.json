@@ -1,0 +1,21 @@
+{
+    "dialogues": {
+
+        "intro": [
+            "Hello! I am Baymax, your personal healthcare companion. I was alerted to the need for medical attention when you said `ouch`!",
+            "On a scale of 1 to 10, how would you rate your pain?",
+            "I will scan you now"
+        ],
+        "scanning": [
+            "scan completed. You are experiencing"
+        ],
+        "levels": [
+            "low pain",
+            "mild pain",
+            "severe pain"
+        ],
+        "deactivate": [
+            "You are satisfied with your care."
+        ]
+    }
+}
