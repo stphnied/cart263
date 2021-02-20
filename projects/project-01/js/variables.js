@@ -4,44 +4,33 @@ let state = `menu`;
 let canvas;
 // Font
 let myFont;
-// username 
+// user state
 let hurt = false;
+// baymax object
+let baymax;
+let baymaxConfig;
 // angle of rotation
 let angle = 0;
-// Baymax visual
-let baymax = {
-    face: {
-        x: undefined,
-        y: undefined,
-        w: undefined,
-        h: undefined,
-        eyeL: {
-            x:undefined,
-            y:undefined,
-            size:undefined
-        },
-        eyeR: {
-            x:undefined,
-            y:undefined,
-            size:undefined
-        },
-    },
-    body: {
-        x: undefined,
-        y: undefined,
-        w: undefined,
-        h: undefined,
-        roundness: undefined
-    }
-};
 
+// Arrays of the loaded images of pain scale
+let painImgs =[];
+
+// 
 let dialoguesData;
 // Constant for colors
 const
     BLACK_COLOR = `#171d22`,
     RED_COLOR = `#FF1919`,
     WHITE_COLOR = 250;
+// Constant for URLs
 const
     ACENTONE_FONT_URL = `assets/fonts/ACETONE.otf`;
 const
     dialogue_JSON_URL = `js/dialogues.json`;
+
+// Constants for images
+const
+    PAIN_LEVEL_IMG = `assets/images/pain-scale/pain-`;
+// Constant for number of images
+const
+    NUM_PAIN_SCALE = 10;

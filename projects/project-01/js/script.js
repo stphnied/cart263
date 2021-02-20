@@ -10,25 +10,30 @@ Introducing BAYMAX, your personal healthcare robot from the movie BIG HERO 6.
 ******************/
 
 // preload()
-// Description of preload
+// Loads font, dialogue data, images
 function preload() {
     myFont = loadFont(ACENTONE_FONT_URL);
     dialoguesData = loadJSON(dialogue_JSON_URL);
+    // Images
+    for (let i = 1; i < NUM_PAIN_SCALE; i++) {
+        let painImg = loadImage(`${PAIN_LEVEL_IMG}${i}.png`);
+        painImgs.push(painImg);
+    }
 }
 
 // setup()
-// Setting up the canvas
-// Setting up Annyang
+// Setting up the canvas, Annyang
 function setup() {
     canvas = createCanvas(1000, windowHeight);
     // Changing the angle mode to DEGREE
     angleMode(DEGREES);
-
+    // Create Baymax
+    baymax = new Baymax();
     // Check if annyang is available
     if (annyang) {
         // Create commands
         let commands = {
-            'Ouch': activateBaymax,
+            'Ouch': baymax.activate,
             'My name is *name': sayName
         };
 
@@ -71,12 +76,12 @@ function loadingCircle(config) {
     ellipseMode(config.mode);
     // If true animates the circle and go to next screen
     if (hurt) {
-        config.color= WHITE_COLOR;
-        stroke(config.color,255);
+        config.color = WHITE_COLOR;
+        stroke(config.color, 255);
         angle += radians(50);
         setTimeout(() => {
             state = `instruction`;
-            baymaxTalk();
+            baymax.talk();
         }, 3000);
     }
     // displays circle
@@ -106,16 +111,6 @@ function displayText(string, size, x, y, color, alpha) {
     textFont(myFont);
     text(string, x, y);
     pop();
-}
-
-// Says the name of the user
-function activateBaymax() {
-    responsiveVoice.speak(`Activating...`, "Korean Male", {});
-    hurt = true;
-}
-
-function baymaxTalk() {
-    responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
 }
 
 function sayName() {
