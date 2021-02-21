@@ -77,7 +77,24 @@ class Baymax {
     }
 
     talk() {
-        responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+    responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+        // responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {onend: baymaxTalkTrack=1});
+        // console.log(baymaxTalkTrack);
+        // Introduction
+        // switch(baymaxTalkTrack) {
+        //     case 0:
+        //     responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+        //     baymaxTalkTrack++;
+        //     break;
+        //     case 1:
+        //     responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
+        //     baymaxTalkTrack++;
+        //     break;
+        // }
+        // responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+        // // Ask lvl pain
+        // responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
+
     }
 
     // Checks if user mouse is over the logo

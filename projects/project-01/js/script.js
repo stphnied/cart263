@@ -2,24 +2,30 @@
 
 /*****************
 
-A Night at the Movies
+A Night at the Movies --> A Day with Baymax!
 Stephanie Dang
 
 Introducing BAYMAX, your personal healthcare robot from the movie BIG HERO 6.
-
+User has to provide their name before the program can load
+User has to pinch themselves and say ouch to activate baymax
+Baymax is now activated.
 ******************/
 
 // preload()
 // Loads font, dialogue data, images
 function preload() {
+    // Font
     myFont = loadFont(ACENTONE_FONT_URL);
+    // JSON data
     dialoguesData = loadJSON(dialogue_JSON_URL);
     // Images
     for (let i = 0; i < NUM_PAIN_SCALE; i++) {
         let painImg = loadImage(`${PAIN_LEVEL_IMG}${i}.png`);
         painImgs.push(painImg);
     }
-    console.log(painImgs);
+    scanImg = loadImage(SCAN_IMG_URL);
+    // Sounds
+    clickSfx = loadSound(CLICK_SFX_URL);
 }
 
 // setup()
@@ -43,10 +49,14 @@ function setup() {
         annyang.addCommands(commands);
         annyang.start();
     }
+
+    // Set up video and hide
+    video = createCapture(VIDEO);
+    video.hide();
 }
 
 // draw()
-// Description of draw()
+// Manage different states
 function draw() {
     background(244);
     // Calls the different state
@@ -92,6 +102,7 @@ function loadingCircle(config) {
 }
 
 // Going onto next state when pressing `ENTER`
+// Debugging made easier
 function keyPressed() {
     if (state == `mainMenu`) {
         if (keyCode === ENTER) {
@@ -104,10 +115,18 @@ function keyPressed() {
     }
 }
 
+function mousePressed() {
+    if (state == `gameplay`) {
+        for (let i = 0; i < pains.length; i++) {
+            pains[i].clicked();
+        }
+    }
+}
+
 // Text configuration
-function displayText(string, size, x, y, color, alpha) {
+function displayText(string, size, x, y, color, alpha, alignH, alignV) {
     push();
-    textAlign(CENTER, CENTER);
+    textAlign(alignH, alignV);
     textSize(size);
     fill(color, alpha);
     textFont(myFont);
@@ -125,13 +144,68 @@ function saveName() {
     }
 }
 
+// Create pain-scale images
 function createPainImg() {
     for (let i = 0; i < NUM_PAIN_SCALE; i++) {
         let x = painPos[i];
         let y = 200;
         let painImg = painImgs[i];
-        let pain = new Pain(x, y, painImg);
+        let pain = new Pain(x, y, painImg, i);
         pains.push(pain);
         pains[i].update();
     }
+}
+
+
+// Scanning the user
+// Use webcam
+// Display Symptoms,Name, BodyScan
+// Scanning Lines
+function scanning() {
+    background(0);
+    // Webcam
+    push();
+    imageMode(CENTER);
+    tint(100, 153, 204);
+    image(video, width / 2, height / 2, width - 20, height - 20);
+    pop();
+
+    // Underline Title
+    push();
+    strokeWeight(1);
+    stroke(255);
+    line(25, 105, 175, 105);
+    pop();
+
+    // Text
+    push();
+    displayText(`SYMPTOMS:`, 32, 100, 100, WHITE_COLOR, CENTER, CENTER);
+    displayText(`
+    Scanning...
+    Body Temp. Normal
+    Respiration Normal
+    Elevated Heart Rate
+    Skin Inflammation
+    `, 18, 20, 100, WHITE_COLOR, CENTER, LEFT);
+    displayText
+    pop();
+    // Display username's name
+    push();
+    displayText(username.name, 43, width/1.1, height /1.1, WHITE_COLOR, CENTER, CENTER);
+    pop();
+
+    // Scan img
+    push();
+    tint(100, 153, 204);
+    image(scanImg, 25, 250, 150, 200);
+    pop();
+
+}
+
+function drawLines(linesConfig) {
+    push();
+    fill(linesConfig.color);
+    rectMode(linesConfig.mode);
+    rect(linesConfig.x, linesConfig.y, linesConfig.w, linesConfig.h);
+    pop();
 }
