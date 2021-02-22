@@ -98,7 +98,7 @@ class Baymax {
             }, 1000);
         }
 
-        console.log(this.eyeH);
+        // console.log(this.eyeH);
         this.eyeH = constrain(this.eyeH, 0, 30);
         // Left eye
         ellipse(this.eyeLX, this.eyeLY, this.eyeW, this.eyeH);
@@ -141,7 +141,7 @@ class Baymax {
         let d = dist(mouseX, mouseY, this.bodyX * 1.2, this.bodyY / 1.5);
         if (d < 40 / 2) {
             console.log("hola");
-            // responsiveVoice.speak(dialoguesData.dialogues.random[random()], "UK English Male", {});
+            responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {});
         }
     }
 

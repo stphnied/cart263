@@ -120,6 +120,7 @@ function mousePressed() {
         for (let i = 0; i < pains.length; i++) {
             pains[i].clicked();
         }
+        baymax.clickLogo();
     }
 }
 

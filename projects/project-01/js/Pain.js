@@ -56,10 +56,10 @@ class Pain {
                     painLvl = 0
                     break;
                 case 3:
-                    painLvl = 1
+                    painLvl = 0
                     break;
                 case 4:
-                    painLvl = 1
+                    painLvl = 0
                     break;
                 case 5:
                     painLvl = 1
@@ -68,13 +68,13 @@ class Pain {
                     painLvl = 1
                     break;
                 case 7:
-                    painLvl = 2
+                    painLvl = 1
                     break;
                 case 8:
                     painLvl = 1
                     break;
                 case 9:
-                    painLvl = 1
+                    painLvl = 2
                     break;
             }
             responsiveVoice.speak(dialoguesData.dialogues.levels[painLvl], "UK English Male", {onend:scanning});
