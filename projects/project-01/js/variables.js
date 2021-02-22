@@ -1,5 +1,5 @@
 // Variables
-let state = `gameplay`;
+let state = `ending`;
 // canvas property
 let canvas;
 // Font

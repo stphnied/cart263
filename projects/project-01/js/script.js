@@ -9,6 +9,9 @@ Introducing BAYMAX, your personal healthcare robot from the movie BIG HERO 6.
 User has to provide their name before the program can load
 User has to pinch themselves and say ouch to activate baymax
 Baymax is now activated.
+- Press on Baymax's logo to trigger a phrase
+- Say "I am satisfied with my care" to deactivate baymax
+- Say Ouch to select pain level
 ******************/
 
 // preload()
@@ -113,6 +116,11 @@ function keyPressed() {
             state = `gameplay`;
         }
     }
+    else if(state ==`ending`) {
+        if(keyCode == ENTER) {
+            location.reload();
+        }
+    }
 }
 
 function mousePressed() {
@@ -203,6 +211,7 @@ function scanning() {
 
 }
 
+// Drawing lines onto the video capture
 function drawLines(linesConfig) {
     push();
     fill(linesConfig.color);

@@ -74,4 +74,15 @@ function gameplay() {
 
 // 4th screen: Ending
 // Ending screen when user deactivates Baymax
-function ending() {}
+function ending() {
+    background(RED_COLOR);
+    displayText(`THANK YOU FOR USING MY SERVICE.`, 42, width / 2, height / 2, WHITE_COLOR, 250, CENTER, CENTER);
+    displayText(`press [ENTER] to reactivate me.`,32,width/2,height/1.75,BLACK_COLOR,150,CENTER,CENTER);
+
+    baymax.displayEndFace();
+    displayText(`
+    BIG
+    HERO
+    263`,
+    24,width-2,height-100,WHITE_COLOR,50,RIGHT,RIGHT);
+}

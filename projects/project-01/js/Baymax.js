@@ -111,8 +111,11 @@ class Baymax {
 
     // Activating Baymax
     activate() {
-        responsiveVoice.speak(`Activating...`, "Korean Male", {});
-        hurt = true;
+        if (state == `instruction`) {
+            responsiveVoice.speak(`Activating...`, "Korean Male", {});
+            hurt = true;
+        }
+
     }
 
     talk() {
@@ -143,6 +146,22 @@ class Baymax {
             console.log("hola");
             responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {});
         }
+    }
+
+    // Display Baymax's sleeping face
+    displayEndFace() {
+        push()
+        stroke(WHITE_COLOR,200);
+        strokeWeight(4)
+        fill(WHITE_COLOR,100);
+        // Mouth
+        line(this.eyeLX-12, this.eyeLY/1.2, this.eyeRX+12, this.eyeRY/1.2);
+        // Left eye
+        strokeWeight(2);
+        ellipse(this.eyeLX, this.eyeLY/1.2, this.eyeW, this.eyeH);
+        // Right eye
+        ellipse(this.eyeRX, this.eyeRY/1.2, this.eyeW, this.eyeH);
+        pop();
     }
 
 }
