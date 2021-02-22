@@ -19,10 +19,10 @@ class Pain {
         // Displaying the scale of 1-10
         displayText(`From a scale of 1-10, select your pain:`, 32, width / 2, 100, WHITE_COLOR,CENTER,CENTER);
         for (let i = 0; i < NUM_PAIN_SCALE; i++) {
-            displayText(`${i}`, 24, painPos[i] - 100, this.y + 80, WHITE_COLOR);
+            displayText(`${i}`, 24, painPos[i] - 100, this.y + 80, WHITE_COLOR,CENTER,CENTER);
         }
         // Displaying last number bc the loop won't :(
-        displayText(`10`, 24, painPos[9], this.y + 80, WHITE_COLOR);
+        displayText(`10`, 24, painPos[9], this.y + 80, WHITE_COLOR,CENTER,CENTER);
 
         // rectangle border
         push();
@@ -77,7 +77,6 @@ class Pain {
                     painLvl = 1
                     break;
             }
-
             responsiveVoice.speak(dialoguesData.dialogues.levels[painLvl], "UK English Male", {onend:scanning});
         }
     }

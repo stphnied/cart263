@@ -191,7 +191,7 @@ function scanning() {
     pop();
     // Display username's name
     push();
-    displayText(username.name, 43, width/1.1, height /1.1, WHITE_COLOR, CENTER, CENTER);
+    displayText(username.name, 43, width / 1.1, height / 1.1, WHITE_COLOR, CENTER, CENTER);
     pop();
 
     // Scan img
