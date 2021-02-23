@@ -3,6 +3,25 @@
 function mainMenu() {
     displayText(`GREETINGS`, 56, width / 2, 250, BLACK_COLOR, CENTER, CENTER);
     displayText(`please state your name while we boot the system.`, 42, width / 2, 300, BLACK_COLOR, CENTER, CENTER);
+    push();
+    textFont(myFont);
+    fill(RED_COLOR);
+    textAlign(CENTER, CENTER);
+    textSize(24);
+    text(`WARNING`,width/2,height/1.4);
+    pop();
+
+    displayText(`
+    Please read these terms and conditions carefully before using Our Service.
+    Our program BAYMAX will analyze you thoroughly and identify you with your name,
+    voice and physical state. You are authorizing us to scan your personal information
+    in order to better service. Information obtained from your results are solely to confirm
+    your identity and your wellbeing. By continuing to access or use Our Service,
+    You agree to be bound by our terms. If You do not agree with our terms, in whole or in part,
+    please do not activate our program and be warned.
+`, 24, width / 2, height / 1.2, BLACK_COLOR,55, CENTER, CENTER);
+
+    baymax.displayEndFace(BLACK_COLOR);
     // Ask for user's name after 2s
     setTimeout(saveName, 4000);
 }
@@ -77,12 +96,12 @@ function gameplay() {
 function ending() {
     background(RED_COLOR);
     displayText(`THANK YOU FOR USING MY SERVICE.`, 42, width / 2, height / 2, WHITE_COLOR, 250, CENTER, CENTER);
-    displayText(`press [ENTER] to reactivate me.`,32,width/2,height/1.75,BLACK_COLOR,150,CENTER,CENTER);
+    displayText(`press [ENTER] to reactivate me.`, 32, width / 2, height / 1.75, BLACK_COLOR, 150, CENTER, CENTER);
 
-    baymax.displayEndFace();
+    baymax.displayEndFace(WHITE_COLOR);
     displayText(`
     BIG
     HERO
     263`,
-    24,width-2,height-100,WHITE_COLOR,50,RIGHT,RIGHT);
+        24, width - 2, height - 100, WHITE_COLOR, 50, RIGHT, RIGHT);
 }

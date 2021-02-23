@@ -29,7 +29,7 @@ class Baymax {
         this.vx = 0;
         this.vy = 0.5;
     }
-
+    // Displaying Baymax visual
     display() {
         ellipseMode(CENTER);
         noStroke();
@@ -118,6 +118,7 @@ class Baymax {
 
     }
 
+    // Automatic phrases
     talk() {
         responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
         // responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {onend: baymaxTalkTrack=1});
@@ -149,11 +150,11 @@ class Baymax {
     }
 
     // Display Baymax's sleeping face
-    displayEndFace() {
+    displayEndFace(color) {
         push()
-        stroke(WHITE_COLOR,200);
+        stroke(color,200);
         strokeWeight(4)
-        fill(WHITE_COLOR,100);
+        fill(color,100);
         // Mouth
         line(this.eyeLX-12, this.eyeLY/1.2, this.eyeRX+12, this.eyeRY/1.2);
         // Left eye

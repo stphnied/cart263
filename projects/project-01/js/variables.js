@@ -1,5 +1,5 @@
 // Variables
-let state = `ending`;
+let state = `mainMenu`;
 // canvas property
 let canvas;
 // Font
@@ -38,7 +38,7 @@ const
     RED_COLOR = `#FF1919`,
     WHITE_COLOR = 250,
     GREY_COLOR = 230;
-    
+let redColor = (255, 25, 25);
 // Constant for URLs
 const
     ACENTONE_FONT_URL = `assets/fonts/ACETONE.otf`;
