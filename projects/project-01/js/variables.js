@@ -1,5 +1,5 @@
 // Variables
-let state = `mainMenu`;
+let state = `gameplay`;
 // canvas property
 let canvas;
 // Font

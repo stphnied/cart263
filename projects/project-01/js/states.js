@@ -8,7 +8,7 @@ function mainMenu() {
     fill(RED_COLOR);
     textAlign(CENTER, CENTER);
     textSize(24);
-    text(`WARNING`,width/2,height/1.4);
+    text(`WARNING`, width / 2, height / 1.4);
     pop();
 
     displayText(`
@@ -19,7 +19,7 @@ function mainMenu() {
     your identity and your wellbeing. By continuing to access or use Our Service,
     You agree to be bound by our terms. If You do not agree with our terms, in whole or in part,
     please do not activate our program and be warned.
-`, 24, width / 2, height / 1.2, BLACK_COLOR,55, CENTER, CENTER);
+`, 24, width / 2, height / 1.2, BLACK_COLOR, 55, CENTER, CENTER);
 
     baymax.displayEndFace(BLACK_COLOR);
     // Ask for user's name after 2s
@@ -33,7 +33,7 @@ function instruction() {
     background(RED_COLOR);
     // Setting the canva drawing lines to dashed lines
     canvas.drawingContext.setLineDash([1, 55]);
-    displayText(username.name, 56, width / 2, 100, 0, 50, CENTER, CENTER);
+    displayText(username.name, 56, width / 2, 100, 0, 50, CENTER, CENTE);
     displayText(`
     To activate BAYMAX one must be hurt.
     Pinch yourself and say "ouch".
@@ -62,10 +62,13 @@ function gameplay() {
     createPainImg();
 
 
+
     // Scanning only last for 10 seconds
-    if (false) {
+    if (true) {
         // Calls the scanning function that uses capture video
-        scanning();
+        // Webcam
+        let scan = new Scan();
+        scan.update();
         // Random Y positions for the lines
         for (let i = 0; i < 15; i++) {
             linePosY.push(random() + random(5, height));
@@ -80,7 +83,8 @@ function gameplay() {
                 color: 'rgba(0,100,200, 0.25)',
                 mode: CENTER
             }
-            drawLines(linesConfig);
+            // drawLines(linesConfig);
+            scan.drawLines(linesConfig);
 
             // Lines restarts on top
             if (linePosY > 1000) {
