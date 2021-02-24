@@ -77,7 +77,7 @@ class Pain {
                     painLvl = 2
                     break;
             }
-            responsiveVoice.speak(dialoguesData.dialogues.levels[painLvl], "UK English Male", {onend:scanning});
+            responsiveVoice.speak(dialoguesData.dialogues.levels[painLvl], "UK English Male", {});
         }
     }
 

@@ -8,6 +8,9 @@ let myFont;
 let clickSfx;
 // user state
 let hurt = false;
+// Background images
+let bgImg;
+let windowImg;
 // baymax object
 let baymax;
 let baymaxConfig;
@@ -47,6 +50,9 @@ const
 
 // Constants for images
 const
+    LANDSCAPE_MORNING_IMG_URL = `assets/images/landscape-2.png`,
+    LANDSCAPE_NIGHT_IMG_URL = `assets/images/landscape-2.png`,
+    WINDOW_IMG_URL = `assets/images/window.png`,
     PAIN_LEVEL_IMG = `assets/images/pain-scale/pain-`,
     SCAN_IMG_URL = `assets/images/bodyscan.png`;
 

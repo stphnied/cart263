@@ -22,6 +22,9 @@ function preload() {
     // JSON data
     dialoguesData = loadJSON(dialogue_JSON_URL);
     // Images
+    bgImg = loadImage(LANDSCAPE_MORNING_IMG_URL);
+    windowImg = loadImage(WINDOW_IMG_URL);
+
     for (let i = 0; i < NUM_PAIN_SCALE; i++) {
         let painImg = loadImage(`${PAIN_LEVEL_IMG}${i}.png`);
         painImgs.push(painImg);
@@ -115,9 +118,8 @@ function keyPressed() {
         if (keyCode === ENTER) {
             state = `gameplay`;
         }
-    }
-    else if(state ==`ending`) {
-        if(keyCode == ENTER) {
+    } else if (state == `ending`) {
+        if (keyCode == ENTER) {
             location.reload();
         }
     }
@@ -163,4 +165,23 @@ function createPainImg() {
         pains.push(pain);
         pains[i].update();
     }
+}
+
+// Display the background for the  gameplay state
+function displayBg() {
+    push();
+    // Configuration the image position
+    let bgConfig = {
+        x: 0,
+        y: 0,
+    }
+    // Background image move according to the mouse position
+    bgConfig.x = map(mouseX,0,width,0,25);
+    bgConfig.y = map(mouseY,0,height,0,15);
+    // Display landscape image
+    image(bgImg, bgConfig.x, bgConfig.y);
+    pop();
+    // Wall/window image
+    image(windowImg, 0, 0);
+
 }

@@ -33,7 +33,7 @@ function instruction() {
     background(RED_COLOR);
     // Setting the canva drawing lines to dashed lines
     canvas.drawingContext.setLineDash([1, 55]);
-    displayText(username.name, 56, width / 2, 100, 0, 50, CENTER, CENTE);
+    displayText(username.name, 56, width / 2, 100, 0, 50, CENTER, CENTER);
     displayText(`
     To activate BAYMAX one must be hurt.
     Pinch yourself and say "ouch".
@@ -58,17 +58,22 @@ function instruction() {
 function gameplay() {
     canvas.drawingContext.setLineDash([]);
     background(0);
+    displayBg();
     baymax.display();
-    createPainImg();
+    // createPainImg();
 
 
 
     // Scanning only last for 10 seconds
-    if (true) {
+    if (false) {
         // Calls the scanning function that uses capture video
         // Webcam
         let scan = new Scan();
         scan.update();
+
+
+
+
         // Random Y positions for the lines
         for (let i = 0; i < 15; i++) {
             linePosY.push(random() + random(5, height));
@@ -86,8 +91,8 @@ function gameplay() {
             // drawLines(linesConfig);
             scan.drawLines(linesConfig);
 
-            // Lines restarts on top
-            if (linePosY > 1000) {
+            // Lines restarts on top NOT WORKINNNGGNNGNNG
+            if (linePosY > height) {
                 linePosY = 0;
             }
         }
