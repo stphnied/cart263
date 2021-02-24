@@ -3,11 +3,28 @@
 // Displays symptons, temperature and analyse the user
 // Contains video capture
 class Scan {
-    construction() {
+    constructor(video) {
+        // Video 
+        this.vid = video;
+        this.x = width/2;
+        this.y = height/2;
         this.w = width - 20;
         this.h = height - 20;
-        this.nsp = undefined;
-        this.ecq = undefined;
+        // Text number
+        this.nsp = 0;
+        this.ecq = 0;
+        // 
+        this.rectX = width / 2;
+        this.rectY = 5;
+        this.rectW = width;
+        this.rectH = 50;
+        this.speed = 10;
+        // Tint
+        this.tint = {
+            r:100,
+            g:153,
+            b:204
+        };
     }
 
     // Calls the functions below
@@ -15,6 +32,14 @@ class Scan {
         this.displayVideo();
         this.displayImg();
         this.displayText();
+
+
+        if(this.ecq < 69) {
+            this.ecq++;
+        }
+        if(this.nsp < 113){
+            this.nsp += int(random(1,5));
+        }
     }
 
     // Displays the webcam/video capture
@@ -22,16 +47,16 @@ class Scan {
         background(0);
         push();
         imageMode(CENTER);
-        tint(100, 153, 204);
-        image(video, width / 2, height / 2, width - 20, height - 20);
+        tint(this.tint.r, this.tint.g, this.tint.b);
+        image(this.vid, this.x, this.y, this.w, this.h);
         pop();
     }
 
     // Display image of scan
     displayImg() {
         push();
-        tint(100, 153, 204);
-        image(scanImg, 25, 250, 150, 200);
+        tint(this.tint.r, this.tint.g, this.tint.b,200);
+        image(scanImg, 25, 250, 150,250);
         pop();
     }
 
@@ -64,25 +89,17 @@ class Scan {
         displayText(`
     NSP    19.55   mmHg`, 18, 20, height / 1.2, WHITE_COLOR, CENTER, LEFT);
 
-        // NSP NUMBERS
-        // Increment the NSP & ECQ value
-        // this.ncp = 0;
-        // this.nsp++;
+        // NSP NUMBER
         displayText(`
     ${this.nsp}/90  80`, 38, -5, height / 1.17, WHITE_COLOR, LEFT, LEFT);
         pop();
-
 
         // ECQ
         push()
         displayText(`
      ECQ`, 18, 20, height / 1.1, WHITE_COLOR, CENTER, LEFT);
-        
-        this.ecq = 0;
-        while (this.ecq < 69) {
-            this.ecq++;
-            console.log(this.ecq);
-        }
+
+    //  Display ECQ number
         displayText(this.ecq, 38, 40, height / 1.02, WHITE_COLOR, CENTER, LEFT);
         pop();
     }
@@ -90,7 +107,8 @@ class Scan {
     // Draws and displays lines onto the vid capture
     drawLines(linesConfig) {
         push();
-        fill(linesConfig.color);
+        noStroke();
+        fill(this.tint.r,this.tint.g,this.tint.b,50);
         rectMode(linesConfig.mode);
         rect(linesConfig.x, linesConfig.y, linesConfig.w, linesConfig.h);
         pop();

@@ -74,37 +74,6 @@ function gameplay() {
     displayDayBtn();
 }
 
-function scanUser() {
-    // Scanning only last for 10 seconds
-    // Calls the scanning function that uses capture video
-    // Webcam
-    let scan = new Scan();
-    scan.update();
-
-    // Random Y positions for the lines
-    for (let i = 0; i < 15; i++) {
-        linePosY.push(random() + random(5, height));
-    }
-    // Configuration for the lines effect
-    for (let i = 0; i < 50; i++) {
-        let linesConfig = {
-            x: width / 1.5,
-            y: linePosY[i] += 10,
-            w: windowWidth,
-            h: 1.25,
-            color: 'rgba(0,100,200, 0.25)',
-            mode: CENTER
-        }
-        // drawLines(linesConfig);
-        scan.drawLines(linesConfig);
-
-        // Lines restarts on top NOT WORKINNNGGNNGNNG
-        if (linePosY > height) {
-            linePosY = 0;
-        }
-    }
-}
-
 // 4th screen: Ending
 // Ending screen when user deactivates Baymax
 // ------------------------------------------------------------------------

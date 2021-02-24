@@ -39,9 +39,10 @@ function preload() {
         painImgs.push(painImg);
     }
 
+
+
     // Body scan image
     scanImg = loadImage(SCAN_IMG_URL);
-
     // Sounds ---
     // Clicking sound
     clickSfx = loadSound(CLICK_SFX_URL);
@@ -77,21 +78,24 @@ function setup() {
     dayBtn.y = height - 50;
 
     // Video capture ---
+    
     // Set up video and hide
     video = createCapture(VIDEO);
     video.hide();
+    // Create scan
+    scan = new Scan(video);
+
+    createPainImg();
 }
 
 // Create pain-scale images
 function createPainImg() {
-
     for (let i = 0; i < NUM_PAIN_SCALE; i++) {
         let x = painPos[i];
         let y = 120;
         let painImg = painImgs[i];
         let pain = new Pain(x, y, painImg, i);
         pains.push(pain);
-        pains[i].update();
     }
 }
 
@@ -181,6 +185,7 @@ function displayLoadingCircle(config) {
         config.color = WHITE_COLOR;
         stroke(config.color, 255);
         angle += radians(50);
+        // Calls a function to change the state
         setTimeout(callGameplay, 3000);
     }
     // displays circle
@@ -188,6 +193,7 @@ function displayLoadingCircle(config) {
     pop();
 }
 
+// Calling the gameplay state
 function callGameplay() {
     state = `gameplay`;
 }
@@ -210,6 +216,40 @@ function displayDayBtn() {
     ellipse(dayBtn.x, dayBtn.y, dayBtn.size);
     pop();
 
+}
+
+// Scans the user by user video capture
+// Displays lines as scanning features
+// Calls the Scan class
+function scanUser() {
+    // Scanning only last for 10 seconds
+    // Calls the scanning function that uses capture video
+    // Webcam
+    
+    scan.update();
+
+    // Random Y positions for the lines
+    for (let i = 0; i < 15; i++) {
+        linePosY.push(random() + random(5, height));
+    }
+    // Configuration for the lines effect
+    for (let i = 0; i < 25; i++) {
+        let linesConfig = {
+            x: width / 1.5,
+            y: linePosY[i] += random(1,10),
+            w: windowWidth,
+            h: 1.25,
+            color: RED_COLOR,
+            mode: CENTER
+        }
+        // drawLines(linesConfig);
+        scan.drawLines(linesConfig);
+
+        // Lines restarts on top
+        if (linePosY[i] > height) {
+            linePosY[i] =0;
+        }
+    }
 }
 
 

@@ -113,6 +113,8 @@ class Baymax {
     move() {}
 
     // Activating Baymax
+    // Trigger a Baymax's line
+    // Will launch the circles in the displayLoadingCircle() in script.js line 171
     // ------------------------------------------------------------------------
     activate() {
         if (state == `instruction`) {
@@ -124,41 +126,43 @@ class Baymax {
     // Automatic phrases and action by baymax
     // ------------------------------------------------------------------------
     talk() {
-        if (!responsiveVoice.isPlaying()) {
-            switch (phraseNum) {
-                // Introduce himself
-                case 0:
-                    responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
-                    phraseNum++;
-                    break;
+        switch (phraseNum) {
+            // Introduce himself
+            case 0:
+                responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+                phraseNum++;
+                break;
                 // Says: On a scale of 1-10...
-                case 1:
-                    responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
-                    phraseNum++;
-                    break;
+            case 1:
+                responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
+                phraseNum++;
+                break;
                 // Show pain scale --> Calls 
-                case 2:
-                    let pain = new Pain();
-                    pain.displayRect();
-                    createPainImg();
-                    break;
+            case 2:
+                let pain = new Pain();
+                pain.displayRect();
+                for (let i = 0; i < NUM_PAIN_SCALE; i++) {
+                    pains[i].update();
+                    pains[i].hover();
+                }
+                break;
                 // Says : Will scan...
-                case 3:
-                    responsiveVoice.speak(dialoguesData.dialogues.intro[2], "UK English Male", {});
-                    phraseNum++;
-                    break;
+            case 3:
+                responsiveVoice.speak(dialoguesData.dialogues.intro[2], "UK English Male", {});
+                phraseNum++;
+                break;
                 // Calls scanUser()
-                case 4:
-                    scanUser();
-                    break;
-                case 5:
-                    break;
+            case 4:
+                scanUser();
+                break;
+            case 5:
+                break;
                 // Stops all automated voice lines
-                case 6:
-                    responsiveVoice.cancel();
-                    break;
-            }
+            case 6:
+                responsiveVoice.cancel();
+                break;
         }
+
     }
 
     // Checks if user mouse is over the logo

@@ -1,6 +1,6 @@
 // Variables
 // current state
-let state = `instruction`;
+let state = `gameplay`;
 // canvas property
 let canvas;
 // Font
@@ -27,7 +27,7 @@ let angle = 0;
 // Data of baymax's dialogues
 let dialoguesData;
 // Indicator of the current talk state of Baymax
-let phraseNum =0;
+let phraseNum =4;
 
 // Arrays of the loaded images of pain scale
 let painImgs = [];
@@ -38,12 +38,13 @@ let painPos = [50, 150, 250, 350, 450, 550, 650, 750, 850, 950];
 let video;
 // Image of bodyscan
 let scanImg;
+let scan;
 // Keeping track of baymax's lines
 let baymaxTalkTrack = 0;
 // line pos
 let linePosY = [];
 
-// 
+// button
 let dayBtn = {
     x:undefined,
     y:undefined,

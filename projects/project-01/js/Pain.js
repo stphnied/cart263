@@ -34,9 +34,9 @@ class Pain {
         // rectangle border
         push();
         // noFill();
-        fill(WHITE_COLOR,150);
+        fill(WHITE_COLOR, 150);
         strokeWeight(3);
-        stroke(WHITE_COLOR,100);
+        stroke(WHITE_COLOR, 100);
         rectMode(CENTER);
         rect(width / 2, 120, width, 110, 10);
         pop();
@@ -46,46 +46,22 @@ class Pain {
     clicked() {
         if (this.overlap(mouseX, mouseY)) {
             let painLvl;
-            switch (this.number) {
-                case 0:
-                    painLvl = 0
-                    break;
-                case 1:
-                    painLvl = 0
-                    break;
-                case 2:
-                    painLvl = 0
-                    break;
-                case 3:
-                    painLvl = 0
-                    break;
-                case 4:
-                    painLvl = 0
-                    break;
-                case 5:
-                    painLvl = 1
-                    break;
-                case 6:
-                    painLvl = 1
-                    break;
-                case 7:
-                    painLvl = 1
-                    break;
-                case 8:
-                    painLvl = 1
-                    break;
-                case 9:
-                    painLvl = 2
-                    break;
+            if (this.number <= 5) {
+                painLvl = 0;
+            } else if (this.number >= 6 && this.number < 9) {
+                painLvl = 1
+            } else if (this.number == 9) {
+                painLvl = 2
             }
+            // clickSfx.play();
             responsiveVoice.speak(dialoguesData.dialogues.levels[painLvl], "UK English Male", {});
         }
     }
 
     hover() {
         if (this.overlap(mouseX, mouseY)) {
-            if (!clickSfx.isPlaying) {
-                clickSfx.play();
+            if (!clickSfx.isPlaying()) {
+                // clickSfx.play();
             }
             // cursor(pointer);
             console.log("hover");
