@@ -15,29 +15,30 @@ class Pain {
 
     //Displays pain-level visuals on the canvas
     display() {
-
         // Displaying the scale of 1-10
-        displayText(`From a scale of 1-10, select your pain:`, 32, width / 2, 100, WHITE_COLOR,CENTER,CENTER);
+        displayText(`From a scale of 1-10, select your pain:`, 32, width / 2, 50, WHITE_COLOR, CENTER, CENTER);
         for (let i = 0; i < NUM_PAIN_SCALE; i++) {
-            displayText(`${i}`, 24, painPos[i] - 100, this.y + 80, WHITE_COLOR,CENTER,CENTER);
+            displayText(`${i}`, 24, painPos[i] - 100, this.y + 80, WHITE_COLOR, CENTER, CENTER);
         }
         // Displaying last number bc the loop won't :(
-        displayText(`10`, 24, painPos[9], this.y + 80, WHITE_COLOR,CENTER,CENTER);
-
-        // rectangle border
-        push();
-        noFill();
-        strokeWeight(3);
-        stroke(WHITE_COLOR);
-        rectMode(CENTER);
-        // rect(x, y, w, h, [tl], [tr], [br], [bl])
-        rect(width / 2, this.y, width, 110, 10);
-        pop();
-
+        displayText(`10`, 24, painPos[9], this.y + 80, WHITE_COLOR, CENTER, CENTER);
         // Displaying images
         push();
         imageMode(CENTER);
         image(this.image, this.x, this.y, 80, 80);
+        pop();
+    }
+
+    // displays a background rectangle for the images
+    displayRect() {
+        // rectangle border
+        push();
+        // noFill();
+        fill(WHITE_COLOR,150);
+        strokeWeight(3);
+        stroke(WHITE_COLOR,100);
+        rectMode(CENTER);
+        rect(width / 2, 120, width, 110, 10);
         pop();
     }
 

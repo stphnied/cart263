@@ -1,5 +1,6 @@
 // 1st screen : Loading screen
 // User has to state their name
+// ------------------------------------------------------------------------
 function mainMenu() {
     displayText(`GREETINGS`, 56, width / 2, 250, BLACK_COLOR, CENTER, CENTER);
     displayText(`please state your name while we boot the system.`, 42, width / 2, 300, BLACK_COLOR, CENTER, CENTER);
@@ -29,6 +30,7 @@ function mainMenu() {
 // 2nd screen: Instruction
 // Gives instruction to proceed to next step
 // Displays a loading circle animation
+// ------------------------------------------------------------------------
 function instruction() {
     background(RED_COLOR);
     // Setting the canva drawing lines to dashed lines
@@ -50,58 +52,62 @@ function instruction() {
         mode: CENTER
     }
     // loads and display circles
-    loadingCircle(config);
+    displayLoadingCircle(config);
 }
 
 // 3rd screen: Gameplay
 // Displays Baymax and it's functionality
+// ------------------------------------------------------------------------
 function gameplay() {
+    // Clears the setTimeout function that calls the gameplay state
+    clearTimeout(callGameplay);
+    // sets line dash to default
     canvas.drawingContext.setLineDash([]);
-    background(0);
+    // cool bg
     displayBg();
+
+    // baymax
     baymax.display();
-    // createPainImg();
+    baymax.talk();
 
+    // day/night btn
+    displayDayBtn();
+}
 
-
+function scanUser() {
     // Scanning only last for 10 seconds
-    if (false) {
-        // Calls the scanning function that uses capture video
-        // Webcam
-        let scan = new Scan();
-        scan.update();
+    // Calls the scanning function that uses capture video
+    // Webcam
+    let scan = new Scan();
+    scan.update();
 
-
-
-
-        // Random Y positions for the lines
-        for (let i = 0; i < 15; i++) {
-            linePosY.push(random() + random(5, height));
+    // Random Y positions for the lines
+    for (let i = 0; i < 15; i++) {
+        linePosY.push(random() + random(5, height));
+    }
+    // Configuration for the lines effect
+    for (let i = 0; i < 50; i++) {
+        let linesConfig = {
+            x: width / 1.5,
+            y: linePosY[i] += 10,
+            w: windowWidth,
+            h: 1.25,
+            color: 'rgba(0,100,200, 0.25)',
+            mode: CENTER
         }
-        // Configuration for the lines effect
-        for (let i = 0; i < 50; i++) {
-            let linesConfig = {
-                x: width / 1.5,
-                y: linePosY[i] += 10,
-                w: windowWidth,
-                h: 1.25,
-                color: 'rgba(0,100,200, 0.25)',
-                mode: CENTER
-            }
-            // drawLines(linesConfig);
-            scan.drawLines(linesConfig);
+        // drawLines(linesConfig);
+        scan.drawLines(linesConfig);
 
-            // Lines restarts on top NOT WORKINNNGGNNGNNG
-            if (linePosY > height) {
-                linePosY = 0;
-            }
+        // Lines restarts on top NOT WORKINNNGGNNGNNG
+        if (linePosY > height) {
+            linePosY = 0;
         }
     }
-
 }
 
 // 4th screen: Ending
 // Ending screen when user deactivates Baymax
+// ------------------------------------------------------------------------
 function ending() {
     background(RED_COLOR);
     displayText(`THANK YOU FOR USING MY SERVICE.`, 42, width / 2, height / 2, WHITE_COLOR, 250, CENTER, CENTER);

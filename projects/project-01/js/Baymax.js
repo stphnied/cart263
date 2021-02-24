@@ -29,7 +29,9 @@ class Baymax {
         this.vx = 0;
         this.vy = 0.5;
     }
+
     // Displaying Baymax visual
+    // ------------------------------------------------------------------------
     display() {
         ellipseMode(CENTER);
         noStroke();
@@ -73,6 +75,7 @@ class Baymax {
 
     // Blink eyes
     // Inspired by : https://editor.p5js.org/rustyrobison/sketches/MNL1RC6sf
+    // ------------------------------------------------------------------------
     blink() {
         // Close eyes
         if (this.blinking) {
@@ -110,37 +113,56 @@ class Baymax {
     move() {}
 
     // Activating Baymax
+    // ------------------------------------------------------------------------
     activate() {
         if (state == `instruction`) {
             responsiveVoice.speak(`Activating...`, "Korean Male", {});
             hurt = true;
         }
-
     }
 
-    // Automatic phrases
+    // Automatic phrases and action by baymax
+    // ------------------------------------------------------------------------
     talk() {
-        responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
-        // responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {onend: baymaxTalkTrack=1});
-        // console.log(baymaxTalkTrack);
-        // Introduction
-        // switch(baymaxTalkTrack) {
-        //     case 0:
-        //     responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
-        //     baymaxTalkTrack++;
-        //     break;
-        //     case 1:
-        //     responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
-        //     baymaxTalkTrack++;
-        //     break;
-        // }
-        // responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
-        // // Ask lvl pain
-        // responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
-
+        if (!responsiveVoice.isPlaying()) {
+            switch (phraseNum) {
+                // Introduce himself
+                case 0:
+                    responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {});
+                    phraseNum++;
+                    break;
+                // Says: On a scale of 1-10...
+                case 1:
+                    responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {});
+                    phraseNum++;
+                    break;
+                // Show pain scale --> Calls 
+                case 2:
+                    let pain = new Pain();
+                    pain.displayRect();
+                    createPainImg();
+                    break;
+                // Says : Will scan...
+                case 3:
+                    responsiveVoice.speak(dialoguesData.dialogues.intro[2], "UK English Male", {});
+                    phraseNum++;
+                    break;
+                // Calls scanUser()
+                case 4:
+                    scanUser();
+                    break;
+                case 5:
+                    break;
+                // Stops all automated voice lines
+                case 6:
+                    responsiveVoice.cancel();
+                    break;
+            }
+        }
     }
 
     // Checks if user mouse is over the logo
+    // ------------------------------------------------------------------------
     clickLogo() {
         let d = dist(mouseX, mouseY, this.bodyX * 1.2, this.bodyY / 1.5);
         if (d < 40 / 2) {
@@ -152,16 +174,16 @@ class Baymax {
     // Display Baymax's sleeping face
     displayEndFace(color) {
         push()
-        stroke(color,200);
+        stroke(color, 200);
         strokeWeight(4)
-        fill(color,100);
+        fill(color, 100);
         // Mouth
-        line(this.eyeLX-12, this.eyeLY/1.2, this.eyeRX+12, this.eyeRY/1.2);
+        line(this.eyeLX - 12, this.eyeLY / 1.2, this.eyeRX + 12, this.eyeRY / 1.2);
         // Left eye
         strokeWeight(2);
-        ellipse(this.eyeLX, this.eyeLY/1.2, this.eyeW, this.eyeH);
+        ellipse(this.eyeLX, this.eyeLY / 1.2, this.eyeW, this.eyeH);
         // Right eye
-        ellipse(this.eyeRX, this.eyeRY/1.2, this.eyeW, this.eyeH);
+        ellipse(this.eyeRX, this.eyeRY / 1.2, this.eyeW, this.eyeH);
         pop();
     }
 
