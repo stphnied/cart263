@@ -1,4 +1,5 @@
 {
+    "description": "dialogue library for Baymax",
     "dialogues": {
         "intro": [
             "Hello! I am Baymax, your personal healthcare companion. I was alerted to the need for medical attention when you said `ouch`!",
@@ -6,15 +7,21 @@
             "I will scan you now"
         ],
         "scanning": [
-            "Scan completed. You are experiencing what students call `A midterm crisis`. I suggest taking breaks in between session. Your mental health is very important."
+            "Scan completed. You are experiencing low level of stress. Your overall health and wellbeing are adequate.",
+            "Scan completed. You are experiencing what students call `A midterm crisis`. I suggest taking breaks in between session. Your mental health is very important.",
+            "Scan completed. You are experiencing what people call `A midlife crisis`. I suggest talking to someone you talk, reframing your situation and setting new goals. Be kind to yourself."
         ],
         "levels": [
             "low pain",
             "mild pain",
             "severe pain"
         ],
-        "deactivate": [
-            "Deactivating. See you soon"
+        "tips": [
+            "Say 'ouch' again to assess your pain.",
+            "Press on Baymax's button",
+            "Press on the light switch",
+            "Say 'I am satisfied with my care' to end session",
+            "Say Hello to Baymax"
         ],
         "random": [
             "It is alright to cry.",
@@ -37,6 +44,9 @@
             "I can not deactivate until you say `I am satisfied with my care`.",
             "Your water intake is very low. Refresh yourself with a cup of water.",
             "This is your daily reminder to stretch your body."
+        ],
+        "deactivate": [
+            "Deactivating. See you soon"
         ]
     }
 }

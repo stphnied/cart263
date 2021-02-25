@@ -68,7 +68,8 @@ function setup() {
         // Create commands
         let commands = {
             'Ouch': baymax.activate,
-            'I am satisfied with my care': callEnding
+            'I am satisfied with my care': callEnding,
+            'Hello': baymax.hello
         };
 
         // Add and calls commands
@@ -197,6 +198,7 @@ function displayLoadingCircle(config) {
     pop();
 }
 
+
 // Calling the gameplay state
 function callGameplay() {
     state = `gameplay`;
@@ -252,6 +254,13 @@ function displayInfo() {
     }
     // Name
     displayText("PATIENT: " + username.name, 32, 25, 25, BLACK_COLOR, 100, LEFT, CENTER);
+}
+
+// Displays a random tip
+function displayTip(randomTip) {
+    push();
+    displayText("TIP: " + dialoguesData.dialogues.tips[randomTip], 18, width, 25, BLACK_COLOR, 50, RIGHT, CENTER);
+    pop();
 }
 
 
@@ -311,11 +320,19 @@ function keyPressed() {
 // Mouse events
 function mousePressed() {
     if (state == `gameplay`) {
-        for (let i = 0; i < pains.length; i++) {
-            pains[i].clicked();
+
+        // Only when the pain imgs show
+        if (phraseNum == 3) {
+            for (let i = 0; i < pains.length; i++) {
+                pains[i].clicked();
+            }
         }
-        // Triggers a random catchprase from Baymax
-        baymax.clickLogo();
+
+        // Hides when scanning
+        if (phraseNum >5 ) {
+            // Triggers a random catchprase from Baymax
+            baymax.clickLogo();
+        }
 
         // Switch between daytime and nightime background
         let d = dist(mouseX, mouseY, dayBtn.x, dayBtn.y);

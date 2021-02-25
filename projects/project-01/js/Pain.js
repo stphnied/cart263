@@ -50,7 +50,7 @@ class Pain {
     // ------------------------------------------------------------------------
     clicked() {
         if (this.overlap(mouseX, mouseY)) {
-            let painLvl;
+            painLvl;
             if (this.number <= 5) {
                 painLvl = 0;
             } else if (this.number >= 6 && this.number < 9) {
@@ -68,7 +68,6 @@ class Pain {
         }
 
     }
-
 
     // overlap()
     // ------------------------------------------------------------------------

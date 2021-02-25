@@ -17,6 +17,7 @@ let username = {
 };
 // user state
 let hurt = false;
+// activate bool
 let hurtTimer;
 
 // UI relate
@@ -45,6 +46,10 @@ let angle = 6;
 let dialoguesData;
 // Indicator of the current talk state of Baymax
 let phraseNum = 0;
+// Random tip number
+let randomTip=0;
+// Activate tip bool
+let tipActivate = false;
 
 // Pain relate
 // ------------------------------------------------------------------------
@@ -53,6 +58,7 @@ let pain;
 let painImgs = [];
 let pains = [];
 let painPos = [50, 150, 250, 350, 450, 550, 650, 750, 850, 950];
+let painLvl;
 
 // Scanning relate
 // ------------------------------------------------------------------------
@@ -67,7 +73,6 @@ let linePosY = [];
 // Sounds
 // ------------------------------------------------------------------------
 let clickSfx;
-
 
 // CONSTANTS
 // ------------------------------------------------------------------------
@@ -107,5 +112,3 @@ const
 // Constant for sounds
 const
     CLICK_SFX_URL = `assets/sounds/click.mp3`;
-
-

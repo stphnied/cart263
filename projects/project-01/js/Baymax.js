@@ -104,7 +104,6 @@ class Baymax {
             }, 1000);
         }
 
-        // console.log(this.eyeH);
         this.eyeH = constrain(this.eyeH, 0, 30);
         fill(BLACK_COLOR);
         // Left eye
@@ -129,7 +128,7 @@ class Baymax {
         }
     }
 
-    // Automatic phrases and action by baymax
+ // Automatic phrases and action by baymax
     // ------------------------------------------------------------------------
     talk() {
         switch (phraseNum) {
@@ -176,19 +175,24 @@ class Baymax {
                 break;
                 // Stops all automated voice lines
             case 7:
-                // responsiveVoice.cancel();
                 break;
         }
 
     }
 
+    hello() {
+        responsiveVoice.speak("Hello"+username.name, "UK English Male", {
+            pitch: 1.1
+        });
+    }
     // Checks if user mouse is over the logo
     // ------------------------------------------------------------------------
     clickLogo() {
         let d = dist(mouseX, mouseY, this.bodyX * 1.2, this.bodyY / 1.5);
         if (d < 40 / 2) {
-            console.log("hola");
-            responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {pitch:1.1});
+            responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {
+                pitch: 1.1
+            });
         }
     }
 
