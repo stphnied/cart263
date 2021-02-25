@@ -65,7 +65,8 @@ function setup() {
     if (annyang) {
         // Create commands
         let commands = {
-            'Ouch': baymax.activate
+            'Ouch': baymax.activate,
+            'I am satisfied with my care': callEnding
         };
 
         // Add and calls commands
@@ -78,13 +79,14 @@ function setup() {
     dayBtn.y = height - 50;
 
     // Video capture ---
-    
+
     // Set up video and hide
     video = createCapture(VIDEO);
     video.hide();
     // Create scan
     scan = new Scan(video);
 
+    pain = new Pain();
     createPainImg();
 }
 
@@ -94,7 +96,7 @@ function createPainImg() {
         let x = painPos[i];
         let y = 120;
         let painImg = painImgs[i];
-        let pain = new Pain(x, y, painImg, i);
+        pain = new Pain(x, y, painImg, i);
         pains.push(pain);
     }
 }
@@ -196,26 +198,53 @@ function displayLoadingCircle(config) {
 // Calling the gameplay state
 function callGameplay() {
     state = `gameplay`;
+    hurt = false;
+    phraseNum =1;
+}
+// Calling the ending state
+function callEnding() {
+    if (phraseNum == 7) {
+        state = `ending`;
+        responsiveVoice.speak(dialoguesData.dialogues.deactivate[0], "UK English Male", {
+            pitch: 1.1
+        });
+    }
+
 }
 
 // Display button to trigger the day/night time
 function displayDayBtn() {
-    push();
+    
     // DAY
     if (dayTime) {
+        
         stroke(ORANGE_COLOR.r, ORANGE_COLOR.g - 30, ORANGE_COLOR.b);
         strokeWeight(3);
         fill(ORANGE_COLOR.r, ORANGE_COLOR.g, ORANGE_COLOR.b);
+        // Display Period of day
+        push();
+        noStroke();
+        displayText("PERIOD OF THE DAY: MORNING",22,25,50,BLACK_COLOR,100,LEFT,CENTER);
+        pop();
     }
     // NIGHT
     else {
         stroke(BLUE_COLOR.r, BLUE_COLOR.g - 30, BLUE_COLOR.b);
         strokeWeight(3);
         fill(BLUE_COLOR.r, BLUE_COLOR.g, BLUE_COLOR.b);
+        push();
+        noStroke();
+        displayText("PERIOD OF THE DAY: NIGHT",22,25,50,BLACK_COLOR,100,LEFT,CENTER);
+        pop();
     }
     ellipse(dayBtn.x, dayBtn.y, dayBtn.size);
-    pop();
+    
 
+}
+
+// display the user's name
+function displayUsername() {
+    displayText("PATIENT: " + username.name, 32, 25, 25, BLACK_COLOR, 100, LEFT, CENTER);
 }
 
 // Scans the user by user video capture
@@ -225,7 +254,7 @@ function scanUser() {
     // Scanning only last for 10 seconds
     // Calls the scanning function that uses capture video
     // Webcam
-    
+
     scan.update();
 
     // Random Y positions for the lines
@@ -236,7 +265,7 @@ function scanUser() {
     for (let i = 0; i < 25; i++) {
         let linesConfig = {
             x: width / 1.5,
-            y: linePosY[i] += random(1,10),
+            y: linePosY[i] += random(1, 10),
             w: windowWidth,
             h: 1.25,
             color: RED_COLOR,
@@ -247,7 +276,7 @@ function scanUser() {
 
         // Lines restarts on top
         if (linePosY[i] > height) {
-            linePosY[i] =0;
+            linePosY[i] = 0;
         }
     }
 }

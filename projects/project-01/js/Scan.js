@@ -6,8 +6,8 @@ class Scan {
     constructor(video) {
         // Video 
         this.vid = video;
-        this.x = width/2;
-        this.y = height/2;
+        this.x = width / 2;
+        this.y = height / 2;
         this.w = width - 20;
         this.h = height - 20;
         // Text number
@@ -21,9 +21,9 @@ class Scan {
         this.speed = 10;
         // Tint
         this.tint = {
-            r:100,
-            g:153,
-            b:204
+            r: 100,
+            g: 153,
+            b: 204
         };
     }
 
@@ -33,12 +33,22 @@ class Scan {
         this.displayImg();
         this.displayText();
 
+        setTimeout(() => {
+            if (this.ecq < 69) {
+                this.ecq++;
+            }
+            if (this.nsp < 113) {
+                this.nsp += int(random(1, 5));
+            }
+        }, random(2000,3500));
 
-        if(this.ecq < 69) {
-            this.ecq++;
-        }
-        if(this.nsp < 113){
-            this.nsp += int(random(1,5));
+        if(this.nsp >=113 && this.ecq >=69) {
+            video.hide();
+
+            setTimeout(() => {
+                phraseNum=6;
+            }, 2000);
+            
         }
     }
 
@@ -55,8 +65,8 @@ class Scan {
     // Display image of scan
     displayImg() {
         push();
-        tint(this.tint.r, this.tint.g, this.tint.b,200);
-        image(scanImg, 25, 250, 150,250);
+        tint(this.tint.r, this.tint.g, this.tint.b, 200);
+        image(scanImg, 25, 250, 125, 250);
         pop();
     }
 
@@ -99,7 +109,7 @@ class Scan {
         displayText(`
      ECQ`, 18, 20, height / 1.1, WHITE_COLOR, CENTER, LEFT);
 
-    //  Display ECQ number
+        //  Display ECQ number
         displayText(this.ecq, 38, 40, height / 1.02, WHITE_COLOR, CENTER, LEFT);
         pop();
     }
@@ -108,7 +118,7 @@ class Scan {
     drawLines(linesConfig) {
         push();
         noStroke();
-        fill(this.tint.r,this.tint.g,this.tint.b,50);
+        fill(this.tint.r, this.tint.g, this.tint.b, 50);
         rectMode(linesConfig.mode);
         rect(linesConfig.x, linesConfig.y, linesConfig.w, linesConfig.h);
         pop();

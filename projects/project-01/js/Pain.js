@@ -54,8 +54,14 @@ class Pain {
                 painLvl = 2
             }
             // clickSfx.play();
-            responsiveVoice.speak(dialoguesData.dialogues.levels[painLvl], "UK English Male", {});
+            responsiveVoice.speak("You have selected level"+(this.number+1)+"Which is"+dialoguesData.dialogues.levels[painLvl], "UK English Male", {});
+
+            setTimeout(() => {
+                phraseNum=4;
+            }, 5000);
+
         }
+
     }
 
     hover() {

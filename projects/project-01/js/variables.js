@@ -1,6 +1,6 @@
 // Variables
 // current state
-let state = `gameplay`;
+let state = `mainMenu`;
 // canvas property
 let canvas;
 // Font
@@ -23,13 +23,14 @@ let windowImgs = [];
 let baymax;
 let baymaxConfig;
 // angle of rotation
-let angle = 0;
+let angle = 6;
 // Data of baymax's dialogues
 let dialoguesData;
 // Indicator of the current talk state of Baymax
-let phraseNum =4;
+let phraseNum = 0;
 
 // Arrays of the loaded images of pain scale
+let pain;
 let painImgs = [];
 let pains = [];
 let painPos = [50, 150, 250, 350, 450, 550, 650, 750, 850, 950];

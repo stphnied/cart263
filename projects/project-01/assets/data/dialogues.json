@@ -6,7 +6,7 @@
             "I will scan you now"
         ],
         "scanning": [
-            "scan completed. You are experiencing..."
+            "Scan completed. You are experiencing what students call `A midterm crisis`. I suggest taking breaks in between session. Your mental health is very important."
         ],
         "levels": [
             "low pain",
@@ -14,14 +14,14 @@
             "severe pain"
         ],
         "deactivate": [
-            "You are satisfied with your care."
+            "Deactivating. See you soon"
         ],
         "random": [
             "It is alright to cry.",
             "I have some concerns.",
             "My programming prevents me from injuring a human being.",
             "I am a robot. I cannot be offended.",
-            "Excuse me while I let out some air.",
+            "Excuse me while I let out some air. Shhhhh",
             "“Bah-a-la-la-la.",
             "There there.",
             "You have been a good boy, Have a lollipop!",
@@ -34,7 +34,9 @@
             "I am programmed to assess everyone’s health care needs.",
             "Are you going to violate my health care chip again?",
             "Are you satisfied with your care?",
-            "I can not deactivate until you say `I am satisfied with my care`."
+            "I can not deactivate until you say `I am satisfied with my care`.",
+            "Your water intake is very low. Refresh yourself with a cup of water.",
+            "This is your daily reminder to stretch your body."
         ]
     }
 }
