@@ -53,20 +53,20 @@ class Pain {
             painLvl;
             if (this.number <= 5) {
                 painLvl = 0;
-            } else if (this.number >= 6 && this.number < 9) {
+            }
+            else if (this.number >= 6 && this.number < 9) {
                 painLvl = 1
-            } else if (this.number == 9) {
+            }
+            else if (this.number == 9) {
                 painLvl = 2
             }
-            // clickSfx.play();
+            clickSfx.play();
             responsiveVoice.speak("You have selected level"+(this.number+1)+"Which is"+dialoguesData.dialogues.levels[painLvl], "UK English Male", {pitch:1.1});
 
             setTimeout(() => {
                 phraseNum=4;
             }, 5000);
-
         }
-
     }
 
     // overlap()
@@ -82,7 +82,8 @@ class Pain {
 
             return true
 
-        } else {
+        }
+        else {
             return false;
         }
     }

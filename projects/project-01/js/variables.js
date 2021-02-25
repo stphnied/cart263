@@ -3,7 +3,7 @@
 // Setup variables
 // ------------------------------------------------------------------------
 // current state
-let state = `mainMenu`;
+let state = `gameplay`;
 // canvas property
 let canvas;
 // Font
@@ -45,7 +45,7 @@ let angle = 6;
 // Data of baymax's dialogues
 let dialoguesData;
 // Indicator of the current talk state of Baymax
-let phraseNum = 0;
+let phraseNum = 3;
 // Random tip number
 let randomTip=0;
 // Activate tip bool
@@ -73,7 +73,7 @@ let linePosY = [];
 // Sounds
 // ------------------------------------------------------------------------
 let clickSfx;
-
+let scanningSfx;
 // CONSTANTS
 // ------------------------------------------------------------------------
 // Constant for colors
@@ -111,4 +111,5 @@ const
     NUM_PAIN_SCALE = 10;
 // Constant for sounds
 const
-    CLICK_SFX_URL = `assets/sounds/click.mp3`;
+    CLICK_SFX_URL = `assets/sounds/click.mp3`,
+    SCANNING_SFX_URL = `assets/sounds/scanning.mp3`;

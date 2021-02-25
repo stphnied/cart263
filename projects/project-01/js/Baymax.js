@@ -35,7 +35,6 @@ class Baymax {
     update() {
         this.display();
         this.blink();
-
     }
 
     // Displaying Baymax visual
@@ -123,12 +122,14 @@ class Baymax {
                 pitch: 1.1
             });
             hurt = true;
-        } else if (state == `gameplay`) {
+        }
+        else if (state == `gameplay`) {
             phraseNum = 2;
         }
     }
 
- // Automatic phrases and action by baymax
+    // Automatic phrases and action by baymax
+    //  Many stages of Baymax 
     // ------------------------------------------------------------------------
     talk() {
         switch (phraseNum) {
@@ -168,7 +169,7 @@ class Baymax {
                 break;
                 // Says Scan results
             case 6:
-                responsiveVoice.speak(dialoguesData.dialogues.scanning[0], "UK English Male", {
+                responsiveVoice.speak(dialoguesData.dialogues.scanning[painLvl], "UK English Male", {
                     pitch: 1.1
                 });
                 phraseNum++;
@@ -180,11 +181,13 @@ class Baymax {
 
     }
 
+    // Baymax says hello back
     hello() {
         responsiveVoice.speak("Hello"+username.name, "UK English Male", {
             pitch: 1.1
         });
     }
+
     // Checks if user mouse is over the logo
     // ------------------------------------------------------------------------
     clickLogo() {

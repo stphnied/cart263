@@ -48,6 +48,7 @@ function preload() {
     // Sounds ---
     // Clicking sound
     clickSfx = loadSound(CLICK_SFX_URL);
+    scanningSfx = loadSound(SCANNING_SFX_URL);
 }
 
 
@@ -168,7 +169,8 @@ function displayBg() {
     if (dayTime) {
         image(bgImgs[0], bgConfig.x, bgConfig.y);
         image(windowImgs[0], 0, 0);
-    } else {
+    }
+    else {
         image(bgImgs[1], bgConfig.x, bgConfig.y);
         image(windowImgs[1], 0, 0);
     }
@@ -246,7 +248,8 @@ function displayInfo() {
         noStroke();
         displayText("PERIOD OF THE DAY: MORNING", 22, 25, 50, BLACK_COLOR, 100, LEFT, CENTER);
         pop();
-    } else {
+    }
+    else {
         push();
         noStroke();
         displayText("PERIOD OF THE DAY: NIGHT", 22, 25, 50, BLACK_COLOR, 100, LEFT, CENTER);
@@ -300,7 +303,6 @@ function scanUser() {
     }
 }
 
-
 // Mouse & Key pressed functions
 // ------------------------------------------------------------------------
 
@@ -339,7 +341,8 @@ function mousePressed() {
         if (d < dayBtn.size / 2) {
             if (dayTime) {
                 dayTime = false
-            } else {
+            }
+            else {
                 dayTime = true;
             }
         }

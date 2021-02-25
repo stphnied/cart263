@@ -70,25 +70,36 @@ function gameplay() {
     baymax.update();
     baymax.talk();
 
+    // Play scanning sounds when it's video capture time
+    if (phraseNum == 5) {
+        if (!scanningSfx.isPlaying()) {
+            scanningSfx.play();
+            scanningSfx.setVolume(0.05);
+        }
+    }
+    
     // Hiding Video
     // Hide Btn
+    // Stops scanning sound
     if (phraseNum != 5) {
         push();
         displayDayBtn();
         video.hide();
+        scanningSfx.stop();
         pop();
 
-        // Display info on top
+        // If passed the scanning stage:
+        // Display info and tips
         if (phraseNum > 5) {
             displayInfo();
-
+            // Assign random tip
             if (!tipActivate) {
-                // display
                 setInterval(() => {
                     randomTip = int(random(0, 4));
                 }, 5000);
                 tipActivate = true;
             }
+            // display tip
             displayTip(randomTip);
 
         }
@@ -101,7 +112,7 @@ function gameplay() {
 function ending() {
     background(RED_COLOR);
     let onlyPlayOnce = false;
-    if (!responsiveVoice.isPlaying() && !onlyPlayOnce ) {
+    if (!responsiveVoice.isPlaying() && !onlyPlayOnce) {
         responsiveVoice.speak(dialoguesData.dialogues.deactivate[0], "UK English Male", {
             pitch: 1.1
         });
