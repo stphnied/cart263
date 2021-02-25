@@ -14,7 +14,6 @@ class Pain {
         this.display();
     }
 
-
     //Displays pain-level visuals on the canvas
     // ------------------------------------------------------------------------
     display() {

@@ -13,6 +13,6 @@ I have stated before that my goal in this class and in general is to create some
 -
 
 ## Credits
-Music:
+Sound: Binary Code by Sound Response
 Font: Acetone by TypeFactory <br/>
 Art by Stephanie Dang <br/>

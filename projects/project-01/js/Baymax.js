@@ -193,6 +193,7 @@ class Baymax {
     clickLogo() {
         let d = dist(mouseX, mouseY, this.bodyX * 1.2, this.bodyY / 1.5);
         if (d < 40 / 2) {
+            clickSfx.play();
             responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {
                 pitch: 1.1
             });

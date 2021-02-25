@@ -345,6 +345,7 @@ function mousePressed() {
             else {
                 dayTime = true;
             }
+            clickSfx.play();
         }
     }
 }

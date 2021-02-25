@@ -3,7 +3,7 @@
 // Setup variables
 // ------------------------------------------------------------------------
 // current state
-let state = `gameplay`;
+let state = `mainMenu`;
 // canvas property
 let canvas;
 // Font
@@ -45,7 +45,7 @@ let angle = 6;
 // Data of baymax's dialogues
 let dialoguesData;
 // Indicator of the current talk state of Baymax
-let phraseNum = 3;
+let phraseNum = 0;
 // Random tip number
 let randomTip=0;
 // Activate tip bool
