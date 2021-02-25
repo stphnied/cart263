@@ -70,16 +70,18 @@ function gameplay() {
     baymax.update();
     baymax.talk();
 
-    // day/night btn
+    // Hiding Video
+    // Hide Btn
     if (phraseNum != 5) {
         push();
-
+        displayDayBtn();
         video.hide();
         pop();
 
+        // Display info on top
         if(phraseNum >5) {
-            displayUsername();
-            displayDayBtn();
+            displayInfo();
+            
         }
     }
 }

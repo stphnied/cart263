@@ -199,7 +199,7 @@ function displayLoadingCircle(config) {
 function callGameplay() {
     state = `gameplay`;
     hurt = false;
-    phraseNum =1;
+    phraseNum = 1;
 }
 // Calling the ending state
 function callEnding() {
@@ -214,36 +214,41 @@ function callEnding() {
 
 // Display button to trigger the day/night time
 function displayDayBtn() {
-    
     // DAY
     if (dayTime) {
-        
         stroke(ORANGE_COLOR.r, ORANGE_COLOR.g - 30, ORANGE_COLOR.b);
         strokeWeight(3);
         fill(ORANGE_COLOR.r, ORANGE_COLOR.g, ORANGE_COLOR.b);
-        // Display Period of day
-        push();
-        noStroke();
-        displayText("PERIOD OF THE DAY: MORNING",22,25,50,BLACK_COLOR,100,LEFT,CENTER);
-        pop();
+
     }
     // NIGHT
     else {
         stroke(BLUE_COLOR.r, BLUE_COLOR.g - 30, BLUE_COLOR.b);
         strokeWeight(3);
         fill(BLUE_COLOR.r, BLUE_COLOR.g, BLUE_COLOR.b);
-        push();
-        noStroke();
-        displayText("PERIOD OF THE DAY: NIGHT",22,25,50,BLACK_COLOR,100,LEFT,CENTER);
-        pop();
+
     }
     ellipse(dayBtn.x, dayBtn.y, dayBtn.size);
-    
-
 }
 
-// display the user's name
-function displayUsername() {
+// Displays information on top left
+// Username's name
+// Period of time
+function displayInfo() {
+    // Period of time
+    if (dayTime) {
+        // Display Period of day
+        push();
+        noStroke();
+        displayText("PERIOD OF THE DAY: MORNING", 22, 25, 50, BLACK_COLOR, 100, LEFT, CENTER);
+        pop();
+    } else {
+        push();
+        noStroke();
+        displayText("PERIOD OF THE DAY: NIGHT", 22, 25, 50, BLACK_COLOR, 100, LEFT, CENTER);
+        pop();
+    }
+    // Name
     displayText("PATIENT: " + username.name, 32, 25, 25, BLACK_COLOR, 100, LEFT, CENTER);
 }
 
