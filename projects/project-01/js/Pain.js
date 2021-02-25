@@ -9,11 +9,14 @@ class Pain {
     }
 
     // Calls display function
+    // ------------------------------------------------------------------------
     update() {
         this.display();
     }
 
+
     //Displays pain-level visuals on the canvas
+    // ------------------------------------------------------------------------
     display() {
         // Displaying the scale of 1-10
         displayText(`From a scale of 1-10, select your pain:`, 32, width / 2, 50, WHITE_COLOR, CENTER, CENTER);
@@ -30,6 +33,7 @@ class Pain {
     }
 
     // displays a background rectangle for the images
+    // ------------------------------------------------------------------------
     displayRect() {
         // rectangle border
         push();
@@ -43,6 +47,7 @@ class Pain {
     }
 
     // clicked on image
+    // ------------------------------------------------------------------------
     clicked() {
         if (this.overlap(mouseX, mouseY)) {
             let painLvl;
@@ -54,7 +59,7 @@ class Pain {
                 painLvl = 2
             }
             // clickSfx.play();
-            responsiveVoice.speak("You have selected level"+(this.number+1)+"Which is"+dialoguesData.dialogues.levels[painLvl], "UK English Male", {});
+            responsiveVoice.speak("You have selected level"+(this.number+1)+"Which is"+dialoguesData.dialogues.levels[painLvl], "UK English Male", {pitch:1.1});
 
             setTimeout(() => {
                 phraseNum=4;
@@ -64,16 +69,9 @@ class Pain {
 
     }
 
-    hover() {
-        if (this.overlap(mouseX, mouseY)) {
-            if (!clickSfx.isPlaying()) {
-                // clickSfx.play();
-            }
-            // cursor(pointer);
-            console.log("hover");
-        }
-    }
 
+    // overlap()
+    // ------------------------------------------------------------------------
     // Checks if the pos x,y is inside the image
     // Return true if the user clicked was inside the img
     // Else false

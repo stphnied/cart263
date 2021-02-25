@@ -7,3 +7,5 @@ Class work for CART-263!
 - [Exercice 03](https://stphnied.github.io/cart263/exercises/03-spy-plus/)
 - [Exercice 04](https://stphnied.github.io/cart263/exercises/04-bubble-popper-plus/)
 
+###### Projects
+- [Project 01](https://stphnied.github.io/cart263/projects/project-01/)

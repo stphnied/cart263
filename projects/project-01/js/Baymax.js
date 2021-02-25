@@ -31,6 +31,7 @@ class Baymax {
     }
 
     // Calls display and blink function
+    // ------------------------------------------------------------------------
     update() {
         this.display();
         this.blink();
@@ -119,8 +120,12 @@ class Baymax {
     // ------------------------------------------------------------------------
     activate() {
         if (state == `instruction`) {
-            responsiveVoice.speak(`Activating...`, "UK English Male", {pitch:1.1});
+            responsiveVoice.speak(`Activating...`, "UK English Male", {
+                pitch: 1.1
+            });
             hurt = true;
+        } else if (state == `gameplay`) {
+            phraseNum = 2;
         }
     }
 
@@ -130,14 +135,18 @@ class Baymax {
         switch (phraseNum) {
             // Introduce himself
             case 1:
-                if(!responsiveVoice.isPlaying()){
-                    responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {pitch:1.1});
+                if (!responsiveVoice.isPlaying()) {
+                    responsiveVoice.speak(dialoguesData.dialogues.intro[0], "UK English Male", {
+                        pitch: 1.1
+                    });
                     phraseNum++;
                 }
                 break;
                 // Says: On a scale of 1-10...
             case 2:
-                responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {pitch:1.1});
+                responsiveVoice.speak(dialoguesData.dialogues.intro[1], "UK English Male", {
+                    pitch: 1.1
+                });
                 phraseNum++;
                 break;
                 // Show pain scale --> Calls 
@@ -145,12 +154,13 @@ class Baymax {
                 pain.displayRect();
                 for (let i = 0; i < NUM_PAIN_SCALE; i++) {
                     pains[i].update();
-                    pains[i].hover();
                 }
                 break;
                 // Says : Will scan...
             case 4:
-                responsiveVoice.speak(dialoguesData.dialogues.intro[2], "UK English Male", {pitch:1.1});
+                responsiveVoice.speak(dialoguesData.dialogues.intro[2], "UK English Male", {
+                    pitch: 1.1
+                });
                 phraseNum++;
                 break;
                 // Calls scanUser()
@@ -159,7 +169,9 @@ class Baymax {
                 break;
                 // Says Scan results
             case 6:
-                responsiveVoice.speak(dialoguesData.dialogues.scanning[0], "UK English Male", {pitch:1.1});
+                responsiveVoice.speak(dialoguesData.dialogues.scanning[0], "UK English Male", {
+                    pitch: 1.1
+                });
                 phraseNum++;
                 break;
                 // Stops all automated voice lines
@@ -176,11 +188,12 @@ class Baymax {
         let d = dist(mouseX, mouseY, this.bodyX * 1.2, this.bodyY / 1.5);
         if (d < 40 / 2) {
             console.log("hola");
-            responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {});
+            responsiveVoice.speak(random(dialoguesData.dialogues.random), "UK English Male", {pitch:1.1});
         }
     }
 
     // Display Baymax's sleeping face
+    // ------------------------------------------------------------------------
     displayEndFace(color) {
         push()
         stroke(color, 200);

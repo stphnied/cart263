@@ -28,6 +28,7 @@ class Scan {
     }
 
     // Calls the functions below
+    // ------------------------------------------------------------------------
     update() {
         this.displayVideo();
         this.displayImg();
@@ -53,6 +54,7 @@ class Scan {
     }
 
     // Displays the webcam/video capture
+    // ------------------------------------------------------------------------
     displayVideo() {
         background(0);
         push();
@@ -63,6 +65,7 @@ class Scan {
     }
 
     // Display image of scan
+    // ------------------------------------------------------------------------
     displayImg() {
         push();
         tint(this.tint.r, this.tint.g, this.tint.b, 200);
@@ -71,6 +74,7 @@ class Scan {
     }
 
     // Displays texts on canva/video
+    // ------------------------------------------------------------------------
     displayText() {
         // Underline Title
         push();

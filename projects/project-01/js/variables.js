@@ -1,10 +1,16 @@
 // Variables
+
+// Setup variables
+// ------------------------------------------------------------------------
 // current state
 let state = `mainMenu`;
 // canvas property
 let canvas;
 // Font
 let myFont;
+
+// User relate 
+// ------------------------------------------------------------------------
 // Username object
 let username = {
     name: ``
@@ -12,13 +18,24 @@ let username = {
 // user state
 let hurt = false;
 let hurtTimer;
+
+// UI relate
+// ------------------------------------------------------------------------
 // time of the day
 let dayTime = true;
+// button
+let dayBtn = {
+    x:undefined,
+    y:undefined,
+    size:30
+};
 // Background images
 let bgImgs = [];
 // let windowImg;
 let windowImgs = [];
 
+// Baymax relate
+// ------------------------------------------------------------------------
 // baymax object
 let baymax;
 let baymaxConfig;
@@ -29,32 +46,31 @@ let dialoguesData;
 // Indicator of the current talk state of Baymax
 let phraseNum = 0;
 
+// Pain relate
+// ------------------------------------------------------------------------
 // Arrays of the loaded images of pain scale
 let pain;
 let painImgs = [];
 let pains = [];
 let painPos = [50, 150, 250, 350, 450, 550, 650, 750, 850, 950];
 
+// Scanning relate
+// ------------------------------------------------------------------------
 // video tag
 let video;
 // Image of bodyscan
 let scanImg;
 let scan;
-// Keeping track of baymax's lines
-let baymaxTalkTrack = 0;
 // line pos
 let linePosY = [];
 
-// button
-let dayBtn = {
-    x:undefined,
-    y:undefined,
-    size:30
-};
-
 // Sounds
+// ------------------------------------------------------------------------
 let clickSfx;
+
+
 // CONSTANTS
+// ------------------------------------------------------------------------
 // Constant for colors
 const
     BLACK_COLOR = (23, 29, 34),

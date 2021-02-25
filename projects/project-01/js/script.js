@@ -6,12 +6,14 @@ A Night at the Movies --> A Day with Baymax!
 Stephanie Dang
 
 Introducing BAYMAX, your personal healthcare robot from the movie BIG HERO 6.
-User has to provide their name before the program can load
-User has to pinch themselves and say ouch to activate baymax
-Baymax is now activated.
-- Press on Baymax's logo to trigger a phrase
-- Say "I am satisfied with my care" to deactivate baymax
-- Say Ouch to select pain level
+For this project, the user will be able to get a health check from our special AI BAYMAX!
+The user will have to provide their name and agree to the terms.
+To activate BAYMAX, user has to feel pain and therefore, will have to pinch themselves and say "ouch" to their microphone 
+When Baymax will be activated, a serie of lines and questions will be asked. BAYMAX will be interpreted by using a responsiveVoice.
+The user will then be proceeded to get a scan check with video capture.
+The user can toggle between day and night by clicking on the button at the bottom right.
+To deactivate BAYMAX, the user will have to say a certain phrase.
+Clicking on Baymax's button will trigger a random dialogue from him.
 ******************/
 
 // preload()
@@ -79,13 +81,15 @@ function setup() {
     dayBtn.y = height - 50;
 
     // Video capture ---
-
     // Set up video and hide
     video = createCapture(VIDEO);
     video.hide();
+
     // Create scan
     scan = new Scan(video);
 
+    // Create pain oop
+    // Calls the createPainImg
     pain = new Pain();
     createPainImg();
 }
@@ -123,7 +127,6 @@ function draw() {
     }
 }
 
-
 // Data storing function
 // Storing the user's name in Localstorage
 // ------------------------------------------------------------------------
@@ -132,7 +135,6 @@ function saveName() {
         username.name = prompt(`Provide your name here`, `[Name]`);
         localStorage.setItem(`user-name`, JSON.stringify(username));
         state = `instruction`;
-        console.log(username.name);
     }
 }
 
@@ -252,9 +254,12 @@ function displayInfo() {
     displayText("PATIENT: " + username.name, 32, 25, 25, BLACK_COLOR, 100, LEFT, CENTER);
 }
 
+
+// scanUser()
 // Scans the user by user video capture
 // Displays lines as scanning features
 // Calls the Scan class
+// ------------------------------------------------------------------------
 function scanUser() {
     // Scanning only last for 10 seconds
     // Calls the scanning function that uses capture video
@@ -294,15 +299,8 @@ function scanUser() {
 // Going onto next state when pressing `ENTER`
 // Debugging made easier
 function keyPressed() {
-    if (state == `mainMenu`) {
-        if (keyCode === ENTER) {
-            state = `instruction`;
-        }
-    } else if (state == `instruction`) {
-        if (keyCode === ENTER) {
-            state = `gameplay`;
-        }
-    } else if (state == `ending`) {
+
+    if (state == `ending`) {
         if (keyCode == ENTER) {
             location.reload();
         }
