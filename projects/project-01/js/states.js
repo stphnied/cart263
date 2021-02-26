@@ -110,6 +110,7 @@ function gameplay() {
 // Ending screen when user deactivates Baymax
 // ------------------------------------------------------------------------
 function ending() {
+    canvas.drawingContext.setLineDash([]);
     background(RED_COLOR);
     let onlyPlayOnce = false;
     if (!responsiveVoice.isPlaying() && !onlyPlayOnce) {
@@ -127,4 +128,6 @@ function ending() {
     HERO
     263`,
         24, width - 2, height - 100, WHITE_COLOR, 50, RIGHT, RIGHT);
+
+    console.log(phraseNum);
 }
