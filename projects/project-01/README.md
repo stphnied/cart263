@@ -3,7 +3,7 @@
 Access the project here : [BAYMAX_CARE](https://stphnied.github.io/cart263/projects/project-01/)
 
 ## Artist’s statement
-I have stated before that my goal in this class and in general is to create something cute. This project was set to 
+
 
 ## Instruction
 ###### Menu
@@ -16,3 +16,6 @@ I have stated before that my goal in this class and in general is to create some
 Sound: Binary Code by Sound Response
 Font: Acetone by TypeFactory <br/>
 Art by Stephanie Dang <br/>
+
+
+<!--  artistic vision, the desired user experience, and how you believe you accomplished this both technically and artistically.  -->

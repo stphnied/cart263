@@ -7,14 +7,18 @@
             "I will scan you now"
         ],
         "scanning": [
-            "Scan completed. You are experiencing low level of stress. Your overall health and wellbeing are adequate.",
+            "Scan completed. You are experiencing almost to no pain. You are in good shape. Keep up the good work.",
+            "Scan completed. You are experiencing low level of stress. You might feel slight incomfort in life but your overall health and wellbeing are fine.",
             "Scan completed. You are experiencing what students call `A midterm crisis`. I suggest taking breaks in between session. Your mental health is very important.",
-            "Scan completed. You are experiencing what people call `A midlife crisis`. I suggest talking to someone you talk, reframing your situation and setting new goals. Be kind to yourself."
+            "Scan completed. You are experiencing what people call `A midlife crisis`. I suggest talking to someone, reframing your situation and setting new goals.",
+            "Scan completed. You are experiencing an existential crisis. I am Baymax and my existence is to support you."
         ],
         "levels": [
-            "low pain",
+            "no pain",
+            "light pain",
             "mild pain",
-            "severe pain"
+            "severe pain",
+            "extreme pain"
         ],
         "tips": [
             "Say 'ouch' again to assess your pain.",
@@ -25,18 +29,18 @@
         ],
         "random": [
             "It is alright to cry.",
-            "I have some concerns.",
+            "I have some concerns for you.",
             "My programming prevents me from injuring a human being.",
             "I am a robot. I cannot be offended.",
             "Excuse me while I let out some air. Shhhhh",
             "“Bah-a-la-la-la.",
-            "There there.",
+            "There there. You will be okay.",
             "You have been a good boy, Have a lollipop!",
             "...Crying is a natural response to pain.",
-            "Would you like a hug?",
+            "Would you like a hug? Hug.",
             "Hello... I am Baymax... your personal... healthcare companion... what seems to be the problem?",
             "Hairy baby!",
-            "You have sustained no injuries. However, your hormone and neurotransmitter levels indicate that you are experiencing mood swings, common in adolescence. Diagnosis? Puberty.",
+            "You have sustained no injuries. However, your hormone and neurotransmitter levels indicate that you are experiencing mood swings, common in adolescence. Diagnosis: Puberty.",
             "Always wait one hour after eating before swimming.",
             "I am programmed to assess everyone’s health care needs.",
             "Are you going to violate my health care chip again?",

@@ -96,7 +96,7 @@ function gameplay() {
             if (!tipActivate) {
                 setInterval(() => {
                     randomTip = int(random(0, 4));
-                }, 5000);
+                }, 8000);
                 tipActivate = true;
             }
             // display tip

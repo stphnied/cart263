@@ -50,20 +50,33 @@ class Pain {
     clicked() {
         if (this.overlap(mouseX, mouseY)) {
             painLvl;
-            if (this.number <= 5) {
+            // No pain
+            if (this.number <= 1) {
                 painLvl = 0;
             }
-            else if (this.number >= 6 && this.number < 9) {
-                painLvl = 1
+            // 
+            else if (this.number == 2 || this.number == 3) {
+                painLvl = 1;
             }
-            else if (this.number == 9) {
-                painLvl = 2
+            // Low pain
+            else if (this.number == 4 || this.number ==5) {
+                painLvl = 2;
+            }
+            // Mild pain
+            else if (this.number == 6 || this.number == 7) {
+                painLvl = 3;
+            }
+            // Severe pain
+            else if (this.number >=8) {
+                painLvl = 4;
             }
             clickSfx.play();
-            responsiveVoice.speak("You have selected level"+(this.number+1)+"Which is"+dialoguesData.dialogues.levels[painLvl], "UK English Male", {pitch:1.1});
+            responsiveVoice.speak("You have selected level" + (this.number + 1) + "Which is" + dialoguesData.dialogues.levels[painLvl], "UK English Male", {
+                pitch: 1.1
+            });
 
             setTimeout(() => {
-                phraseNum=4;
+                phraseNum = 4;
             }, 5000);
         }
     }
@@ -81,8 +94,7 @@ class Pain {
 
             return true
 
-        }
-        else {
+        } else {
             return false;
         }
     }
