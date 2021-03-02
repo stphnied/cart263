@@ -1,5 +1,4 @@
-# Project 01 : A Night at the Movies
- <br/>
+# Project 01 : A Night at the Movies <br/>
 ## Artist’s statement
 For the `A Night at the Movies` project, I decided to recreated an interactive  scene from the movie BIG HERO 6 
 by programming my own version of Baymax. The scene that I recreated is the first meeting between Hiro and Baymax.
