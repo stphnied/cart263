@@ -113,12 +113,7 @@ function ending() {
     canvas.drawingContext.setLineDash([]);
     background(RED_COLOR);
     let onlyPlayOnce = false;
-    if (!responsiveVoice.isPlaying() && !onlyPlayOnce) {
-        responsiveVoice.speak(dialoguesData.dialogues.deactivate[0], "UK English Male", {
-            pitch: 1.1
-        });
-        onlyPlayOnce = true;
-    }
+
     displayText(`THANK YOU FOR USING MY SERVICE.`, 42, width / 2, height / 2, WHITE_COLOR, 250, CENTER, CENTER);
     displayText(`press [ENTER] to reactivate me.`, 32, width / 2, height / 1.75, BLACK_COLOR, 150, CENTER, CENTER);
 
@@ -128,4 +123,8 @@ function ending() {
     HERO
     263`,
         24, width - 2, height - 100, WHITE_COLOR, 50, RIGHT, RIGHT);
+
+    // FIXING ISSUE ON GITHUB:
+    // Changing phrase num to 8 to call the ending 
+    phraseNum = 8;
 }

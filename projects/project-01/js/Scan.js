@@ -41,15 +41,11 @@ class Scan {
             if (this.nsp < 113) {
                 this.nsp += int(random(1, 5));
             }
-        }, random(2000,3500));
+        }, random(2000, 3500));
 
-        if(this.nsp >=113 && this.ecq >=69) {
+        if (this.nsp >= 113 && this.ecq >= 69) {
             video.hide();
-
-            setTimeout(() => {
-                phraseNum=6;
-            }, 2000);
-            
+            phraseNum = 6;
         }
     }
 

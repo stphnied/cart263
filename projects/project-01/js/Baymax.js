@@ -122,8 +122,7 @@ class Baymax {
                 pitch: 1.1
             });
             hurt = true;
-        }
-        else if (state == `gameplay`) {
+        } else if (state == `gameplay`) {
             phraseNum = 2;
         }
     }
@@ -169,13 +168,28 @@ class Baymax {
                 break;
                 // Says Scan results
             case 6:
-                responsiveVoice.speak(dialoguesData.dialogues.scanning[painLvl], "UK English Male", {
-                    pitch: 1.1
-                });
-                phraseNum++;
+                if (!responsiveVoice.isPlaying()) {
+                    responsiveVoice.speak(dialoguesData.dialogues.scanning[painLvl], "UK English Male", {
+                        pitch: 1.1
+                    });
+                    phraseNum++;
+                }
                 break;
                 // Stops all automated voice lines
             case 7:
+                break;
+                // Ending
+            case 8:
+                if (!responsiveVoice.isPlaying() && !onlyPlayOnce) {
+                    responsiveVoice.speak(dialoguesData.dialogues.deactivate[0], "UK English Male", {
+                        pitch: 1.1
+                    });
+                    onlyPlayOnce = true;
+                    phraseNum++;
+                }
+                break;
+                // Stop responsiveVoice loop
+            case 9:
                 break;
         }
 
@@ -183,7 +197,7 @@ class Baymax {
 
     // Baymax says hello back
     hello() {
-        responsiveVoice.speak("Hello"+username.name, "UK English Male", {
+        responsiveVoice.speak("Hello" + username.name, "UK English Male", {
             pitch: 1.1
         });
     }
