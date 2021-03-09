@@ -1,0 +1,16 @@
+body {
+    color: white;
+    background-color:darkgreen;
+    width: 50vw;
+    margin: 0 auto;
+}
+
+#haiku {
+    font-family: 'Gill Sans';
+    font-size : 5rem;
+}
+
+#haiku p:hover {
+    cursor: pointer;
+    color:coral;
+}
