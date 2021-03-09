@@ -1,16 +1,36 @@
 body {
-    color: white;
-    background-color:darkgreen;
-    width: 50vw;
+    width: 100vw;
     margin: 0 auto;
+    background-image: url(https://global.canon/en/tsuzuri/img/works/umeyanaginiunkin_south.jpg);
+    background-repeat: none;
+    background-size: cover;
+    opacity: 0.9;
 }
 
 #haiku {
+    width: 40vw;
+    height: 50vh;
+    margin: 10% auto;
+    background-color: rgb(0, 0, 0);
+    border: 5px solid rgba(117, 103, 42, 0.842);
     font-family: 'Gill Sans';
     font-size : 5rem;
+    color:wheat;
+}
+
+#haiku {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#haiku p {
+    font-size : 2rem;
+    text-align: center;
 }
 
 #haiku p:hover {
     cursor: pointer;
-    color:coral;
+    color:rgb(105, 143, 62);
 }
