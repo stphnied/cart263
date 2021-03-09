@@ -22,6 +22,8 @@ let line3 = random(fiveSyllableLines);
 let aLines = [line1, line2, line3];
 // paragraph element
 let lines = d.querySelectorAll(`p`);
+// Input btn
+let btnPrint = d.querySelector(`input`);
 
 
 // Calling functions
@@ -39,9 +41,12 @@ function setupLines() {
 // addListeners()
 // Adding the click event to each lines
 function addListeners() {
+    // Changing lines
     for (let i = 0; i < aLines.length; i++) {
         lines[i].addEventListener(`click`, changeLine);
     }
+    // Print
+    btnPrint.addEventListener(`click`, printRequest);
 }
 
 // changeLine(evt)
@@ -50,11 +55,9 @@ function changeLine(evt) {
     fadeOut(evt.target, 1);
 }
 
-// Functions
-// ---------------------------------------------
-
-
-
+function printRequest(evt) {
+    window.print();
+}
 // fadeOut()
 // Fading out anmation
 function fadeOut(elm, opacity) {
