@@ -4,14 +4,20 @@ Stephanie Dang
 
 We will create a webpage that displays a haiku where each line is chosen at random from a set of possibilities.
 If the user clicks on a line it will fade out and fade back in as a new randomly selected line.
+
+New features:
+- Overall new look (CSS)
+- YOU CAN PRINT
+- 
 */
 
 "use strict";
 
 // Variables 
 // ---------------------------------------------
+// to shorten the name of document
 const d = document;
-// Haiku
+// Haiku of 5 and 7
 let fiveSyllableLines = [`O, to be a tree`, `The cat does not know`, `We are all forests`, `You have done your best`, `They are all gone now`];
 let sevenSyllableLines = [`Say the things left unsaid, Never believe the wind's lies`, `The autumn stretches its legs`, `Nothing can satisfy you`, `They will not come back again`];
 // Assign random lines to line
@@ -24,7 +30,38 @@ let aLines = [line1, line2, line3];
 let lines = d.querySelectorAll(`p`);
 // Input btn
 let btnPrint = d.querySelector(`input`);
+// title
+let titleTxt;
 
+// Flower array for Title
+let title = d.querySelector(`h2`);
+let flowerName = ["lily",
+    "lotus flower",
+    "marigold",
+    "marjoram",
+    "mimosa",
+    "narcissus",
+    "orange blossom",
+    "orchid",
+    "peach blossom",
+    "peony",
+    "petunia",
+    "rhododendron",
+    "rosemary",
+    "roses",
+    "sage",
+    "snapdragon",
+    "sunflower",
+    "tansy",
+    "thistle",
+    "thyme",
+    "tulip",
+    "violet",
+    "water lily",
+    "zinnia"
+];
+// Functions 
+// ---------------------------------------------
 
 // Calling functions
 addListeners();
@@ -47,6 +84,8 @@ function addListeners() {
     }
     // Print
     btnPrint.addEventListener(`click`, printRequest);
+    // Title change
+    title.addEventListener(`click`,changeTitle);
 }
 
 // changeLine(evt)
@@ -58,6 +97,12 @@ function changeLine(evt) {
 function printRequest(evt) {
     window.print();
 }
+
+// Changing to a random title
+function changeTitle(evt) {
+    fadeOut(evt.target, 1);
+}
+
 // fadeOut()
 // Fading out anmation
 function fadeOut(elm, opacity) {
@@ -69,6 +114,10 @@ function fadeOut(elm, opacity) {
         requestAnimationFrame(() => fadeOut(elm, opacity))
     }
     // if not
+    else if(elm == title) {
+        setnewTitle(elm);
+        fadeIn(elm,0);
+    }
     else {
         setNewLine(elm);
         fadeIn(elm, 0);
@@ -91,13 +140,17 @@ function fadeIn(elm, opacity) {
 // setNewLine(elm)
 // setting new lines
 function setNewLine(elm) {
-    console.log(elm);
     if (elm == lines[0] || elm == lines[2]) {
         elm.innerText = random(fiveSyllableLines);
-    }
-    else if (elm == lines[1]) {
+    } else if (elm == lines[1]) {
         elm.innerText = random(sevenSyllableLines);
     }
+}
+
+// setNewTitle
+// setting a new title every click
+function setnewTitle() {
+    title.innerText = random(flowerName);
 }
 
 // generate random haiku

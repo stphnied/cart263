@@ -57,3 +57,13 @@ input:hover {
     cursor: pointer;
     background-color: rgb(126, 97, 44);
 }
+
+/* H2 */
+h2 {
+    margin: 0;
+    color: rgb(245, 245, 245);
+}
+
+h2:hover {
+    cursor: pointer;
+}
