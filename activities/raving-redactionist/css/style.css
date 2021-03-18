@@ -4,3 +4,21 @@ Here is a description of any special CSS used.
 By default that's nothing.
 
 **********************************************/
+
+#secret-document {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.75rem;
+}
+
+.redacted {
+    background-color: red;
+    color: red;
+    user-select: none;
+}
+
+.revealed {
+    background-color: none;
+    user-select: text;
+    color: red;
+    text-decoration:underline;
+}
