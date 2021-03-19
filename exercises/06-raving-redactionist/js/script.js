@@ -48,11 +48,6 @@ function redact() {
     secrets--;
 }
 
-(() => {
-
-});
-
-
 // Checks every frame if all secrets are exposed
 setInterval(function () {
      $(`span`).each(lose)
