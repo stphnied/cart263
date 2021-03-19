@@ -1,0 +1,43 @@
+/*********************************************
+
+Here is a description of any special CSS used.
+By default that's nothing.
+
+**********************************************/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    cursor: default;
+}
+
+h2 {
+    text-decoration: line-through;
+}
+
+#secret-document {
+    width: 50%;
+    background: whitesmoke;
+    padding: 2rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    text-align: justify;
+}
+
+.redacted {
+    background-color: black;
+    user-select: none;
+}
+
+.revealed {
+    background-color: none;
+    user-select: text;
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+}
+
