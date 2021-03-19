@@ -12,6 +12,9 @@ Added features:
 */
 
 "use strict";
+// keeping count of secrets revealed
+let secrets = 0;
+
 // Adds a `top-secret` clas to all span
 $(`span`).addClass(`top-secret`);
 // Add an eventlistener 
@@ -34,6 +37,7 @@ function attemptReveal() {
     if (num < 0.1) {
         $(this).removeClass(`redacted`);
         $(this).addClass(`revealed`);
+        secrets++;
     }
 }
 
@@ -41,5 +45,26 @@ function attemptReveal() {
 function redact() {
     $(this).removeClass(`revealed`);
     $(this).addClass(`redacted`);
+    secrets--;
+}
+
+(() => {
+
+});
+
+
+// Checks every frame if all secrets are exposed
+setInterval(function () {
+     $(`span`).each(lose)
+}, 1000);
+
+
+// Changes the body text to the losing screen
+function lose() {
+    let $spans = $(`span`);
+    if($(`.revealed`).length ==  $spans.length) {
+        $(`body`).html("You can never win.");
+        $(`body`).css(`color`,`red`);
+    }
 }
 
