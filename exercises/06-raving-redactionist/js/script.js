@@ -3,11 +3,15 @@ Activity 06: Raving Redactionist
 Stephanie Dang
 
 ~Sad office hours~
-Creating a webpage of text with some passages redacted (covered in black bars)
+Endless battle to keep secret information being leaked.
 
+Added features:
+- New lorem ipsum
+- The office sad vers. music
+- Improved Looks
 */
-"use strict";
 
+"use strict";
 // Adds a `top-secret` clas to all span
 $(`span`).addClass(`top-secret`);
 // Add an eventlistener 
