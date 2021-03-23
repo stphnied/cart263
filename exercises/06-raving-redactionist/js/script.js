@@ -9,6 +9,7 @@ Added features:
 - New lorem ipsum
 - The office sad vers. music
 - Improved Looks
+- Ending screen
 */
 
 "use strict";
