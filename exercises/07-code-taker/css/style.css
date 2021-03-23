@@ -1,0 +1,15 @@
+/*********************************************
+
+Here is a description of any special CSS used.
+By default that's nothing.
+
+**********************************************/
+#answer {
+    height: 100px;
+    border: 2px solid aqua;
+}
+
+.found{
+    color: coral;
+     
+}
