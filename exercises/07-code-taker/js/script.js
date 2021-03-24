@@ -1,9 +1,11 @@
 /**
-Title of Project
-Author Name
+Code Taker ++
+Stephanie Dang
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+The user is the Tom-Hanks-in-the-Da-Vinci-Code of classic poetry, seeing coded messages in poems.
+The user reads a poem and searches it with their mouse to uncover special letters.
+If they drag the letters in the correct order into a special solution area, they crack the code!
+Code taker! Da Vinci!?
 */
 
 "use strict";
@@ -28,8 +30,19 @@ $(`#answer`).droppable({
         ui.draggable.removeClass(`found`);
         ui.draggable.off(`mouseover`);
 
-        if($(this).text() == `Theremin`){
+        if ($(this).text() == `Theremin`) {
             $(`#solved-dialog`).dialog("open");
+        }
+    }
+});
+
+
+$(`#instruction-dialog`).dialog({
+    modal: true,
+    resizable:false,
+    buttons: {
+        "Start": function () {
+            $(this).dialog(`close`);
         }
     }
 });
