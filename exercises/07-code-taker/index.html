@@ -9,7 +9,7 @@
 
   <!-- CSS stylesheet(s) -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
   <!-- Library script(s) go here -->
@@ -21,7 +21,7 @@
 
 <body>
   <div id="instruction-dialog" title="Instruction">
-    <p>Click and drag the letter to decode the message</p>
+    <p>Click and drag the letter inside the box to decode the message</p>
   </div>
   <!-- The poem, secret letters are in spans with class "secret" -->
   <section id="poem">
@@ -44,7 +44,7 @@
       so sweet<br />
       a<span class="secret">n</span>d so cold
     </p>
-    <h4>William Carlos Williams</h4>
+    <h4>- William Carlos Williams</h4>
   </section>
 
   <div id="solved-dialog" title="Da Vinci?!">
@@ -54,7 +54,7 @@
   </div>
   <!-- The secret answer area-->
   <section id="answer"></section>
-
+  <input id="retrybtn" type="button" value="Retry">
   <!-- My script(s) -->
   <script src="js/script.js"></script>
 </body>

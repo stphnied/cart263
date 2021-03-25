@@ -6,6 +6,10 @@ The user is the Tom-Hanks-in-the-Da-Vinci-Code of classic poetry, seeing coded m
 The user reads a poem and searches it with their mouse to uncover special letters.
 If they drag the letters in the correct order into a special solution area, they crack the code!
 Code taker! Da Vinci!?
+
+-Instruction
+-CSS
+-Retry btn
 */
 
 "use strict";
@@ -13,19 +17,21 @@ Code taker! Da Vinci!?
 // Code goes hereg
 
 // Add event listener
-$(`.secret`).one(`mouseover`, function (event) {
+$(`.secret`).on(`mouseover`, addClassFound);
+
+// Add colors
+function addClassFound(event) {
     $(this).addClass(`found`, 500);
     $(this).draggable({
         helper: "clone"
     });
-});
+}
 
 // Droppable
 $(`#answer`).droppable({
     drop: function (event, ui) {
         let character = ui.draggable.text();
         $(this).append(character);
-
         ui.draggable.draggable(`disable`);
         ui.draggable.removeClass(`found`);
         ui.draggable.off(`mouseover`);
@@ -36,10 +42,18 @@ $(`#answer`).droppable({
     }
 });
 
+// Retry btn
+$(`#retrybtn`).on(`click`, function (event, ui) {
+    $(`#answer`).empty();
+    $(`.secret`).on(`mouseover`, addClassFound);
+    $(`.secret`).draggable(`enable`);
 
+});
+
+// Instruction dialog
 $(`#instruction-dialog`).dialog({
     modal: true,
-    resizable:false,
+    resizable: false,
     buttons: {
         "Start": function () {
             $(this).dialog(`close`);
@@ -47,6 +61,7 @@ $(`#instruction-dialog`).dialog({
     }
 });
 
+// Solved dialog
 $(`#solved-dialog`).dialog({
     buttons: {
         "I know": function () {

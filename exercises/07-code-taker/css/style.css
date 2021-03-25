@@ -26,3 +26,16 @@ h2 {
 .found{
     color: coral;
 }
+
+#retrybtn {
+    font-weight: bold;
+    background: aquamarine;
+    border: none;
+    width: 100px;
+    height: 45px;
+    margin: 1vh 48vw;
+}
+
+#retrybtn:hover {
+    background:aqua
+}
