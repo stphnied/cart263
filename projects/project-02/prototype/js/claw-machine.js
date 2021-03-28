@@ -9,6 +9,8 @@ let clawHandle = $(`#claw-machine-handle`);
 let clawJoystick = $(`#claw-machine-joystick`);
 let clawBtnDown = $(`#claw-machine-btn-down`);
 let jsDown = false;
+let jsLeft = false;
+let btnDown = false;
 
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
 
@@ -19,13 +21,23 @@ $(`#claw-machine-handle`).draggable({
 
 // Down button
 // change the scale on Y of the button to create a "click" animation
-clawBtnDown.one({
+// Control the clawHandle up and down movement, brings back to initial position
+clawBtnDown.on({
     mousedown: function () {
+        btnDown = true;
         $(this).css(`transform`, `scaleY(0.8)`);
-        clawHandle.finish().animate({
-            top: "+=75",
-            animation: "easin"
-        });
+        clawHandle.animate({
+            top: "+=100",
+            animation: "easein"
+        }, "slow")
+        clawHandle.animate({
+            top: "0",
+            animation: "easeout"
+        }, "slow")
+        clawHandle.animate({
+            left: 0,
+            animation: "easeinout"
+        },3000)
     },
     mouseup: function () {
         $(this).css(`transform`, `scaleY(1)`);
@@ -51,26 +63,19 @@ clawJoystick.on({
         // mouse position
         let mouseX = event.pageX - this.offsetLeft;
         let mousePosCenter = 660;
-        if (jsDown) {
+        if (jsDown && !btnDown) {
             // to the right
             if (mouseX > mousePosCenter) {
                 $(this).css(`transform`, `rotate(10deg)`);
-
-                if (clawHandle.position().left < 380) {
-                    clawHandle.finish().animate({
-                        left: "+=10"
-                    });
-                }
+                jsLeft = false;
             }
             // to the left
             else if (mouseX <= mousePosCenter) {
                 $(this).css(`transform`, `rotate(-10deg)`);
-                if (clawHandle.position().left > -50) {
-                    clawHandle.finish().animate({
-                        left: "-=10"
-                    });
-                }
+                jsLeft = true;
+
             }
+            joystickControl();
         }
         // Return to normal position
         else {
@@ -84,3 +89,21 @@ clawJoystick.on({
     },
 
 });
+
+
+// Joystick movement control
+// constraining movement within the claw machine
+function joystickControl() {
+    // to the right
+    if (clawHandle.position().left < 380 && !jsLeft) {
+        clawHandle.finish().animate({
+            left: "+=10"
+        });
+    }
+    // to the left
+    else if (clawHandle.position().left > -40 && jsLeft) {
+        clawHandle.finish().animate({
+            left: "-=10"
+        });
+    }
+}
