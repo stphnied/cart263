@@ -1,6 +1,77 @@
-/*********************************************
+body {
+  height: 100vh;
+  width: 100vw;
+  color: orange;
+  overflow: hidden;
+  margin: 0;
+}
 
-Here is a description of any special CSS used.
-By default that's nothing.
+section {
+  height: 100vh;
+  width: 100vw;
+}
 
-**********************************************/
+#gacha-machine {
+  display: none;
+}
+
+/* --------------------------------------- CLAW MACHINE------------------------- */
+#claw-machine {
+  background-color: lavender;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+#main-body {
+  margin: 0 auto;
+  /* display: flex;
+  justify-content: center; */
+  position: relative;
+  width: 638px;
+  height: 975px;
+  position: relative;
+  /* background-color: lightblue; */
+}
+
+#claw-machine-body {
+  max-width: 95%;
+}
+
+#claw-machine-handle {
+  padding-top: 2.2rem;
+  margin-left: 5rem;
+}
+
+#claw-machine-joystick {
+  left: 22%;
+  bottom: 39%;
+  transform-origin: bottom center;
+}
+
+#claw-machine-btn-down {
+  left: 40%;
+  bottom: 38%;
+  transform-origin: bottom center;
+}
+
+
+
+#coin-box {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  right: 13%;
+  bottom: 19%;
+}
+
+#coin-box>* {
+  margin: 0 0.5rem 0.5rem 0;
+  position: relative;
+}
+
+.claw-machine-parts {
+  position: absolute;
+}
