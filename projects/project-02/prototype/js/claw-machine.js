@@ -15,9 +15,24 @@ let btnDown = false;
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
 
 
-$(`#claw-machine-handle`).draggable({
-    containment: "#main-body"
+// Coins are draggable
+$(`#coin-0`).draggable({});
+
+// Insert coins here
+$(`#claw-machine-coin-slot`).droppable({
+    drop: function (event, ui) {
+        $(ui.draggable).remove();
+        $(ui.draggable).hide({
+            effect: `blind`,
+            duration: 500
+        });
+    }
 });
+
+// Reset coins
+$(`#claw-machine-btn-reset`).on(`click`, function(event){
+    
+})
 
 // Down button
 // change the scale on Y of the button to create a "click" animation
@@ -37,7 +52,7 @@ clawBtnDown.on({
         clawHandle.animate({
             left: 0,
             animation: "easeinout"
-        },3000)
+        }, 3000)
     },
     mouseup: function () {
         $(this).css(`transform`, `scaleY(1)`);
