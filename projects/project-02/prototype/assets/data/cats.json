@@ -1,0 +1,14 @@
+{
+    "description": "cats",
+    "cats": {
+        "tofu": {
+            "url": "assets/images/cats/tofu.png"
+        },
+        "lilo": {
+            "url": "assets/images/cats/lilo.png"
+        },
+        "kosper": {
+            "url": "assets/images/cats/kosper.png"
+        }
+    }
+}

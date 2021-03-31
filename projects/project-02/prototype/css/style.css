@@ -19,9 +19,15 @@ section {
   width: 100vw;
 }
 
+#gacha-machine,
+#instruction,
+#claw-machine {
+  display: none;
+}
+
 /* --------------------------------------- MENU ------------------------- */
 #menu {
-
+  display: block;
   background-color: #fde7f9;
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
 }
@@ -54,6 +60,13 @@ section {
   box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
   margin: 2rem;
   text-align: center;
+  opacity: 0.9;
+  transition: all .2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  opacity: 1;
 }
 
 .card h1 {
@@ -99,7 +112,7 @@ button {
   padding: 28px;
   background: #809fff;
   box-shadow: inset 6px -6px 6px #6982d1,
-  inset -6px 6px 6px #97bcff;
+    inset -6px 6px 6px #97bcff;
   text-align: center;
   cursor: pointer;
   width: 90%;
@@ -111,10 +124,8 @@ a:hover {
   opacity: 1;
 }
 
-
-#gacha-machine,
-#claw-machine {
-  display: none;
+button:active{
+  background: #587be4;
 }
 
 /* --------------------------------------- CLAW MACHINE------------------------- */
