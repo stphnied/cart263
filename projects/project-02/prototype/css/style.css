@@ -6,6 +6,8 @@ body {
   color: black;
   overflow: hidden;
   margin: 0;
+  user-select: none;
+  cursor: default;
 }
 
 @font-face {
@@ -19,15 +21,71 @@ section {
   width: 100vw;
 }
 
-#gacha-machine,
-#instruction,
-#claw-machine {
+
+.displayHide{
   display: none;
+}
+
+.displayShow{
+  display: block;
+}
+
+#gacha-machine,
+#menu,
+#instruction,
+#claw-machine,
+#mini-games {
+  display: none;
+}
+
+
+button {
+  opacity: 0.9;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  outline: 0;
+  display: inline-block;
+  padding: 28px;
+  background: #809fff;
+  box-shadow: inset 6px -6px 6px #6982d1,
+    inset -6px 6px 6px #97bcff;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* --------------------------------------- HOME ------------------------- */
+#home {
+  display: block;
+  background-color: #fde7f9;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  background: white;
+  border-radius: 20px;
+}
+
+#home h1 {
+  font-size: 3rem;
+}
+
+#home button {
+  width: 25%;
 }
 
 /* --------------------------------------- MENU ------------------------- */
 #menu {
-  display: block;
   background-color: #fde7f9;
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
 }
@@ -40,6 +98,20 @@ section {
   text-align: center;
   color: white;
   letter-spacing: 0.25rem;
+}
+
+#menu button {
+  padding: 28px;
+  width: 90%;
+}
+
+button:hover,
+a:hover {
+  opacity: 1;
+}
+
+button:active {
+  background: #587be4;
 }
 
 /* Cat cards container */
@@ -102,31 +174,7 @@ section {
   font-size: 18px;
 }
 
-button {
-  opacity: 0.9;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  outline: 0;
-  display: inline-block;
-  padding: 28px;
-  background: #809fff;
-  box-shadow: inset 6px -6px 6px #6982d1,
-    inset -6px 6px 6px #97bcff;
-  text-align: center;
-  cursor: pointer;
-  width: 90%;
-  font-size: 18px;
-}
 
-button:hover,
-a:hover {
-  opacity: 1;
-}
-
-button:active{
-  background: #587be4;
-}
 
 /* --------------------------------------- CLAW MACHINE------------------------- */
 #claw-machine {
@@ -136,6 +184,12 @@ button:active{
 .container {
   display: flex;
   justify-content: center;
+}
+
+.container p {
+  top:35%;
+  position: absolute;
+  left: 0;
 }
 
 #main-body {
@@ -188,6 +242,7 @@ button:active{
 }
 
 .coins {
+  display: block;
   width: 75px;
   height: 75px;
   position: absolute;

@@ -26,11 +26,10 @@ const clawMPrice = 0.25;
 let walletAmount = 0;
 let insertedCoins = 0;
 let amountPaid = false;
-let coin25, coin1, coin2;
+let noRefund = false;
 
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
-
 
 
 /*/////////////////////////////////////////////////////////////////////////////////
@@ -46,22 +45,27 @@ $(`.coin-1`).attr(`value`, `1`);
 $(`.coin-2`).attr(`value`, `2`);
 
 // Coins are draggable
-$(`.coin-0`).draggable({
+$(`.coin`).draggable({
     revert: "valid"
 });
 
-// Insert coins here
+// Coin-slot is now droppable
+// Coins can be dragged in it
 $(`#claw-machine-coin-slot`).droppable({
+    // When dropped
+    // Hide the coin and add a "used" class
     drop: function (event, ui) {
-        // $(ui.draggable).remove();
         $(ui.draggable).hide({
-            effect: `blind`,
+            effect: `scale`,
             duration: 500
         });
 
-        // Updates the inserted coins
+        $(ui.draggable).addClass(`used`);
+
+        // Updates the inserted coins amount
         insertedCoins += $(ui.draggable).attr(`value`);
-        // Check if they add the exact amount to play
+
+        // If it is equals to the claw-machine price then allows to play
         if (insertedCoins == clawMPrice) {
             amountPaid = true;
         }
@@ -69,12 +73,23 @@ $(`#claw-machine-coin-slot`).droppable({
 });
 
 // Reset coins
+// If the player did not play yet and wants his coin back
 $(`#claw-machine-btn-reset`).on(`click`, function (event) {
-    console.log("clicked it!");
-    $(`.coin-01`).show("blind");
+    if (!noRefund) {
+        $(`.used`).show("scale");
+        $(`.used`).removeClass(`used`);
+        insertedCoins = 0;
+        amountPaid = false;
+        noRefund = false
+    }
+});
 
-})
-
+// If the joystick has been used -> can no longer get a refund
+function removeCoin() {
+    if ($(`.coin`).hasClass(`used`)) {
+        $(`.used`).remove();
+    }
+}
 
 /*/////////////////////////////////////////////////////////////////////////////////
 CLAW MACHINE DOWN BUTTON (↓) 
@@ -106,6 +121,7 @@ clawBtnDown.on({
         insertedCoins = 0;
         btnDown = false;
         amountPaid = false;
+        noRefund = false;
     }
 });
 
@@ -161,7 +177,6 @@ clawJoystick.on({
 
 });
 
-
 // Joystick movement control
 // constraining movement within the claw machine
 function joystickControl() {
@@ -177,4 +192,9 @@ function joystickControl() {
             left: "-=10"
         });
     }
+
+    // Calls removing coin function
+    removeCoin();
+    noRefund = true;
 }
+

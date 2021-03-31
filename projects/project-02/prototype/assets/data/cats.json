@@ -1,5 +1,5 @@
 {
-    "description": "cats",
+    "description": "Cats images url",
     "cats": {
         "tofu": {
             "url": "assets/images/cats/tofu.png"

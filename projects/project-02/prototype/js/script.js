@@ -6,10 +6,21 @@ For the prototype:
 */
 
 "use strict";
+// Variables
+let user = "";
 
-/*/////////////////////////////////////////////////////////////////////////////////
+/*//////////////////////////////////////////////////////////////
+HOME
+*/ /////////////////////////////////////////////////////////////
+
+$(`#home button`).on("click", function (event) {
+    $(`#home`).css(`display`, `none`);
+    $(`#menu`).css(`display`, `block`);
+})
+
+/*//////////////////////////////////////////////////////////////
 MENU
-*/ /////////////////////////////////////////////////////////////////////////////////
+*/ ////////////////////////////////////////////////////////////
 
 // Changing CSS cursor to default
 $(`.card`).css(`cursor`, `default`);
@@ -27,13 +38,16 @@ $(`#menu button`).on("click", function (event) {
     $.getJSON("assets/data/cats.json", function (catsData) {
         switch (catId) {
             case `tofu-cat`:
-                $(`#user`).attr(`src`, catsData.cats.tofu.url)
+                $(`#user`).attr(`src`, catsData.cats.tofu.url);
+                user = "tofu";
                 break;
             case `lilo-cat`:
-                $(`#user`).attr(`src`, catsData.cats.lilo.url)
+                $(`#user`).attr(`src`, catsData.cats.lilo.url);
+                user = "lilo";
                 break;
             case `kosper-cat`:
-                $(`#user`).attr(`src`, catsData.cats.kosper.url)
+                $(`#user`).attr(`src`, catsData.cats.kosper.url);
+                user = "kosper";
                 break;
         }
     });
@@ -44,5 +58,4 @@ $(`#instruction button`).on("click", function (event) {
     $(`#instruction`).css(`display`, `none`);
     $(`#claw-machine`).css(`display`, `block`);
 
-
-})
+});
