@@ -1,9 +1,17 @@
 body {
-  height: 100vh;
-  width: 100vw;
-  color: orange;
+  height: 100%;
+  width: 100%;
+  font-family: 'Fredoka One';
+  font-weight: lighter;
+  color: black;
   overflow: hidden;
   margin: 0;
+}
+
+@font-face {
+  font-family: QuietMeow;
+  src: url("../assets/fonts/quiet-meows.ttf");
+  font-weight: bold;
 }
 
 section {
@@ -11,7 +19,101 @@ section {
   width: 100vw;
 }
 
-#gacha-machine {
+/* --------------------------------------- MENU ------------------------- */
+#menu {
+
+  background-color: #fde7f9;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+}
+
+#menu-title {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  font-size: 3rem;
+  text-align: center;
+  color: white;
+  letter-spacing: 0.25rem;
+}
+
+/* Cat cards container */
+.cat-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+
+/* Each cards */
+.card {
+  width: 400px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+  margin: 2rem;
+  text-align: center;
+}
+
+.card h1 {
+  font-family: QuietMeow;
+}
+
+.cat-img {
+  margin: 0;
+  font-size: 25rem;
+}
+
+/* Tofu cat */
+#tofu-cat h1 {
+  color: #e0cab0;
+}
+
+/* Lilo cat */
+#lilo-cat h1 {
+  color: #f88c2d;
+}
+
+/* Kasper cat */
+#kasper-cat h1 {
+  color: #24211d;
+}
+
+.card h2 {
+  font-size: 3rem;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  opacity: 0.9;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  outline: 0;
+  display: inline-block;
+  padding: 28px;
+  background: #809fff;
+  box-shadow: inset 6px -6px 6px #6982d1,
+  inset -6px 6px 6px #97bcff;
+  text-align: center;
+  cursor: pointer;
+  width: 90%;
+  font-size: 18px;
+}
+
+button:hover,
+a:hover {
+  opacity: 1;
+}
+
+
+#gacha-machine,
+#claw-machine {
   display: none;
 }
 
@@ -56,8 +158,6 @@ section {
   bottom: 38%;
   transform-origin: bottom center;
 }
-
-
 
 #coin-box {
   width: 100px;

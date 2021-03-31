@@ -8,7 +8,10 @@
   <title>Gachapyon</title>
 
   <!-- CSS stylesheet(s) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- Library script(s) go here -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -19,6 +22,36 @@
 
 <body>
   <!-- HTML would go here if needed. -->
+  <section id="menu">
+    <h1 id="menu-title">SELECT YOUR CHARACTER </h1>
+    <div class="cat-cards">
+      <!-- Tofu -->
+      <div id="tofu-cat" class="card">
+        <h1 class="cat-img">D</h1>
+        <h2>tofu</h2>
+        <p class="title">British shorthair</p>
+        <p>Wants cuddles</p>
+        <p><button>SELECT</button></p>
+      </div>
+      <!-- Lilo -->
+      <div id="lilo-cat" class="card">
+        <h1 class="cat-img">D</h1>
+        <h2>lilo</h2>
+        <p class="title">Calico cat</p>
+        <p>aaab</p>
+        <p><button>SELECT</button></p>
+      </div>
+      <!-- Kasper -->
+      <div id="kasper-cat" class="card">
+        <h1 class="cat-img">D</h1>
+        <h2>kosper</h2>
+        <p class="title"> European shorthair</p>
+        <p>Kasper's brother</p>
+        <p><button>SELECT</button></p>
+      </div>
+    </div>
+
+  </section>
   <section id="gacha-machine">
     <h2>This is the gachapon section</h2>
   </section>
@@ -29,18 +62,19 @@
         <img id="claw-machine-handle" src="assets/images/claw.png" alt="" srcset="">
         <img id="claw-machine-body" src="assets/images/claw-machine_1.png" alt="" draggable="false">
         <img id="claw-machine-joystick" src="assets/images/joystick.png" alt="" draggable="false">
-        <img id="claw-machine-btn-down" src="assets/images/button.png" alt="">
+        <img id="claw-machine-btn-down" src="assets/images/button.png" alt="" draggable="false">
 
         <div id="coin-box">
-          <img id="claw-machine-coin-slot" src="assets/images/coin-slot.png" alt="">
-          <img id="claw-machine-btn-reset" src="assets/images/reset-btn.png" alt="">
-          <img id="claw-machine-coin-holder" src="assets/images/coin-holder.png" alt="">
+          <img id="claw-machine-coin-slot" src="assets/images/coin-slot.png" alt="" draggable="false">
+          <img id="claw-machine-btn-reset" src="assets/images/reset-btn.png" alt="" draggable="false">
+          <img id="claw-machine-coin-holder" src="assets/images/coin-holder.png" alt="" draggable="false">
 
         </div>
       </div>
 
       <div class="coins">
-        <img class="coin" id="coin-0" src="assets/images/coin-0.png" alt="" srcset="">
+        <img class="coin coin-0" id="coin-0" src="assets/images/coin-0.png" alt="" srcset="">
+        <img class="coin coin-0" src="assets/images/coin-0.png" alt="" srcset="">
       </div>
     </div>
   </section>
