@@ -33,15 +33,6 @@ a {
   display: block;
 }
 
-#gacha-machine,
-#menu,
-#instruction,
-#claw-machine,
-#mini-games {
-  display: none;
-}
-
-
 button {
   opacity: 0.9;
   color: white;
@@ -179,10 +170,11 @@ button:active {
 
 /* --------------------------------------- Instruction --------------------------------------- */
 #instruction {
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-#instruction div{
+
+#instruction div {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -192,6 +184,7 @@ justify-content: center;
   background: lightblue;
   border-radius: 20px;
 }
+
 /* --------------------------------------- CLAW MACHINE------------------------- */
 #claw-machine {
   background-color: lavender;
@@ -209,18 +202,24 @@ justify-content: center;
 }
 
 #main-body {
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   /* display: flex;
   justify-content: center; */
   position: relative;
-  width: 638px;
+  width: 645px;
   height: 975px;
   position: relative;
   /* background-color: lightblue; */
 }
 
 #claw-machine-body {
-  max-width: 95%;
+  height: 918px;
+  max-width: 100%;
+}
+
+#claw-machine-toy {
+  left: 26%;
+  bottom: 39%;
 }
 
 #claw-machine-handle {
@@ -229,13 +228,13 @@ justify-content: center;
 }
 
 #claw-machine-joystick {
-  left: 22%;
+  left: 25%;
   bottom: 39%;
   transform-origin: bottom center;
 }
 
 #claw-machine-btn-down {
-  left: 40%;
+  left: 41%;
   bottom: 38%;
   transform-origin: bottom center;
 }
@@ -244,7 +243,7 @@ justify-content: center;
   width: 100px;
   height: 100px;
   position: absolute;
-  right: 13%;
+  right: 12%;
   bottom: 19%;
 }
 
@@ -269,4 +268,13 @@ justify-content: center;
 .coins img {
   width: 100%;
   height: 100%;
+}
+
+
+#home,
+#gacha-machine,
+#menu,
+#instruction,
+#mini-games {
+  display: none;
 }

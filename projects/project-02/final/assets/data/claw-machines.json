@@ -1,6 +1,33 @@
 {
-    "description": "different claw machines",
+    "description": "list of different machines colors and their parts",
     "machines-colors":{
-        
+        "orange": {
+            "machine" : "assets/images/claw-machines/claw-machine-0.png",
+            "claw":"assets/images/claw-machines/claw-0.png",
+            "btn": "assets/images/claw-machines/btn-0.png",
+            "joystick":"assets/images/claw-machines/joystick-0.png",
+            "toys":"assets/images/claw-machines/toys-0.png"
+        },
+        "blue": {
+            "machine" : "assets/images/claw-machines/claw-machine-1.png",
+            "claw":"assets/images/claw-machines/claw-1.png",
+            "btn": "assets/images/claw-machines/btn-1.png",
+            "joystick":"assets/images/claw-machines/joystick-1.png",
+            "toys":"assets/images/claw-machines/toys-1.png"
+        },
+        "pink": {
+            "machine" : "assets/images/claw-machines/claw-machine-2.png",
+            "claw":"assets/images/claw-machines/claw-2.png",
+            "btn": "assets/images/claw-machines/btn-2.png",
+            "joystick":"assets/images/claw-machines/joystick-2.png",
+            "toys":"assets/images/claw-machines/toys-2.png"
+        },
+        "purple": {
+            "machine" : "assets/images/claw-machines/claw-machine-3.png",
+            "claw":"assets/images/claw-machines/claw-3.png",
+            "btn": "assets/images/claw-machines/btn-3.png",
+            "joystick":"assets/images/claw-machines/joystick-3.png",
+            "toys":"assets/images/claw-machines/toys-3.png"
+        }
     }
 }

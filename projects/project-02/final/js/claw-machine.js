@@ -146,7 +146,6 @@ clawJoystick.on({
         // mouse position
         let mouseX = event.pageX - this.offsetLeft;
         let mousePosCenter = 660;
-
         if (amountPaid) {
             if (jsDown && !btnDown) {
                 // to the right
@@ -180,14 +179,15 @@ clawJoystick.on({
 // Joystick movement control
 // constraining movement within the claw machine
 function joystickControl() {
+    console.log(clawHandle.position().left);
     // to the right
-    if (clawHandle.position().left < 380 && !jsLeft) {
+    if (clawHandle.position().left < 390 && !jsLeft) {
         clawHandle.finish().animate({
             left: "+=10"
         });
     }
     // to the left
-    else if (clawHandle.position().left > -40 && jsLeft) {
+    else if (clawHandle.position().left > -10 && jsLeft) {
         clawHandle.finish().animate({
             left: "-=10"
         });
