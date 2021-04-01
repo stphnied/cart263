@@ -1,0 +1,272 @@
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Fredoka One';
+  font-weight: lighter;
+  color: black;
+  overflow: hidden;
+  margin: 0;
+  user-select: none;
+  cursor: default;
+}
+
+@font-face {
+  font-family: QuietMeow;
+  src: url("../assets/fonts/quiet-meows.ttf");
+  font-weight: bold;
+}
+
+section {
+  height: 100vh;
+  width: 100vw;
+}
+
+a {
+  text-decoration: none;
+}
+
+.displayHide {
+  display: none;
+}
+
+.displayShow {
+  display: block;
+}
+
+#gacha-machine,
+#menu,
+#instruction,
+#claw-machine,
+#mini-games {
+  display: none;
+}
+
+
+button {
+  opacity: 0.9;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  outline: 0;
+  display: inline-block;
+  padding: 28px;
+  background: #809fff;
+  box-shadow: inset 6px -6px 6px #6982d1,
+    inset -6px 6px 6px #97bcff;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* --------------------------------------- HOME ------------------------- */
+#home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fde7f9;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+
+}
+
+#home div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  background: white;
+  border-radius: 20px;
+}
+
+#home h1 {
+  font-size: 3rem;
+}
+
+#home button {
+  width: 25%;
+}
+
+/* --------------------------------------- MENU ------------------------- */
+#menu {
+  background-color: #fde7f9;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+}
+
+#menu-title {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  font-size: 3rem;
+  text-align: center;
+  color: white;
+  letter-spacing: 0.25rem;
+}
+
+#menu button {
+  padding: 28px;
+  width: 90%;
+}
+
+button:hover,
+a:hover {
+  opacity: 1;
+}
+
+button:active {
+  background: #587be4;
+}
+
+/* Cat cards container */
+.cat-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+
+/* Each cards */
+.card {
+  width: 400px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+  margin: 2rem;
+  text-align: center;
+  opacity: 0.9;
+  transition: all .2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.card h1 {
+  font-family: QuietMeow;
+}
+
+.cat-img {
+  margin: 0;
+  font-size: 25rem;
+}
+
+/* Tofu cat */
+#tofu-cat h1 {
+  color: #e0cab0;
+}
+
+/* Lilo cat */
+#lilo-cat h1 {
+  color: #f88c2d;
+}
+
+/* Kasper cat */
+#kasper-cat h1 {
+  color: #24211d;
+}
+
+.card h2 {
+  font-size: 3rem;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+/* --------------------------------------- Instruction --------------------------------------- */
+#instruction {
+display: flex;
+justify-content: center;
+}
+#instruction div{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background: lightblue;
+  border-radius: 20px;
+}
+/* --------------------------------------- CLAW MACHINE------------------------- */
+#claw-machine {
+  background-color: lavender;
+}
+
+#claw-machine .container {
+  display: flex;
+  justify-content: center;
+}
+
+#claw-machine .container p {
+  top: 35%;
+  position: absolute;
+  left: 0;
+}
+
+#main-body {
+  margin: 0 auto;
+  /* display: flex;
+  justify-content: center; */
+  position: relative;
+  width: 638px;
+  height: 975px;
+  position: relative;
+  /* background-color: lightblue; */
+}
+
+#claw-machine-body {
+  max-width: 95%;
+}
+
+#claw-machine-handle {
+  padding-top: 2.2rem;
+  margin-left: 5rem;
+}
+
+#claw-machine-joystick {
+  left: 22%;
+  bottom: 39%;
+  transform-origin: bottom center;
+}
+
+#claw-machine-btn-down {
+  left: 40%;
+  bottom: 38%;
+  transform-origin: bottom center;
+}
+
+#coin-box {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  right: 13%;
+  bottom: 19%;
+}
+
+#coin-box>* {
+  margin: 0 0.5rem 0.5rem 0;
+  position: relative;
+}
+
+.claw-machine-parts {
+  position: absolute;
+}
+
+.coins {
+  display: block;
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  bottom: 10%;
+  right: 20%;
+}
+
+.coins img {
+  width: 100%;
+  height: 100%;
+}
