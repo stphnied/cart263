@@ -14,7 +14,7 @@ The joystick and button are will be disabled after that.
 // VARIABLES
 
 // Claw machine parts
-let clawHandle = $(`#claw-machine-handle`);
+let clawHandle = $(`#claw-machine-handle-container`);
 let clawJoystick = $(`#claw-machine-joystick`);
 let clawBtnDown = $(`#claw-machine-btn-down`);
 let jsDown = false;
@@ -114,6 +114,12 @@ clawBtnDown.on({
                 left: 0,
                 animation: "easeinout"
             }, 3000)
+
+            // Checks if the claw is overlapping the toy
+            var i = setInterval(tester, 200);
+            setTimeout(function () {
+                clearInterval(i);
+            }, 1000);
         }
     },
     mouseup: function () {
@@ -125,6 +131,13 @@ clawBtnDown.on({
     }
 });
 
+function tester() {
+    isColliding($(`#test`), $(`#handle-box-collider`));
+}
+
+// function stopTester() {
+//     clearInterval(tester);
+// }
 
 /*/////////////////////////////////////////////////////////////////////////////////
 Joystick
@@ -143,18 +156,22 @@ clawJoystick.on({
         jsDown = false;
     },
     mousemove: function (event) {
-        // mouse position
-        let mouseX = event.pageX - this.offsetLeft;
-        let mousePosCenter = 660;
+
+        // mouse position 
+        // Finding mouse pos code inspired by: https://css-tricks.com/snippets/jquery/get-x-y-mouse-coordinates/
+        let mouseX = (event.pageX - $(this).offset().left);
+        let mouseposMin = 20;
+        let mousePosMax = 33;
+
         if (amountPaid) {
             if (jsDown && !btnDown) {
                 // to the right
-                if (mouseX > mousePosCenter) {
+                if (mouseX > mousePosMax) {
                     $(this).css(`transform`, `rotate(10deg)`);
                     jsLeft = false;
                 }
                 // to the left
-                else if (mouseX <= mousePosCenter) {
+                else if (mouseX <= mouseposMin) {
                     $(this).css(`transform`, `rotate(-10deg)`);
                     jsLeft = true;
 
@@ -178,10 +195,11 @@ clawJoystick.on({
 
 // Joystick movement control
 // constraining movement within the claw machine
-function joystickControl() {
-    console.log(clawHandle.position().left);
+function joystickControl(event) {
+    // console.log(clawHandle.position().left);
+    // console.log(clawHandle.position().left)
     // to the right
-    if (clawHandle.position().left < 390 && !jsLeft) {
+    if (clawHandle.position().left < 400 && !jsLeft) {
         clawHandle.finish().animate({
             left: "+=10"
         });
@@ -198,3 +216,44 @@ function joystickControl() {
     noRefund = true;
 }
 
+
+// testing claw picking up
+
+let handleBox = $(`#handle-box-collider`);
+
+let test = $(`#test`);
+
+test.draggable();
+
+// Function detecting collision between two div
+// Code by: https://gist.github.com/jtsternberg/c272d7de5b967cec2d3d
+function isColliding(div1, div2) {
+    let d1Offset = div1.offset();
+    let d1Height = div1.outerHeight(true);
+    let d1Width = div1.outerWidth(true);
+    let d1Top = d1Offset.top + d1Height;
+    let d1Left = d1Offset.left + d1Width;
+
+    let d2Offset = div2.offset();
+    let d2Height = div2.outerHeight(true);
+    let d2Width = div2.outerWidth(true);
+    let d2Top = d2Offset.top + d2Height;
+    let d2Left = d2Offset.left + d2Width;
+
+    if (!(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left)) {
+        console.log("it true");
+
+        $(`#test`).appendTo(`#handle-box-collider`);
+        $(`#test`).removeClass(`test`);
+        $(`#test`).addClass(`grabbed`);
+
+
+
+        // return true;
+
+    } else {
+        console.log("hi")
+    };
+    // return !(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left);
+
+};

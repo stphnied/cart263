@@ -25,6 +25,12 @@ a {
   text-decoration: none;
 }
 
+#btn-return {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
 .displayHide {
   display: none;
 }
@@ -220,12 +226,33 @@ button:active {
 #claw-machine-toy {
   left: 26%;
   bottom: 39%;
+  opacity: 0.8;
+}
+
+
+#claw-machine-handle-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: absolute;
+  width: 105px;
+  height: 377px;
+  padding-top: 1.75rem;
+  margin-left: 4.75rem;
 }
 
 #claw-machine-handle {
-  padding-top: 2.2rem;
-  margin-left: 5rem;
+  /* /* width: 96px; */
+  /* padding-top: 2.2rem;
+  margin-left: 4.75rem; */
 }
+
+#handle-box-collider {
+  width: 100%;
+  height: 75px;
+  background: red;
+}
+
 
 #claw-machine-joystick {
   left: 25%;
@@ -277,4 +304,24 @@ button:active {
 #instruction,
 #mini-games {
   display: none;
+}
+
+#test {
+  display: flex;
+  width:25px;
+  height:inherit;
+  background:blue;
+}
+
+.test {
+  position: absolute;
+  top: 0;
+  left:0;
+}
+
+.grabbed{
+  /* position: relative; */
+  background:blue;
+  top: unset;
+  left: unset;
 }

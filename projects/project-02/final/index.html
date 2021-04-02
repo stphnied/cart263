@@ -18,10 +18,16 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <!-- <script src="js/libraries/overlap/jquery.overlap.js"></script> -->
 </head>
 
 <body>
   <!-- HTML would go here if needed. -->
+
+  <span>
+    <button id="btn-return">click me</button>
+  </span>
+
   <!-- Home screen -->
   <section id="home">
     <div>
@@ -67,7 +73,7 @@
       <p>this is the instruction menu</p>
       <p>You are now a cat.</p>
       <p>this page is in construction</p>
-      <img src="" alt="" id="user">
+      <img src="" alt="" class="user">
       <button>Click here to access the claw-machine game</button>
     </div>
 
@@ -91,7 +97,11 @@
       </p>
       <div id="main-body">
         <img src="assets/images/claw-machines/toys-0.png" alt="" id="claw-machine-toy">
-        <img id="claw-machine-handle" src="assets/images/claw-machines/claw-0.png" alt="" srcset="">
+        <div id="claw-machine-handle-container">
+          <img id="claw-machine-handle" src="assets/images/claw-machines/claw-0.png" alt="" srcset="">
+          <div id="handle-box-collider"></div>
+        </div>
+
         <img id="claw-machine-body" src="assets/images/claw-machines/claw-machine-0.png" alt="" draggable="false">
         <img id="claw-machine-joystick" src="assets/images/claw-machines/joystick-0.png" alt="" draggable="false">
         <img id="claw-machine-btn-down" src="assets/images/claw-machines/btn-0.png" alt="" draggable="false">
@@ -107,6 +117,10 @@
         <img class="coin coin-0" id="coin-0" src="assets/images/coin-0.png" alt="" srcset="">
         <img class="coin coin-0" src="assets/images/coin-0.png" alt="" srcset="">
       </div>
+    </div>
+    <div id="test" class="test"></div>
+    <div class="user">
+      <img id="" src="" alt="">
     </div>
   </section>
   <section id="mini-games">
