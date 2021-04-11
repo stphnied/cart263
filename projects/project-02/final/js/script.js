@@ -9,6 +9,9 @@ For the prototype:
 // Variables
 let user = "";
 
+$(`#claw-machine`).css(`display`, `none`);
+$(`#instruction`).css(`display`, `block`);
+
 /*//////////////////////////////////////////////////////////////
 HOME
 */ /////////////////////////////////////////////////////////////
@@ -19,12 +22,12 @@ $(`#home button`).on("click", function (event) {
 })
 
 
-$(`#btn-return`).on("click", function (event) {
+$(`.btn-return`).on("click", function (event) {
     $(`section`).each(function () {
         if ($(this).css(`display`) !== `none`) {
             switch (this.id) {
                 case `instruction`:
-                    $(`#btn-return`).css(`display`,`none`);
+                    $(`.btn-return`).css(`display`,`none`);
                     $(`#instruction`).css(`display`, `none`);
                     $(`#menu`).css(`display`, `block`);
                     break;
@@ -53,7 +56,7 @@ $(`#menu button`).on("click", function (event) {
     // Hiding menu and showing instruction section
     $(`#menu`).css(`display`, `none`);
     $(`#instruction`).css(`display`, `block`);
-    $(`#btn-return`).css(`display`,`block`);
+    $(`.btn-return`).css(`display`,`block`);
     // Get the parent's id of selected cat
     let catId = $(this).parent().parent().attr(`id`);
     // Gets the cats JSON image url depending on the selected cat
@@ -76,7 +79,7 @@ $(`#menu button`).on("click", function (event) {
 })
 
 // Hides instruction and show claw-machine section
-$(`#instruction button`).on("click", function (event) {
+$(`#instruction .btn-play`).on("click", function (event) {
     $(`#instruction`).css(`display`, `none`);
     $(`#claw-machine`).css(`display`, `block`);
 

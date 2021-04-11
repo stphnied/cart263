@@ -176,19 +176,74 @@ button:active {
 
 /* --------------------------------------- Instruction --------------------------------------- */
 #instruction {
-  display: flex;
-  justify-content: center;
+  background: lightblue;
+  background-image: url("../assets/images/background.png");
 }
 
-#instruction div {
-  margin: 0 auto;
+#instruction .right-side h1 {
+  position: absolute;
+  right: 8rem;
+  top: -1.5rem;
+  color: white;
+  font-size: 5rem;
+  text-shadow: 2px 2px 10px #587be4;
+}
+
+#instruction .right-sie h2 {
+  font-size: 3rem;
+}
+
+#instruction .container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  width: 50%;
-  background: lightblue;
+  height: 100%;
+}
+
+#instruction .left-side {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 25%;
+  background: white;
   border-radius: 20px;
+  box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-left: 2rem;
+}
+
+#instruction .left-side button {
+  margin: 0.25rem;
+
+}
+
+#instruction .right-side {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+  padding: 50px;
+  width: 50%;
+  height: 60%;
+  margin-right: 2rem;
+}
+
+#instruction .right-side p {
+  line-height: 1.75rem;
+}
+
+.right-side .buttons {
+  display: flex;
+  justify-content: end;
+}
+
+#instruction .right-side button {
+  font-size: 2rem;
+  margin: 1rem;
+  background: #ffb672;
+  box-shadow: none;
+  box-shadow: inset 6px -6px 6px #e2954c,
+    inset -6px 6px 6px #f8c493;
 }
 
 /* --------------------------------------- CLAW MACHINE------------------------- */
@@ -310,19 +365,19 @@ button:active {
 
 #test {
   display: flex;
-  width:25px;
-  height:inherit;
-  background:blue;
+  width: 25px;
+  height: inherit;
+  background: blue;
 }
 
 .test {
   position: absolute;
   top: 0;
-  left:0;
+  left: 0;
 }
 
-.grabbed{
-   background:blue;
+.grabbed {
+  background: blue;
   top: unset;
   left: unset;
 }
