@@ -1,0 +1,45 @@
+#collection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    width: 1050px;
+    height: 800px;
+    border-radius: 20px;
+    background-image: url("../assets/images/collection/collection-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 0.1fr 0.9fr;
+    gap: 0px 0px;
+}
+
+.title {
+    grid-area: 1/1/1/10;
+    margin-left: 2.5rem;
+}
+
+.items {
+    grid-area: 2/1/8/10;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.stickers {
+    background-position-x: center;
+    background-position-y: center;
+    filter: grayscale(100%);
+}
+
+.stickers:hover {
+    filter: none;
+}
+
+.gotItem {
+    filter: none;
+}

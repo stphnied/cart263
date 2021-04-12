@@ -1,0 +1,121 @@
+/* --------------------------------------- CLAW MACHINE------------------------- */
+#claw-machine {
+    background-color: lavender;
+}
+
+#claw-machine .container {
+    display: flex;
+    justify-content: center;
+}
+
+#claw-machine .container p {
+    top: 35%;
+    position: absolute;
+    left: 0;
+}
+
+#main-body {
+    margin: 20px auto 0 auto;
+    position: relative;
+    width: 645px;
+    height: 975px;
+    position: relative;
+}
+
+#claw-machine-body {
+    height: 918px;
+    max-width: 100%;
+}
+
+#claw-machine-toy {
+    right: 60px;
+    bottom: 39%;
+    opacity: 0.6;
+}
+
+#claw-machine-handle-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: absolute;
+    width: 105px;
+    height: 377px;
+    padding-top: 1.75rem;
+    margin-left: 4.75rem;
+}
+
+#claw-machine-handle {
+    /* /* width: 96px; */
+    /* padding-top: 2.2rem;
+  margin-left: 4.75rem; */
+}
+
+#handle-box-collider {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 75px;
+    background: red;
+}
+
+#claw-machine-joystick {
+    left: 25%;
+    bottom: 39%;
+    transform-origin: bottom center;
+}
+
+#claw-machine-btn-down {
+    left: 41%;
+    bottom: 38%;
+    transform-origin: bottom center;
+}
+
+#coin-box {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 12%;
+    bottom: 19%;
+}
+
+#coin-box>* {
+    margin: 0 0.5rem 0.5rem 0;
+    position: relative;
+}
+
+.claw-machine-parts {
+    position: absolute;
+}
+
+.coins {
+    display: block;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    bottom: 10%;
+    right: 20%;
+}
+
+.coins img {
+    width: 100%;
+    height: 100%;
+}
+
+#test {
+    display: flex;
+    width: 25px;
+    height: inherit;
+    background: blue;
+}
+
+.test {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.grabbed {
+    background: blue;
+    top: unset;
+    left: unset;
+}

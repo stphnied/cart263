@@ -1,16 +1,14 @@
 /**
 Project 2: Gachapyon
 Stephanie Dang.
-
-For the prototype: 
 */
 
 "use strict";
 // Variables
 let user = "";
 
-$(`#claw-machine`).css(`display`, `none`);
-$(`#instruction`).css(`display`, `block`);
+// $(`#claw-machine`).css(`display`, `none`);
+// $(`#instruction`).css(`display`, `block`);
 
 /*//////////////////////////////////////////////////////////////
 HOME
@@ -78,9 +76,24 @@ $(`#menu button`).on("click", function (event) {
     });
 })
 
+
+
+$(`#instruction button`).on("click", function(event){
+
+    switch($(this).attr(`class`)) {
+        case `btn-collection`: 
+        $(`#instruction`).css(`display`,`none`);
+        $(`#collection`).css(`display`,`flex`);
+        break;
+    }
+
+})
+
 // Hides instruction and show claw-machine section
 $(`#instruction .btn-play`).on("click", function (event) {
     $(`#instruction`).css(`display`, `none`);
     $(`#claw-machine`).css(`display`, `block`);
-
 });
+
+
+
