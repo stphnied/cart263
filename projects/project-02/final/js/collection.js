@@ -10,7 +10,44 @@ This script is dedicated to all collection functionalities.
 // VARIABLES
 const numStickers = 28;
 // Creates sticker images for collection
-for (let i = 0; i < numStickers; i++) {
-    $(`.items`).append(`<div class="stickers sticker-${i}"></div>`);
-    $(`.sticker-${i}`).css(`background-image`,`url("assets/images/collection/${i}.png")`);
+
+showStickers();
+
+
+
+$(`#collection button`).on("click", function (event) {
+    switch ($(this).attr(`class`)) {
+        case `btn-x`:
+            $(`#collection`).css(`display`, `none`);
+            break;
+        case `btn-sticker`:
+            showStickers();
+            break;
+        case `btn-plushie`:
+            removeStickers();
+            break;
+    }
+});
+
+
+function showStickers() {
+    for (let i = 0; i < numStickers; i++) {
+        $(`.items`).append(`<div class="stickers sticker-${i}"></div>`);
+        $(`.sticker-${i}`).css(`background-image`, `url("assets/images/collection/${i}.png")`);
+    }
+}
+
+function removeStickers() {
+    for (let i = 0; i < numStickers; i++) {
+        $(`.sticker-${i}`).remove();
+    }
+}
+
+
+function showPlushies() {
+    console.log("hi");
+}
+
+function removePlushies() {
+    
 }
