@@ -11,3 +11,4 @@ Class work for CART-263!
 
 ###### Projects
 - [Project 01](https://stphnied.github.io/cart263/projects/project-01/)
+- [Project 02: Prototype](https://stphnied.github.io/cart263/projects/project-02/prototype/)
