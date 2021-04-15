@@ -2,12 +2,15 @@
     "description": "Cats images url",
     "cats": {
         "tofu": {
+            "perk": "MONEY++",
             "url": "assets/images/cats/tofu.png"
         },
         "lilo": {
+            "perk": "STRENGTH++",
             "url": "assets/images/cats/lilo.png"
         },
         "kosper": {
+            "perk": "LUCK++",
             "url": "assets/images/cats/kosper.png"
         }
     }

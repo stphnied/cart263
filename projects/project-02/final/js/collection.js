@@ -12,10 +12,6 @@ const numStickers = 28;
 const numPlushies = 56;
 // Creates sticker images for collection
 
-showStickers();
-
-
-
 $(`#collection button`).on("click", function (event) {
     switch ($(this).attr(`class`)) {
         case `btn-x`:

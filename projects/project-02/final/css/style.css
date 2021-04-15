@@ -216,6 +216,14 @@ button:active {
   margin: 0.25rem;
 }
 
+#instruction .left-side p {
+  text-align: center;
+}
+
+#instruction .left-side p::before {
+  content: "PERKS: ";
+}
+
 #instruction .right-side {
   background: white;
   border-radius: 20px;

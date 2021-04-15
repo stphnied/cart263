@@ -1,14 +1,7 @@
 /**
 Project 2: Anything
 Stephanie Dang.
-
 This script is dedicated to the claw-machine functionality/interactivity.
-
-For the prototype:
-As of now, the user is able draag the coin and insert it inside the coin slot to activate the joystick and button
-Once they click on the button, it will drop down&up the claw and returns to its initial position.
-The joystick and button are will be disabled after that. 
-
 */
 
 // VARIABLES
@@ -246,10 +239,6 @@ function isColliding(div1, div2) {
         $(`#test`).appendTo(`#handle-box-collider`);
         $(`#test`).removeClass(`test`);
         $(`#test`).addClass(`grabbed`);
-
-
-
-        // return true;
 
     } else {
         console.log("hi")
