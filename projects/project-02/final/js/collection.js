@@ -9,6 +9,7 @@ This script is dedicated to all collection functionalities.
 
 // VARIABLES
 const numStickers = 28;
+const numPlushies = 56;
 // Creates sticker images for collection
 
 showStickers();
@@ -22,8 +23,10 @@ $(`#collection button`).on("click", function (event) {
             break;
         case `btn-sticker`:
             showStickers();
+            removePlushies()
             break;
         case `btn-plushie`:
+            showPlushies();
             removeStickers();
             break;
     }
@@ -45,9 +48,14 @@ function removeStickers() {
 
 
 function showPlushies() {
-    console.log("hi");
+    for (let i = 28; i < numPlushies; i++) {
+        $(`.items`).append(`<div class="plushies plushie-${i}"></div>`);
+        $(`.plushie-${i}`).css(`background-image`, `url("assets/images/collection/${i}.png")`);
+    }
 }
 
 function removePlushies() {
-    
+    for (let i = 0; i < numPlushies; i++) {
+        $(`.plushie-${i}`).remove();
+    }
 }

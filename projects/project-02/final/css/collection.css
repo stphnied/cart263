@@ -8,8 +8,8 @@
 }
 
 .grid-container {
-    width: 1050px;
-    height: 800px;
+    width: 1080px;
+    height: 850px;
     border-radius: 20px;
     background-image: url("../assets/images/collection/collection-bg.png");
     background-size: cover;
@@ -34,7 +34,6 @@
 .subtitle button {
     padding: 1rem;
     font-size: 2rem;
-    /* background: none; */
     border: none;
     box-shadow: none;
 }
@@ -52,14 +51,20 @@
     grid-template-rows: repeat(4, 1fr);
 }
 
-.stickers {
+.stickers, .plushies {
     background-position-x: center;
     background-position-y: center;
     filter: grayscale(100%);
 }
 
-.stickers:hover {
+.stickers:hover, .plushies:hover {
     filter: none;
+}
+
+.plushies {
+    margin: 0.25rem;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .gotItem {
