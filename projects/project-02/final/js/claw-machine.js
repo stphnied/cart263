@@ -1,6 +1,7 @@
 /**
 Project 2: Anything
 Stephanie Dang.
+
 This script is dedicated to the claw-machine functionality/interactivity.
 */
 
@@ -23,7 +24,7 @@ let noRefund = false;
 
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
-
+// $(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background.png")`);
 
 /*/////////////////////////////////////////////////////////////////////////////////
 COINS

@@ -6,6 +6,7 @@
 #claw-machine .container {
     display: flex;
     justify-content: center;
+
 }
 
 #claw-machine .container p {

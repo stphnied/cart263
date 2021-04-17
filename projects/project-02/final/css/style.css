@@ -252,12 +252,12 @@ button:active {
     inset -6px 6px 6px #f8c493;
 }
 
-#claw-machine,
+/* #claw-machine, */
 #collection,
 #home,
 #gacha-machine,
 #menu,
-/* #instruction, */
+#instruction,
 #mini-games {
   display: none;
 }
