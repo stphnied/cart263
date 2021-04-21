@@ -3,15 +3,18 @@
     "cats": {
         "tofu": {
             "perk": "MONEY++",
-            "url": "assets/images/cats/tofu.png"
+            "url": "assets/images/cats/tofu.png",
+            "paw_url": "assets/images/cats/tofu-paw.png"
         },
         "lilo": {
             "perk": "STRENGTH++",
-            "url": "assets/images/cats/lilo.png"
+            "url": "assets/images/cats/lilo.png",
+            "paw_url": "assets/images/cats/lilo-paw.png"
         },
         "kosper": {
             "perk": "LUCK++",
-            "url": "assets/images/cats/kosper.png"
+            "url": "assets/images/cats/kosper.png",
+            "paw_url": "assets/images/cats/kosper-paw.png"
         }
     }
 }
