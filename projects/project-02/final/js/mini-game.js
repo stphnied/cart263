@@ -13,7 +13,9 @@ let minigameCanvas;
 let catsData;
 let myFont;
 let state = `menu`;
+let gameOver = false;
 let score = 0;
+let scoreMoney = 0;
 let timer = 30;
 let userMG = {
     x: 0,
@@ -130,55 +132,6 @@ function draw() {
     }
 
     displayUser(125, height / 1.5, 150, 4, 250);
-
-
-}
-
-// menuGame()
-// instructions
-function menuGame() {
-
-    // Titles
-    push();
-    fill(`#54d6`);
-    displayText(32, INSTRUCTION_TEXT[0], width / 2.1, height / 5.5);
-    displayText(32, INSTRUCTION_TEXT[2], width / 2.1, height / 2.25)
-    displayText(32, INSTRUCTION_TEXT[4], width / 2.1, height / 1.5)
-    pop();
-
-    // Texts
-    push();
-    fill(`#2d67dc`);
-    displayText(28, INSTRUCTION_TEXT[1], width / 2.1, height / 3.5);
-    displayText(28, INSTRUCTION_TEXT[3], width / 2.1, height / 1.85);
-    displayText(28, INSTRUCTION_TEXT[5], width / 2.1, height / 1.35);
-    pop();
-
-    // PLAY
-    push();
-    fill(`#909eba`);
-    displayText(24, INSTRUCTION_TEXT[6], width / 2.1, height / 1.1);
-    pop();
-
-}
-
-// startGame()
-// Displays all elements needed for the game
-function startGame() {
-    displayScore();
-
-    displayHoles(125, height / 5, 150, 4, 250);
-    displayHoles(125, height / 1.5, 150, 4, 250);
-
-    displayMouse(125, height / 1.5, 150, 4, 250);
-
-    displayCountdown();
-}
-
-// endGame() 
-// Displays the end screen with the amount earned
-function endGame() {
-
 }
 
 // displayUser()
@@ -240,11 +193,10 @@ function displayCountdown() {
     // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
     if (frameCount % 60 == 0 && timer > 0) {
         timer--;
-    }
-    else if (timer == 0) {
+    } else if (timer == 0) {
         state = `endGame`;
     }
-        displayText(24, timer, width / 2, 50);
+    displayText(24, timer, width / 2, 50);
 }
 
 
@@ -253,11 +205,13 @@ function displayCountdown() {
 // Switch states
 // Check if the user clicked on the mouse
 function mouseClicked() {
-    if(state == `menu`){
+    if (state == `menu`) {
         state = `startGame`
+        gameOver = false;
     }
-
-    checkMouseOverlap();
+    if (!gameOver) {
+        checkMouseOverlap();
+    }
 }
 
 // displayText()
@@ -270,4 +224,71 @@ function displayText(size, string, x, y) {
     noStroke();
     text(string, x, y);
     pop();
+}
+
+
+// menuGame()
+// instructions
+function menuGame() {
+    // Titles
+    push();
+    fill(`#54d6`);
+    displayText(32, INSTRUCTION_TEXT[0], width / 2.1, height / 5.5);
+    displayText(32, INSTRUCTION_TEXT[2], width / 2.1, height / 2.25)
+    displayText(32, INSTRUCTION_TEXT[4], width / 2.1, height / 1.5)
+    pop();
+
+    // Texts
+    push();
+    fill(`#2d67dc`);
+    displayText(28, INSTRUCTION_TEXT[1], width / 2.1, height / 3.5);
+    displayText(28, INSTRUCTION_TEXT[3], width / 2.1, height / 1.85);
+    displayText(28, INSTRUCTION_TEXT[5], width / 2.1, height / 1.35);
+    pop();
+
+    // PLAY
+    push();
+    fill(`#909eba`);
+    displayText(24, INSTRUCTION_TEXT[6], width / 2.1, height / 1.1);
+    pop();
+
+}
+
+// startGame()
+// Displays all elements needed for the game
+function startGame() {
+    displayScore();
+
+    displayHoles(125, height / 5, 150, 4, 250);
+    displayHoles(125, height / 1.5, 150, 4, 250);
+
+    displayMouse(125, height / 1.5, 150, 4, 250);
+
+    displayCountdown();
+}
+
+// endGame() 
+// Set the gameOver bool to true
+// Displays the end screen with the amount earned
+function endGame() {
+    gameOver = true;
+
+    displayText(42, `score: ` + score, width / 2, height / 2);
+    displayText(42, `You earned: ` + scoreMoney + "$", width / 2, height / 1.75);
+
+    // Calculating money earned based on performance
+    if (score > 0 && score <= 10) {
+        scoreMoney = 1;
+    } else if (score > 10 && score <= 20) {
+        scoreMoney = 2;
+    } else if (score > 20 && score <= 30) {
+        scoreMoney = 3;
+    } else if (score > 30) {
+        scoreMoney = 5;
+    } else {
+        scoreMoney = 0;
+    }
+    
+    // Adds the money earned into the user's wallet
+    walletAmount += scoreMoney;
 }
