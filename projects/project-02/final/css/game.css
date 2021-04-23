@@ -6,7 +6,6 @@
 #claw-machine .container {
     display: flex;
     justify-content: center;
-
 }
 
 #claw-machine .container p {
@@ -93,33 +92,28 @@
 
 .coins {
     display: block;
-    width: 75px;
-    height: 75px;
+    width: 350px;
+    height: 250px;
     position: absolute;
     bottom: 10%;
-    right: 20%;
+    right: 18%;
 }
 
 .coins img {
-    width: 100%;
-    height: 100%;
+        width: 75px;
+        height: 75px;
 }
 
 #toy {
     display: flex;
     position: absolute;
-    z-index: 10;
-    width: 75px;
+    width: 80px;
     height: 75px;
 }
 
 .toy {
     position: absolute;
     top: 0;
-    left: 0;
-}
-
-.grabbed {
-    top: unset;
     left: unset;
+    bottom: unset;
 }

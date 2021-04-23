@@ -16,7 +16,7 @@ let jsLeft = false;
 let btnDown = false;
 
 // Money
-const clawMPrice = 0.25;
+const clawMPrice = 1;
 let walletAmount = 0;
 let insertedCoins = 0;
 let amountPaid = false;
@@ -28,23 +28,67 @@ let iNb = 28;
 let randNb;
 let plushies = [];
 let plushiesCollected = [];
+let isGrabbed = false;
 
 
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
 // $(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background.png")`);
 
+
+
+/*/////////////////////////////////////////////////////////////////////////////////
+USER
+*/ /////////////////////////////////////////////////////////////////////////////////
+$(`#claw-machine .user`).css({
+    position: `absolute`,
+    width: `400px`,
+    height: `400px`,
+    bottom: `-18px`,
+    right:`15%`,
+})
+// $(`#paw-user`).attr()
+showCatPaw();
+function showCatPaw() {
+    // Gets the cats JSON image url depending on the selected cat
+    $.getJSON("assets/data/cats.json", function (catsData) {
+        switch (user) {
+            case `tofu`:
+                $(`#paw-user`).attr(`src`, catsData.cats.tofu.paw_url);
+                break;
+            case `lilo`:
+                $(`#paw-user`).attr(`src`, catsData.cats.lilo.paw_url);
+                break;
+            case `kosper`:
+                $(`#paw-user`).attr(`src`, catsData.cats.kosper.paw_url);
+                break;
+        }
+    });
+}
+
+
 /*/////////////////////////////////////////////////////////////////////////////////
 COINS
 */ /////////////////////////////////////////////////////////////////////////////////
 
 // Adding values to the coins 
-// Coin-0 -> 0.25c
 // Coin-1 -> 1$
 // Coin-2 -> 2$
-$(`.coin-0`).attr(`value`, `0.25`);
 $(`.coin-1`).attr(`value`, `1`);
 $(`.coin-2`).attr(`value`, `2`);
+
+coinRandomPos();
+function coinRandomPos() {
+    // Top position = min: 0 max: 125px
+    // Left position = min: 0 max: 325px
+    let randTop = (Math.random() * 172) + -27;
+    let randLeft = (Math.random() * 221) + 18;
+
+     $(`.coin`).css({
+        top:randTop,
+        left: randLeft
+    });
+}
 
 // Coins are draggable
 $(`.coin`).draggable({
@@ -96,7 +140,17 @@ function removeCoin() {
 /*/////////////////////////////////////////////////////////////////////////////////
 TOYS
 */ /////////////////////////////////////////////////////////////////////////////////
+// Creates an empty div where the toy will drop 
+$(`<div>`).attr({
+    id: `drop-plush-container`,
+    class: `claw-machine-parts`
+}).css({
+    width: `150px`,
+    height: `150px`,
+    left: `17%`,
+    bottom: `15%`,
 
+}).appendTo(`#claw-machine #main-body`);
 
 // Adds elm to the plushies array (28-56)
 for (let i = 0; i <= 28; i++) {
@@ -105,8 +159,6 @@ for (let i = 0; i <= 28; i++) {
 }
 
 displayRandPlush();
-addPlushCollection();
-
 // Displays a random plushie
 // Excluding the previous pull
 function displayRandPlush() {
@@ -114,20 +166,69 @@ function displayRandPlush() {
         randNb = Math.floor(Math.random() * (numPlushies - 28 + 1)) + 28;
     }
     while (plushies[randNb] == -1);
-
-    $(`#claw-machine .claw-machine-toys-container `).append(`<img class="toy" id="toy" src="assets/images/collection/${randNb}.png">`)
-
     plushToy = plushies[randNb];
     plushies[randNb] = -1;
+
+
+    $(`<img>`).attr({
+        id: 'toy',
+        src: `assets/images/collection/${randNb}.png`,
+        class: `toy`
+    }).appendTo(`#claw-machine .claw-machine-toys-container `)
+
+    // Top position = min: 0 max: 125px
+    // Left position = min: 0 max: 325px
+    let randTop = (Math.random() * 125) + 0;
+    let randLeft = (Math.random() * 325) + 0;
+    // Assign random top & left pos for the toy
+    $(`.toy`).css({
+        top:randTop,
+        left: randLeft
+    });
 }
 
 
+// Adds the grabbed plush into collection
 function addPlushCollection() {
     plushiesCollected.push(randNb);
 }
 
+// Check if the claw touched the toy
+function collidePlush() {
+    isColliding($(`#toy`), $(`#handle-box-collider`));
+}
 
-$(`.toy`).draggable();
+// Plays a drop animation on picked toy
+// Displays it in the drop-container
+function plushDropAnim() {
+    // Drop animation
+    $(`#toy`).animate({
+        bottom: "-50%",
+        opacity: 0,
+        animation: "easein"
+    }, function () {
+        $(`#toy`).appendTo(`#drop-plush-container`)
+        $(`#toy`).css({
+            bottom: `0`,
+            left: `10%`,
+            width: `125px`,
+            height: `105px`
+        });
+    });
+    $(`#toy`).animate({
+        opacity: 1,
+        animation: "easein"
+    });
+}
+
+// When clicking on 
+$(`#toy`).on(`click`, function (event) {
+    $(this).effect(`puff`, `slow`, function () {
+        $(this).remove();
+    });
+    addPlushCollection();
+    isGrabbed = false;
+})
 
 /*/////////////////////////////////////////////////////////////////////////////////
 CLAW MACHINE DOWN BUTTON (↓) 
@@ -140,23 +241,29 @@ clawBtnDown.on({
         if (amountPaid) {
             btnDown = true;
             $(this).css(`transform`, `scaleY(0.8)`);
+
             clawHandle.animate({
                 top: "+=100",
                 animation: "easein"
-            }, "slow")
+            }, "slow");
+
             clawHandle.animate({
                 top: "0",
                 animation: "easeout"
-            }, "slow")
+            }, "slow");
+
             clawHandle.animate({
                 left: 0,
-                animation: "easeinout"
-            }, 3000)
-
+                animation: "easeinout",
+            }, 3000, function () {
+                if (isGrabbed) {
+                    plushDropAnim()
+                }
+            });
             // Checks if the claw is overlapping the toy
-            var i = setInterval(tester, 200);
+            let callInterval = setInterval(collidePlush, 200);
             setTimeout(function () {
-                clearInterval(i);
+                clearInterval(callInterval);
             }, 1000);
         }
     },
@@ -169,13 +276,7 @@ clawBtnDown.on({
     }
 });
 
-function tester() {
-    isColliding($(`#toy`), $(`#handle-box-collider`));
-}
 
-// function stopTester() {
-//     clearInterval(tester);
-// }
 
 /*/////////////////////////////////////////////////////////////////////////////////
 Joystick
@@ -234,8 +335,6 @@ clawJoystick.on({
 // Joystick movement control
 // constraining movement within the claw machine
 function joystickControl(event) {
-    // console.log(clawHandle.position().left);
-    // console.log(clawHandle.position().left)
     // to the right
     if (clawHandle.position().left < 400 && !jsLeft) {
         clawHandle.finish().animate({
@@ -254,13 +353,8 @@ function joystickControl(event) {
     noRefund = true;
 }
 
-
-// testing claw picking up
-
-let handleBox = $(`#handle-box-collider`);
-
 // Function detecting collision between two div
-// Code by: https://gist.github.com/jtsternberg/c272d7de5b967cec2d3d
+// Code inspired by: https://gist.github.com/jtsternberg/c272d7de5b967cec2d3d
 function isColliding(div1, div2) {
     let d1Offset = div1.offset();
     let d1Height = div1.outerHeight(true);
@@ -275,14 +369,17 @@ function isColliding(div1, div2) {
     let d2Left = d2Offset.left + d2Width;
 
     if (!(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left)) {
-        console.log("it true");
-
-        $(`.toy`).appendTo(`#handle-box-collider`);
-        $(`.toy`).removeClass(`test`);
-        $(`.toy`).addClass(`grabbed`);
+        isGrabbed = true;
+        $(`#toy`).appendTo(`#handle-box-collider`);
+        $(`#toy`).removeClass(`toy`);
+        $(`#toy`).addClass(`grabbed`);
+        $(`.grabbed`).css({
+            top: ``,
+            left: ``
+        });
 
     } else {
-        console.log("hi")
+        isGrabbed = false;
     };
     // return !(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left);
 

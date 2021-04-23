@@ -11,7 +11,7 @@ The joystick and button are will be disabled after that.
 
 "use strict";
 // Variables
-let user = "";
+let user = "tofu";
 let perksTxt = "";
 
 /*//////////////////////////////////////////////////////////////

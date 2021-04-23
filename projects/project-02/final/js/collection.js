@@ -29,9 +29,18 @@ $(`#collection button`).on("click", function (event) {
 });
 
 
+//   $(`<img>`).attr({
+//         id:'toy',
+//         src: `assets/images/collection/${randNb}.png`,
+//         class: `toy`
+//     }).appendTo(`#claw-machine .claw-machine-toys-container `)
+
+
+
 function showStickers() {
     for (let i = 0; i < numStickers; i++) {
-        $(`.items`).append(`<div class="stickers sticker-${i}"></div>`);
+        $(`<div>`).addClass(`stickers sticker-${i}`).appendTo(`.items`);
+        // $(`.items`).append(`<div class="stickers sticker-${i}"></div>`);
         $(`.sticker-${i}`).css(`background-image`, `url("assets/images/collection/${i}.png")`);
     }
 }
