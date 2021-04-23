@@ -254,18 +254,6 @@ button:active {
     inset -6px 6px 6px #f8c493;
 }
 
-#claw-machine,
-#collection,
-#home,
-#gacha-machine,
-#menu,
-#instruction
-/* #mini-games */
-{
-  display: none;
-}
-
-
 /* mini-games  */
 #mini-games {
   display: flex;
@@ -277,4 +265,16 @@ button:active {
 canvas {
   border: 10px solid #ccccff;
   border-radius: 1.5rem;
+}
+
+
+/* #claw-machine, */
+#collection,
+#home,
+#gacha-machine,
+#menu,
+#instruction,
+#mini-games
+ {
+  display: none;
 }

@@ -22,6 +22,12 @@ class Fish {
         this.eaten = false;
     }
 
+    update() {
+        this.move();
+        this.display();
+        this.checkFish();
+    }
+
     // Move the fishies randomly within the canvas
     move() {
         let change = random(0, 1);

@@ -15,8 +15,8 @@ let catsData;
 let myFont;
 let state = `menu`;
 
-let minigame1 = false;
-let minigame2 = true;
+let minigame1 = true;
+let minigame2 = false;
 let gameOver = false;
 
 let score = 0;
@@ -40,12 +40,15 @@ let mouse = {
     img: undefined,
 };
 
+let mice = [];
+let mouseImg;
+
 let fishies = [];
 let fishImg;
 
 const
     NUM_CATS = 3,
-    NUM_FISHIES = 30;
+    NUM_FISHIES = 100;
 CATS_URL = `assets/data/cats.json`,
     FONT_URL = `assets/fonts/FredokaOne.ttf`,
     MOUSE_URL = `assets/images/mouse.png`,
@@ -69,7 +72,7 @@ CATS_URL = `assets/data/cats.json`,
         Catch some fish for a buck or two!`,
         `You'll need precision.
         Use your paw and hover to catch the fishies.`,
-        `1-15: 1$ | 16-30: 2$`,
+        `1-90: 1$ | 91-100: 2$`,
         `[CLICK TO ACCEPT JOB]`
     ];
 
@@ -102,7 +105,7 @@ function setup() {
     // MINIGAME 2
     else if (minigame2) {
         fishSetup();
-        timer = 10;
+        timer = 5;
     }
 }
 
@@ -393,9 +396,9 @@ function endGame() {
     // MINIGAME 2
     if (minigame2) {
 
-        if (score > 0 && score <= 5) {
+        if (score > 0 && score <= 90) {
             scoreMoney = 1;
-        } else if (score >= 6) {
+        } else if (score >= 91) {
             scoreMoney = 2;
         } else if (score == 0) {
             scoreMoney = 0;

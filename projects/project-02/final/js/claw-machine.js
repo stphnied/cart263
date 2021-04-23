@@ -22,6 +22,14 @@ let insertedCoins = 0;
 let amountPaid = false;
 let noRefund = false;
 
+// Toys
+let plushToy;
+let iNb = 28;
+let randNb;
+let plushies = [];
+let plushiesCollected = [];
+
+
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
 // $(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background.png")`);
@@ -86,6 +94,42 @@ function removeCoin() {
 }
 
 /*/////////////////////////////////////////////////////////////////////////////////
+TOYS
+*/ /////////////////////////////////////////////////////////////////////////////////
+
+
+// Adds elm to the plushies array (28-56)
+for (let i = 0; i <= 28; i++) {
+    plushies[i] = iNb;
+    iNb++;
+}
+
+displayRandPlush();
+addPlushCollection();
+
+// Displays a random plushie
+// Excluding the previous pull
+function displayRandPlush() {
+    do {
+        randNb = Math.floor(Math.random() * (numPlushies - 28 + 1)) + 28;
+    }
+    while (plushies[randNb] == -1);
+
+    $(`#claw-machine .claw-machine-toys-container `).append(`<img class="toy" id="toy" src="assets/images/collection/${randNb}.png">`)
+
+    plushToy = plushies[randNb];
+    plushies[randNb] = -1;
+}
+
+
+function addPlushCollection() {
+    plushiesCollected.push(randNb);
+}
+
+
+$(`.toy`).draggable();
+
+/*/////////////////////////////////////////////////////////////////////////////////
 CLAW MACHINE DOWN BUTTON (↓) 
 */ /////////////////////////////////////////////////////////////////////////////////
 
@@ -126,7 +170,7 @@ clawBtnDown.on({
 });
 
 function tester() {
-    isColliding($(`#test`), $(`#handle-box-collider`));
+    isColliding($(`#toy`), $(`#handle-box-collider`));
 }
 
 // function stopTester() {
@@ -215,10 +259,6 @@ function joystickControl(event) {
 
 let handleBox = $(`#handle-box-collider`);
 
-let test = $(`#test`);
-
-test.draggable();
-
 // Function detecting collision between two div
 // Code by: https://gist.github.com/jtsternberg/c272d7de5b967cec2d3d
 function isColliding(div1, div2) {
@@ -237,9 +277,9 @@ function isColliding(div1, div2) {
     if (!(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left)) {
         console.log("it true");
 
-        $(`#test`).appendTo(`#handle-box-collider`);
-        $(`#test`).removeClass(`test`);
-        $(`#test`).addClass(`grabbed`);
+        $(`.toy`).appendTo(`#handle-box-collider`);
+        $(`.toy`).removeClass(`test`);
+        $(`.toy`).addClass(`grabbed`);
 
     } else {
         console.log("hi")

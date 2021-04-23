@@ -31,9 +31,9 @@
 
 <body>
 
-  <span>
+  <!-- <span>
     <button id="btn-return">click me</button>
-  </span>
+  </span> -->
 
   <!-- Home screen -->
   <section id="home">
@@ -115,7 +115,7 @@
         </p>
         <div class="buttons">
           <button class="btn-play">PLAY</button>
-          <!-- <button>WORK</button> -->
+          <button>JOB</button>
         </div>
       </div>
     </div>
@@ -138,7 +138,9 @@
       </p>
 
       <div id="main-body">
-        <img src="assets/images/claw-machines/toys-3.png" alt="" id="claw-machine-toy">
+        <div class="claw-machine-toys-container">
+          <img src="assets/images/claw-machines/toys-3.png" alt="">
+        </div>
         <div id="claw-machine-handle-container">
           <img id="claw-machine-handle" src="assets/images/claw-machines/claw-0.png" alt="" srcset="">
           <div id="handle-box-collider"></div>
@@ -160,7 +162,7 @@
         <img class="coin coin-0" src="assets/images/coin-0.png" alt="" srcset="">
       </div>
     </div>
-    <div id="test" class="test"></div>
+    <!-- <div id="test" class="test"></div> -->
     <div class="user">
       <img id="" src="" alt="">
     </div>
@@ -171,10 +173,11 @@
   </section>
 
   <!-- My script(s) -->
+  <script src="js/Mouse.js"></script>
   <script src="js/Fish.js"></script>
   <script src="js/mini-game.js"></script>
+  <script src="js/collection.js"></script>
   <script src="js/claw-machine.js"></script>
-  <!-- <script src="js/collection.js"></script> -->
   <script src="js/script.js"></script>
 </body>
 

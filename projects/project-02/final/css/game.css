@@ -28,10 +28,14 @@
     max-width: 100%;
 }
 
-#claw-machine-toy {
+.claw-machine-toys-container {
+    position: absolute;
+    width: 414px;
+    height: 253px;
     right: 60px;
     bottom: 39%;
     opacity: 0.6;
+
 }
 
 #claw-machine-handle-container {
@@ -56,7 +60,6 @@
     justify-content: center;
     width: 100%;
     height: 75px;
-    background: red;
 }
 
 #claw-machine-joystick {
@@ -102,21 +105,21 @@
     height: 100%;
 }
 
-#test {
+#toy {
     display: flex;
-    width: 25px;
-    height: inherit;
-    background: blue;
+    position: absolute;
+    z-index: 10;
+    width: 75px;
+    height: 75px;
 }
 
-.test {
+.toy {
     position: absolute;
     top: 0;
     left: 0;
 }
 
 .grabbed {
-    background: blue;
     top: unset;
     left: unset;
 }
