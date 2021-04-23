@@ -9,14 +9,20 @@ This script is dedicated to the minigames functionalities.
 */
 
 // Variables
+//  ---------------------------------------------------------------------
 let minigameCanvas;
 let catsData;
 let myFont;
 let state = `menu`;
+
+let minigame1 = false;
+let minigame2 = true;
 let gameOver = false;
+
 let score = 0;
 let scoreMoney = 0;
-let timer = 30;
+let timer = 0;
+
 let userMG = {
     x: 0,
     y: 0,
@@ -34,29 +40,49 @@ let mouse = {
     img: undefined,
 };
 
+let fishies = [];
+let fishImg;
+
 const
     NUM_CATS = 3,
-    CATS_URL = `assets/data/cats.json`,
+    NUM_FISHIES = 30;
+CATS_URL = `assets/data/cats.json`,
     FONT_URL = `assets/fonts/FredokaOne.ttf`,
+    MOUSE_URL = `assets/images/mouse.png`,
+    FISH_URL = `assets/images/fish.png`,
+    TITLE_TEXT = [
+        `WHACK-A-MOUSE`,
+        `GO FISH`
+    ],
     INSTRUCTION_TEXT = [
         `JOB DESCRIPTION:`,
+        `SKILLS:`,
+        `REWARD:`,
+
         `Your friendly neighbourhood is infested with cheesy mice.
          Get rid of them and get a heifty reward!`,
-        `SKILLS:`,
         `You'll need speed.
         Use your paw and click to WHACK the mice.`,
-        `REWARD:`,
         `1-10: 1$ | 11-20: 2$ | 21-30: 3$ | 31-40: 5$`,
-        `[CLICK TO START JOB]`
+
+        `Your local fish shop is in need of fisherman.
+        Catch some fish for a buck or two!`,
+        `You'll need precision.
+        Use your paw and hover to catch the fishies.`,
+        `1-15: 1$ | 16-30: 2$`,
+        `[CLICK TO ACCEPT JOB]`
     ];
 
-
+// FUNCTIONS
+//  ---------------------------------------------------------------------
 // preloads()
 // Loads data, images, font
 function preload() {
-    catsData = loadJSON(CATS_URL);
-    mouse.img = loadImage(`assets/images/mouse.png`);
     myFont = loadFont(FONT_URL);
+    catsData = loadJSON(CATS_URL);
+
+    mouse.img = loadImage(MOUSE_URL);
+    fishImg = loadImage(FISH_URL);
 }
 
 // setup()
@@ -66,8 +92,18 @@ function setup() {
     minigameCanvas.parent("#mini-games");
     textFont(myFont);
     userSetup();
-    mouseSetup();
     noCursor();
+
+    // MINIGAME 1
+    if (minigame1) {
+        mouseSetup();
+        timer = 30;
+    }
+    // MINIGAME 2
+    else if (minigame2) {
+        fishSetup();
+        timer = 10;
+    }
 }
 
 // userSetup()
@@ -89,24 +125,6 @@ function userSetup() {
         default:
             break;
     }
-}
-
-// mouseSetup();
-// initial position
-// saves possible x and y of the mouse in arrays
-// calls the updateMouse() between 0.25 and 0.85 seconds
-function mouseSetup() {
-
-    mouse.x = 125;
-    mouse.y = height / 1.5;
-
-    // rX:(spacing of 250 between each)
-    mouse.rX = [125, 375, 625, 875];
-    // rY: only 2 heights
-    mouse.rY = [height / 1.5, height / 5];
-
-    let rTime = random(250, 760);
-    setInterval(updateMouse, rTime);
 }
 
 // draw()
@@ -134,11 +152,34 @@ function draw() {
     displayUser(125, height / 1.5, 150, 4, 250);
 }
 
+
 // displayUser()
 // Displaying the user's cursor image
 function displayUser() {
     imageMode(CENTER);
     image(userMG.img, mouseX, mouseY, userMG.size, userMG.size);
+}
+
+// MINIGAME 1
+//  --------------------------------------------------------------------------------------------------------------------
+
+// mouseSetup();
+// MINIGAME 1
+// initial position
+// saves possible x and y of the mouse in arrays
+// calls the updateMouse() between 0.25 and 0.85 seconds
+function mouseSetup() {
+
+    mouse.x = 125;
+    mouse.y = height / 1.5;
+
+    // rX:(spacing of 250 between each)
+    mouse.rX = [125, 375, 625, 875];
+    // rY: only 2 heights
+    mouse.rY = [height / 1.5, height / 5];
+
+    let rTime = random(250, 760);
+    setInterval(updateMouse, rTime);
 }
 
 // displayHoles()
@@ -179,17 +220,35 @@ function checkMouseOverlap(x, y, size, lineSpace) {
     x += lineSpace;
 }
 
+
+// MINIGAME 2
+//  --------------------------------------------------------------------------------------------------------------------
+
+function fishSetup() {
+    for (let i = 0; i < NUM_FISHIES; i++) {
+        let x = random(0, width);
+        let y = random(0, height);
+
+        let fish = new Fish(x, y,fishImg);
+        fishies.push(fish);
+    }
+}
+
+//  --------------------------------------------------------------------------------------------------------------------
+
 // displayScore()
 // Displaying the player's current score
 function displayScore() {
+
     displayText(36, score, width / 2, height - 50);
 }
 
 // displayCountdown()
-// Displays a timer going down from 30sec to 0sec
+// Displays a timer counting down
 // Once it hits 0, the game over
 // Framecount calculation taken from: https://editor.p5js.org/marynotari/sketches/S1T2ZTMp-
 function displayCountdown() {
+
     // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
     if (frameCount % 60 == 0 && timer > 0) {
         timer--;
@@ -199,16 +258,24 @@ function displayCountdown() {
     displayText(24, timer, width / 2, 50);
 }
 
-
 // mouseClicked()
 // click events
 // Switch states
 // Check if the user clicked on the mouse
+// Reinitialized money & score
 function mouseClicked() {
     if (state == `menu`) {
-        state = `startGame`
-        gameOver = false;
+
+        // Click on text [CLICK TO ACCEPT JOB] to proceed
+        let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
+        if (d1 < userMG.size) {
+            state = `startGame`
+            gameOver = false;
+            score = 0;
+            scoreMoney = 0;
+        }
     }
+
     if (!gameOver) {
         checkMouseOverlap();
     }
@@ -226,7 +293,8 @@ function displayText(size, string, x, y) {
     pop();
 }
 
-
+// STATES
+//  ---------------------------------------------------------------------
 // menuGame()
 // instructions
 function menuGame() {
@@ -234,36 +302,68 @@ function menuGame() {
     push();
     fill(`#54d6`);
     displayText(32, INSTRUCTION_TEXT[0], width / 2.1, height / 5.5);
-    displayText(32, INSTRUCTION_TEXT[2], width / 2.1, height / 2.25)
-    displayText(32, INSTRUCTION_TEXT[4], width / 2.1, height / 1.5)
+    displayText(32, INSTRUCTION_TEXT[1], width / 2.1, height / 2.25)
+    displayText(32, INSTRUCTION_TEXT[2], width / 2.1, height / 1.5)
     pop();
 
-    // Texts
-    push();
-    fill(`#2d67dc`);
-    displayText(28, INSTRUCTION_TEXT[1], width / 2.1, height / 3.5);
-    displayText(28, INSTRUCTION_TEXT[3], width / 2.1, height / 1.85);
-    displayText(28, INSTRUCTION_TEXT[5], width / 2.1, height / 1.35);
-    pop();
+    // MINIGAME 1
+    if (minigame1) {
+        push();
+        fill(`#54d6`);
+        displayText(56, TITLE_TEXT[0], width / 2.1, height / 15);
+        pop();
+        // Texts
+        push();
+        fill(`#2d67dc`);
+        displayText(28, INSTRUCTION_TEXT[3], width / 2.1, height / 3.5);
+        displayText(28, INSTRUCTION_TEXT[4], width / 2.1, height / 1.85);
+        displayText(28, INSTRUCTION_TEXT[5], width / 2.1, height / 1.35);
+        pop();
+    }
+    // MINIGAME 2
+    else if (minigame2) {
+        push();
+        fill(`#54d6`);
+        displayText(56, TITLE_TEXT[1], width / 2.1, height / 15);
+        pop();
+        push();
+        fill(`#2d67dc`);
+        displayText(28, INSTRUCTION_TEXT[6], width / 2.1, height / 3.5);
+        displayText(28, INSTRUCTION_TEXT[7], width / 2.1, height / 1.85);
+        displayText(28, INSTRUCTION_TEXT[8], width / 2.1, height / 1.35);
+        pop();
+    }
 
-    // PLAY
+    // PLAY FOR BOTH MINIGAMES
     push();
     fill(`#909eba`);
-    displayText(24, INSTRUCTION_TEXT[6], width / 2.1, height / 1.1);
+    displayText(24, INSTRUCTION_TEXT[9], width / 2.1, height / 1.1);
     pop();
-
 }
 
 // startGame()
 // Displays all elements needed for the game
 function startGame() {
+
+    // Minigame 1
+    if (minigame1) {
+        displayHoles(125, height / 5, 150, 4, 250);
+        displayHoles(125, height / 1.5, 150, 4, 250);
+        displayMouse(125, height / 1.5, 150, 4, 250);
+    }
+
+    // Minigame 2
+    else if (minigame2) {
+
+        for (let i = 0; i < NUM_FISHIES; i++) {
+            let fish = fishies[i];
+            fish.display();
+            fish.move();
+            fish.checkFish();
+        }
+
+    }
     displayScore();
-
-    displayHoles(125, height / 5, 150, 4, 250);
-    displayHoles(125, height / 1.5, 150, 4, 250);
-
-    displayMouse(125, height / 1.5, 150, 4, 250);
-
     displayCountdown();
 }
 
@@ -271,24 +371,41 @@ function startGame() {
 // Set the gameOver bool to true
 // Displays the end screen with the amount earned
 function endGame() {
+
     gameOver = true;
+
+    // Calculating money earned based on performance
+    // MINIGAME 1
+    if (minigame1) {
+        if (score > 0 && score <= 10) {
+            scoreMoney = 1;
+        } else if (score > 10 && score <= 20) {
+            scoreMoney = 2;
+        } else if (score > 20 && score <= 30) {
+            scoreMoney = 3;
+        } else if (score > 30) {
+            scoreMoney = 5;
+        } else {
+            scoreMoney = 0;
+        }
+    }
+
+    // MINIGAME 2
+    if (minigame2) {
+
+        if (score > 0 && score <= 5) {
+            scoreMoney = 1;
+        } else if (score >= 6) {
+            scoreMoney = 2;
+        } else if (score == 0) {
+            scoreMoney = 0;
+        }
+    }
+
+
+    // Adds the money earned into the user's wallet
+    walletAmount += scoreMoney;
 
     displayText(42, `score: ` + score, width / 2, height / 2);
     displayText(42, `You earned: ` + scoreMoney + "$", width / 2, height / 1.75);
-
-    // Calculating money earned based on performance
-    if (score > 0 && score <= 10) {
-        scoreMoney = 1;
-    } else if (score > 10 && score <= 20) {
-        scoreMoney = 2;
-    } else if (score > 20 && score <= 30) {
-        scoreMoney = 3;
-    } else if (score > 30) {
-        scoreMoney = 5;
-    } else {
-        scoreMoney = 0;
-    }
-    
-    // Adds the money earned into the user's wallet
-    walletAmount += scoreMoney;
 }
