@@ -127,19 +127,27 @@
   <section id="claw-machine">
     <!-- <h2>This is the claw machine section</h2> -->
     <div class="container">
-      <p>How to play: <br>
-        Click and drag a coin into the coin-slot to activate the claw-machine.<br>
-        If you want a refund -> click on the button next to the coin-slot<br>
-        click and hold onto the joystick to move the claw.<br>
-        Press the button to drop down the blaw.<br><br>
+      <div class="left-side">
+        <h2>HOW TO PLAY:</h2>
+        <ul>
+          <li>Insert 3$ to activate</li>
+          <li>Click and drag joystick to move claw</li>
+          <li>Press button to drop claw and grab plush</li>
+          <li>*For refund: press the button next to the coinslot</li>
+        </ul>
+        <h3>CURRENT BALANCE = 5$</h3>
+        <h3>COIN INSERTED = 0</h3>
+        <br>
+        <p>*Only if you did not play yet</p>
+        <br>
+        <button class="btn-collection">COLLECTION </button>
+        <button class="btn-return">RETURN</button>
 
-        ** I have yet implement a prize drop <br>
-        ** You cannot ask for a refund once you move the joystick
-      </p>
-
+      </div>
+    
       <div id="main-body">
         <div class="claw-machine-toys-container">
-          <img src="assets/images/claw-machines/toys-3.png" alt="">
+          <img id="toy-bg" src="assets/images/claw-machines/toys-0.png" alt="">
         </div>
         <div id="claw-machine-handle-container">
           <img id="claw-machine-handle" src="assets/images/claw-machines/claw-0.png" alt="" srcset="">
@@ -166,6 +174,14 @@
 
     </div>
 
+    <div class="selectMachine">
+      <button class="previous">&#8249;</button>
+      <button class="next">&#8250;</button>
+    </div>
+
+    <div id="confirm-dialog" title="CONFIRM">
+      <p>Confirm payment of 3$</p>
+    </div>
   </section>
   <section id="mini-games">
     <h2>JOB POST</h2>

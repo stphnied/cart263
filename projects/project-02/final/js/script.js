@@ -115,3 +115,11 @@ function showCat(catId) {
         $(`.left-side p`).text(perks);
     });
 }
+
+/*//////////////////////////////////////////////////////////////
+COLLECTION
+*/ ////////////////////////////////////////////////////////////
+$(`.btn-collection`).on(`click`, function(){
+$(`#collection`).css(`display`, `flex`);
+            showStickers();
+});

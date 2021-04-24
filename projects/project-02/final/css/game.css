@@ -8,10 +8,16 @@
     justify-content: center;
 }
 
-#claw-machine .container p {
-    top: 35%;
+#claw-machine .left-side {
     position: absolute;
     left: 0;
+    top: 25%;
+    width: 20%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-left: 2rem;
 }
 
 #main-body {
@@ -33,7 +39,7 @@
     height: 253px;
     right: 60px;
     bottom: 39%;
-    opacity: 0.6;
+    /* opacity: 0.6; */
 
 }
 
@@ -100,8 +106,8 @@
 }
 
 .coins img {
-        width: 75px;
-        height: 75px;
+    width: 75px;
+    height: 75px;
 }
 
 #toy {
@@ -116,4 +122,26 @@
     top: 0;
     left: unset;
     bottom: unset;
+}
+
+.selectMachine {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    width: 70vw;
+    height: 50px;
+    top: 45%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.selectMachine button {
+    display: flex;
+    align-self: center;
+    font-size: 2rem;
+    background: #fde796;
+    box-shadow: inset 6px -6px 6px #ffa565a3,
+    inset -6px 6px 6px #fffa90;
 }

@@ -8,12 +8,14 @@ This script is dedicated to the claw-machine functionality/interactivity.
 // VARIABLES
 
 // Claw machine parts
+let clawBody = $(`#claw-machine-body`);
 let clawHandle = $(`#claw-machine-handle-container`);
 let clawJoystick = $(`#claw-machine-joystick`);
 let clawBtnDown = $(`#claw-machine-btn-down`);
 let jsDown = false;
 let jsLeft = false;
 let btnDown = false;
+let colorNumb = 0;
 
 // Money
 const clawMPrice = 1;
@@ -33,8 +35,7 @@ let isGrabbed = false;
 
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
-// $(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background.png")`);
-
+$(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background1.png")`);
 
 
 /*/////////////////////////////////////////////////////////////////////////////////
@@ -45,10 +46,11 @@ $(`#claw-machine .user`).css({
     width: `400px`,
     height: `400px`,
     bottom: `-18px`,
-    right:`15%`,
+    right: `15%`,
 })
 // $(`#paw-user`).attr()
 showCatPaw();
+
 function showCatPaw() {
     // Gets the cats JSON image url depending on the selected cat
     $.getJSON("assets/data/cats.json", function (catsData) {
@@ -78,14 +80,15 @@ $(`.coin-1`).attr(`value`, `1`);
 $(`.coin-2`).attr(`value`, `2`);
 
 coinRandomPos();
+
 function coinRandomPos() {
     // Top position = min: 0 max: 125px
     // Left position = min: 0 max: 325px
     let randTop = (Math.random() * 172) + -27;
     let randLeft = (Math.random() * 221) + 18;
 
-     $(`.coin`).css({
-        top:randTop,
+    $(`.coin`).css({
+        top: randTop,
         left: randLeft
     });
 }
@@ -113,14 +116,24 @@ $(`#claw-machine-coin-slot`).droppable({
 
         // If it is equals to the claw-machine price then allows to play
         if (insertedCoins == clawMPrice) {
-            amountPaid = true;
+            $(`#confirm-dialog`).dialog("open");
         }
+
+        // Hides the <> buttons 
+        $(`.selectMachine button`).hide();
     }
 });
 
 // Reset coins
 // If the player did not play yet and wants his coin back
 $(`#claw-machine-btn-reset`).on(`click`, function (event) {
+        refundCoin();
+        // show <> Button again
+        $(`.selectMachine button`).show();
+});
+
+// Resetting back to 0 and false
+function refundCoin() {
     if (!noRefund) {
         $(`.used`).show("scale");
         $(`.used`).removeClass(`used`);
@@ -128,7 +141,7 @@ $(`#claw-machine-btn-reset`).on(`click`, function (event) {
         amountPaid = false;
         noRefund = false
     }
-});
+}
 
 // If the joystick has been used -> can no longer get a refund
 function removeCoin() {
@@ -138,13 +151,44 @@ function removeCoin() {
 }
 
 /*/////////////////////////////////////////////////////////////////////////////////
+PAYMENT DIALOG
+*/ /////////////////////////////////////////////////////////////////////////////////
+// Confirm the payment 
+$(`#confirm-dialog`).dialog({
+    buttons: {
+        "Yew": function () {
+            amountPaid = true;
+            displayRandPlush();
+            $(this).dialog(`close`);
+        },
+        "Nyo": function () {
+            refundCoin();
+            $(this).dialog(`close`);
+        }
+    },
+    autoOpen: false
+});
+$(`.ui-dialog`).css({
+    backgroundColor: `#97bcff`
+});
+$(`.ui-dialog-buttonset button`).css({
+    fontFamily: `Fredoka One`,
+    backgroundColor: `#97bcff`
+});
+
+$(`.ui-widget`).css(`font-family`, `Fredoka One`);
+
+
+
+/*/////////////////////////////////////////////////////////////////////////////////
 TOYS
 */ /////////////////////////////////////////////////////////////////////////////////
+
 // Creates an empty div where the toy will drop 
 $(`<div>`).attr({
-    id: `drop-plush-container`,
-    class: `claw-machine-parts`
+    id: `drop-plush-container`
 }).css({
+    position: `absolute`,
     width: `150px`,
     height: `150px`,
     left: `17%`,
@@ -158,15 +202,43 @@ for (let i = 0; i <= 28; i++) {
     iNb++;
 }
 
-displayRandPlush();
+
+// 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple (machine)
+// 35-41        42-48       49-55       28-34         (plushies)
+
 // Displays a random plushie
 // Excluding the previous pull
 function displayRandPlush() {
+    let minRNb;
+    let maxRNb;
+    switch (colorNumb) {
+        case 0:
+            minRNb = 35;
+            maxRNb = 41;
+            break;
+        case 1:
+            minRNb = 42;
+            maxRNb = 48;
+            break;
+        case 2:
+            minRNb = 49;
+            maxRNb = 55;
+            break;
+        case 3:
+            minRNb = 28;
+            maxRNb = 34;
+            break;
+        default:
+            break;
+    }
     do {
-        randNb = Math.floor(Math.random() * (numPlushies - 28 + 1)) + 28;
+        // Math.floor(Math.random() * (max - min + 1)) + min
+        randNb = Math.floor(Math.random() * (maxRNb - minRNb + 1)) + minRNb;
     }
     while (plushies[randNb] == -1);
     plushToy = plushies[randNb];
+    // only if they got the plushie
+    // ----------------------------------TO ADD
     plushies[randNb] = -1;
 
 
@@ -182,7 +254,7 @@ function displayRandPlush() {
     let randLeft = (Math.random() * 325) + 0;
     // Assign random top & left pos for the toy
     $(`.toy`).css({
-        top:randTop,
+        top: randTop,
         left: randLeft
     });
 }
@@ -218,17 +290,20 @@ function plushDropAnim() {
     $(`#toy`).animate({
         opacity: 1,
         animation: "easein"
-    });
+    },collectPlush);
 }
 
 // When clicking on 
+function collectPlush() {
 $(`#toy`).on(`click`, function (event) {
     $(this).effect(`puff`, `slow`, function () {
         $(this).remove();
     });
-    addPlushCollection();
+    // addPlushCollection();
     isGrabbed = false;
 })
+}
+
 
 /*/////////////////////////////////////////////////////////////////////////////////
 CLAW MACHINE DOWN BUTTON (↓) 
@@ -384,3 +459,39 @@ function isColliding(div1, div2) {
     // return !(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left);
 
 };
+
+/*/////////////////////////////////////////////////////////////////////////////////
+SWITCH CLAW MACHINES (BUTTONS)
+*/ /////////////////////////////////////////////////////////////////////////////////
+
+
+// Changes the colors of the machine by clicking next or previous arrows
+// 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple
+$(`.selectMachine button`).on(`click`, function (event) {
+    switch ($(this).attr(`class`)) {
+        // PREVIOUS button
+        case `previous`:
+
+            if (colorNumb > 0) {
+                colorNumb -= 1;
+            } else if (colorNumb < 1) {
+                colorNumb = 3;
+            }
+            break;
+            // NEXT button
+        case `next`:
+
+            if (colorNumb < 3) {
+                colorNumb += 1;
+            } else if (colorNumb == 3) {
+                colorNumb = 0;
+            }
+            break;
+    }
+    // Changes the image source
+    clawBody.attr(`src`, `assets/images/claw-machines/claw-machine-${colorNumb}.png`);
+    clawJoystick.attr(`src`, `assets/images/claw-machines/joystick-${colorNumb}.png`);
+    clawBtnDown.attr(`src`, `assets/images/claw-machines/btn-${colorNumb}.png`);
+    $(`#toy-bg`).attr(`src`, `assets/images/claw-machines/toys-${colorNumb}.png`);
+    $(`#claw-machine-handle`).attr(`src`, `assets/images/claw-machines/claw-${colorNumb}.png`);
+});
