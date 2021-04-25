@@ -10,8 +10,11 @@ This script is dedicated to all collection functionalities.
 // VARIABLES
 const numStickers = 28;
 const numPlushies = 56;
-// Creates sticker images for collection
 
+// Calling function
+createCollection();
+
+// Creates sticker images for collection
 $(`#collection button`).on("click", function (event) {
     switch ($(this).attr(`class`)) {
         case `btn-x`:
@@ -28,7 +31,6 @@ $(`#collection button`).on("click", function (event) {
     }
 });
 
-createCollection();
 
 function createCollection() {
     for (let i = 0; i < numStickers; i++) {

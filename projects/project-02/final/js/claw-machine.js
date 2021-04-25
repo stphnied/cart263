@@ -2,7 +2,19 @@
 Project 2: Anything
 Stephanie Dang.
 
-This script is dedicated to the claw-machine functionality/interactivity.
+This script is dedicated to the claw-machine functionality/interactivity and the money-data
+
+- Displays different claw-machines
+- Can manipulate the machine:
+    - Can drag coins inside the slot machine
+    - Can ask for refund by clicking on button
+    - Can control the claw with the joystick and drop the claw by clicking the big button
+    - Can grab the plushies and add to collection
+
+- Can check your collection
+- Can see your wallet amount
+
+- Loads previous data for the money if there is any
 */
 
 // VARIABLES
@@ -18,9 +30,7 @@ let btnDown = false;
 let colorNumb = 0;
 
 // Money
-
-localStorage.setItem("dataMoney","5");
-let dataMoney = parseInt(localStorage.getItem("dataMoney"));
+let money;
 let insertedCoins = 0;
 let amountPaid = false;
 let noRefund = false;
@@ -35,13 +45,72 @@ let plushiesCollected = [];
 let isGrabbed = false;
 
 
-// LOCAL STORAGE FOR MONEY MONEY PLS HELP IDK 
+/*//////////////////////////////////////////////////////////////
+MONEY DATA
+*/ /////////////////////////////////////////////////////////////
+let data = JSON.parse(localStorage.getItem("money-data"));
+
+// If there's no data: set the money count to 5$
+//  Else : reloads the datra
+function checkData() {
+    // No data:
+    if (localStorage.getItem("money-data", money) == null) {
+        money = 5;
+        localStorage.setItem("money-data", JSON.stringify(money));
+
+        // Gives 5 coins
+        $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+        $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+        $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+    }
+    // Saved Data:
+    else if (localStorage.getItem("money-data", money) !== null) {
+        localStorage.getItem("money-data", money);
+        addPreviousCoins();
+    }
+}
+
+
+// Adding coins depending if there is data or not
+// If no data  :5$
+// Else if there is data, adding accordingly
+function addPreviousCoins() {
+    // store the previous amount in a variable
+    let previousAmount = parseInt(localStorage.getItem("money-data"));
+
+    // Previous number is odd and not 1
+    if (previousAmount % 2 !== 0 && previousAmount !== 1) {
+        for (let i = 0; i < parseInt(previousAmount / 2); i++) {
+            // 2 coins
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+        }
+        // 1 coins
+        $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+    }
+
+    // Previous number is 1
+    else if (previousAmount == 1) {
+        // 1 coins
+        $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+    }
+
+    // Previous number is even
+    else if (previousAmount % 2 !== 0)
+        for (let i = 0; i < previousAmount; i++) {
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+        }
+}
 
 
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
 $(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background1.png")`);
 
+// Calling functions
+checkData();
+showCatPaw();
+updateMoneyText();
+coinRandomPos();
 
 /*/////////////////////////////////////////////////////////////////////////////////
 USER
@@ -53,9 +122,8 @@ $(`#claw-machine .user`).css({
     bottom: `-18px`,
     right: `15%`,
 });
-// $(`#paw-user`).attr()
-showCatPaw();
 
+// Assign an image source to the user 
 function showCatPaw() {
     // Gets the cats JSON image url depending on the selected cat
     $.getJSON("assets/data/cats.json", function (catsData) {
@@ -68,15 +136,15 @@ function showCatPaw() {
                 break;
             case `kosper`:
                 $(`#paw-user`).attr(`src`, catsData.cats.kosper.paw_url);
+                1
                 break;
         }
     });
 }
 
-updateUserWallet();
-// User's wallet
-function updateUserWallet() {
-    $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataMoney + `$`);
+// Display the updated user's wallet
+function updateMoneyText() {
+    $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + data + `$`);
     $(`.insertCoinsTxt`).text(`COIN INSERTED = ` + insertedCoins + `$`);
 }
 
@@ -107,8 +175,7 @@ $(`.coin-2`).attr(`value`, `2`);
 //     }
 // })
 
-coinRandomPos();
-
+// Randomly assign a position
 function coinRandomPos() {
     // Top position = min: 0 max: 125px
     // Left position = min: 0 max: 325px
@@ -141,9 +208,10 @@ $(`#claw-machine-coin-slot`).droppable({
 
         // Updates the inserted coins amount
         insertedCoins += parseInt($(ui.draggable).attr(`value`));
-        dataMoney -= parseInt($(ui.draggable).attr(`value`));
-        localStorage.setItem("dataMoney",dataMoney);
-        updateUserWallet();
+        data -= parseInt($(ui.draggable).attr(`value`));
+        updateData(data);
+        // localStorage.setItem("dataMoney", dataMoney);
+        updateMoneyText();
 
         // If it is equals to the claw-machine price then allows to play
         if (insertedCoins == clawMPrice) {
@@ -161,23 +229,28 @@ $(`#claw-machine-btn-reset`).on(`click`, function (event) {
     refund();
 });
 
-// Resetting back to 0 and false
+// Undo the payment
+// Remove the used class and show the coin
+// Updated the user's wallet
+// Sets back to initial
 function refund() {
     if (!noRefund) {
         $(`.used`).show("scale");
         $(`.used`).removeClass(`used`);
-        dataMoney += insertedCoins;
-        localStorage.setItem("dataMoney",dataMoney);
+        data += insertedCoins;
+        updateData(data);
+        // localStorage.setItem("dataMoney", dataMoney);
         insertedCoins = 0;
         amountPaid = false;
         noRefund = false
 
-        updateUserWallet();
+        updateMoneyText();
         // show <> Button again
         $(`.selectMachine button`).show();
     }
 }
 
+// Removes the coin's existence
 // If the joystick has been used -> can no longer get a refund
 function removeCoin() {
     if ($(`.coin`).hasClass(`used`)) {
@@ -188,12 +261,18 @@ function removeCoin() {
 /*/////////////////////////////////////////////////////////////////////////////////
 PAYMENT DIALOG
 */ /////////////////////////////////////////////////////////////////////////////////
+
 // Confirm the payment 
+// Display a JQUERY UI Dialog
+// Yes: proceed payment
+// No: refund payment
 $(`#confirm-dialog`).dialog({
     buttons: {
         "Yew": function () {
             amountPaid = true;
             noRefund = true;
+            insertedCoins = 0;
+            updateMoneyText();
             displayRandPlush();
             removeCoin();
             $(this).dialog(`close`);
@@ -241,11 +320,12 @@ for (let i = 0; i <= 27; i++) {
     iNb++;
 }
 
-// 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple (machine)
-// 35-41        42-48       49-55       28-34         (plushies)
 
 // Displays a random plushie
 // Excluding the previous pull
+// 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple (machine)
+// 35-41        42-48       49-55       28-34         (plushies)
+
 function displayRandPlush() {
     let minRNb;
     let maxRNb;
@@ -330,7 +410,7 @@ function plushDropAnim() {
 // When clicking on the plush:
 //  Removes the plush
 //  Add to the collection
-//  Change the array pos to -1
+//  Change the item value to -1
 function collectPlush() {
     $(`#toy`).on(`click`, function (event) {
         $(this).effect(`puff`, `slow`, function () {
@@ -340,14 +420,15 @@ function collectPlush() {
         addPlushCollection();
         plushies[randNb] = -1;
         isGrabbed = false;
+
+        // Shows the <> buttons 
+        $(`.selectMachine button`).show();
     })
 }
 
 // Adds the grabbed plush into collection
 function addPlushCollection() {
     plushiesCollected.push(plushToy);
-
-    // $(`.plushie-${plushToy}`).css(`filter`,`none`);
     $(`.plushie-${plushToy}`).addClass(`gotItem`);
 }
 
@@ -510,7 +591,6 @@ function isColliding(div1, div2) {
 SWITCH CLAW MACHINES (BUTTONS)
 */ /////////////////////////////////////////////////////////////////////////////////
 
-
 // Changes the colors of the machine by clicking next or previous arrows
 // 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple
 $(`.selectMachine button`).on(`click`, function (event) {
@@ -534,7 +614,7 @@ $(`.selectMachine button`).on(`click`, function (event) {
             }
             break;
     }
-    // Changes the image source
+    // Changes the image source to the color of the machines
     clawBody.attr(`src`, `assets/images/claw-machines/claw-machine-${colorNumb}.png`);
     clawJoystick.attr(`src`, `assets/images/claw-machines/joystick-${colorNumb}.png`);
     clawBtnDown.attr(`src`, `assets/images/claw-machines/btn-${colorNumb}.png`);

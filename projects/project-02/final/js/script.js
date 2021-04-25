@@ -2,17 +2,28 @@
 Project 2: Gachapyon
 Stephanie Dang.
 
-For the prototype:
-As of now, the user is able draag the coin and insert it inside the coin slot to activate the joystick and button
-Once they click on the button, it will drop down&up the claw and returns to its initial position.
-The joystick and button are will be disabled after that. 
+This is the main script.
+It handles general interactivity of the HOME, MENU, INSTRUCTION.
+    - Buttons to proceed to each different screen
+    - Display gamer cat picture
 
+The player will go through the HOME first and then the MENU to select his character.
+Afterward, it will lead him to the INSTRUCTION screen where he can go to either MENU, GAME, JOB, COLLECTION.
 */
 
 "use strict";
 // Variables
 let user = "tofu";
 let perksTxt = "";
+
+
+// Updates the user's money
+function updateData(amount) {
+    money = amount;
+    localStorage.setItem("money-data",JSON.stringify(money));
+}
+
+
 
 /*//////////////////////////////////////////////////////////////
 HOME
@@ -27,7 +38,7 @@ $(`#home button`).on("click", function (event) {
 });
 
 // Return button available on section
-// Instruction, Collection and Gameplay
+// Instruction, Collection, Gameplay
 $(`.btn-return`).on("click", function (event) {
     $(`section`).each(function () {
         if ($(this).css(`display`) !== `none`) {
@@ -42,7 +53,7 @@ $(`.btn-return`).on("click", function (event) {
                     $(`#instruction`).css(`display`, `block`);
                     break;
                 case `mini-games`:
-                    $(`#mini-games`).css(`display`,`none`);
+                    $(`#mini-games`).css(`display`, `none`);
                     $(`#instruction`).css(`display`, `block`);
                     break;
             }
@@ -89,7 +100,7 @@ $(`#instruction button`).on("click", function (event) {
             break;
         case `btn-job`:
             $(`#instruction`).css(`display`, `none`);
-            $(`#mini-games`).css(`display`,`flex`);
+            $(`#mini-games`).css(`display`, `flex`);
     }
 });
 
@@ -126,7 +137,10 @@ function showCat(catId) {
 /*//////////////////////////////////////////////////////////////
 COLLECTION
 */ ////////////////////////////////////////////////////////////
-$(`.btn-collection`).on(`click`, function(){
-$(`#collection`).css(`display`, `flex`);
-            showStickers();
+
+// Shows the user's collection
+$(`.btn-collection`).on(`click`, function () {
+    $(`#collection`).css(`display`, `flex`);
+    showStickers();
 });
+

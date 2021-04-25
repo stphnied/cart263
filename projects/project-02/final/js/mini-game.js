@@ -33,7 +33,6 @@ let myFont;
 let state = `menu`;
 
 // bool
-let minigameNb = 1;
 let minigame1 = false;
 let minigame2 = true;
 let gameOver = false;
@@ -105,8 +104,10 @@ CATS_URL = `assets/data/cats.json`,
     ];
 
 
-// FUNCTIONS
-//  ---------------------------------------------------------------------
+/*/////////////////////////////////////////////////////////////////////////////////
+FUNCTION
+*/ /////////////////////////////////////////////////////////////////////////////////
+
 // preloads()
 // Loads data, images, font
 function preload() {
@@ -124,25 +125,29 @@ function setup() {
     minigameCanvas.parent("#mini-games");
     textFont(myFont);
 
+    // general setup
     userSetup();
     noCursor();
-    mouseSetup();
-    fishSetup();
-    timerSetup();
 
+    // m-g1 setup
+    mouseSetup();
+    // m-g2 setup
+    fishSetup();
+    // getting the money data
     dataM = JSON.parse(localStorage.getItem(`dataMoney`));
 }
 
+// timerSetup()
+// Different timer seconds for each minigame
 function timerSetup() {
-    // MINIGAME 1
+    // MINIGAME 1: 35sec
     if (minigame1) {
+        timer = 35;
+    }
+    // MINIGAME 2: 10sec
+    else if (minigame2) {
         timer = 10;
     }
-    // MINIGAME 2
-    else if (minigame2) {
-        timer = 5;
-    }
-
 }
 
 // userSetup()
@@ -150,6 +155,7 @@ function timerSetup() {
 function userSetup() {
     switch (user) {
         case ``:
+            // debugging easier
             userMG.img = loadImage(catsData.cats.tofu.paw_url);
             break;
         case `tofu`:
@@ -170,7 +176,6 @@ function userSetup() {
 // Adds background color
 // Handles different states
 // Displays user cursor
-
 function draw() {
     background(`aliceblue`);
 
@@ -199,8 +204,9 @@ function displayUser() {
     image(userMG.img, mouseX, mouseY, userMG.size, userMG.size);
 }
 
-// MINIGAME 1
-//  --------------------------------------------------------------------------------------------------------------------
+/*/////////////////////////////////////////////////////////////////////////////////
+MINIGAME 1
+*/ /////////////////////////////////////////////////////////////////////////////////
 
 // mouseSetup();
 // MINIGAME 1
@@ -209,6 +215,7 @@ function displayUser() {
 // calls the updateMouse() between 0.25 and 0.85 seconds
 function mouseSetup() {
 
+    // initial position
     mouse.x = 125;
     mouse.y = height / 1.5;
 
@@ -219,7 +226,9 @@ function mouseSetup() {
 
     // let minSpeed = 250;
     // let maxSpeed = 760
-    let rTime = random(250, 760);
+    let rTime = random(350, 550);
+
+    // Calls and update the position at random
     mousePosInterval = setInterval(updateMouse, rTime);
 }
 
@@ -262,9 +271,13 @@ function checkMouseOverlap(x, y, size, lineSpace) {
 }
 
 
-// MINIGAME 2
-//  --------------------------------------------------------------------------------------------------------------------
+/*/////////////////////////////////////////////////////////////////////////////////
+MINIGAME 2
+*/ /////////////////////////////////////////////////////////////////////////////////
 
+// fishSetup()
+// setting up the initial position of fishes
+// Creating fishes and adding them into the fishies array
 function fishSetup() {
     for (let i = 0; i < NUM_FISHIES; i++) {
         let x = random(0, width);
@@ -272,11 +285,13 @@ function fishSetup() {
 
         let fish = new Fish(x, y, fishImg);
         fishies.push(fish);
-
     }
 }
 
-//  --------------------------------------------------------------------------------------------------------------------
+
+/*/////////////////////////////////////////////////////////////////////////////////
+MINIGAME 1 & MINIGAME 2
+*/ /////////////////////////////////////////////////////////////////////////////////
 
 // displayScore()
 // Displaying the player's current score
@@ -307,11 +322,17 @@ function displayCountdown() {
 // Switch states
 // Reinitialized money & score
 function mouseClicked() {
+    // STATE MENU
     if (state == `menu`) {
         // Click on text [CLICK TO ACCEPT JOB] to proceed
         let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
+
         if (d1 < userMG.size) {
+            // timer setup for both
+            timerSetup();
+
             state = `startGame`
+            // hides the outside button
             $(`.selectJob button`).hide();
             $(`.btn-return`).hide();
         }
@@ -320,15 +341,21 @@ function mouseClicked() {
     // updates the datamoney 
     // Reloads the page at the end
     else if (state == `endGame`) {
+
         let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
+
         if (d1 < userMG.size) {
+            // Updates the localstorage dataMoney
             dataM += scoreMoney;
             dataMoney = dataM;
             localStorage.setItem(`dataMoney`, JSON.stringify(dataMoney));
 
+            // Add coins images in a div and resets game
             addCoinImg();
             resetGame();
 
+            // Displays the current $ and outside button
+            $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataMoney + `$`);
             $(`.selectJob button`).show();
             $(`.btn-return`).show();
         }
@@ -352,8 +379,11 @@ function displayText(size, string, x, y) {
     pop();
 }
 
-// STATES
-//  ---------------------------------------------------------------------
+
+/*/////////////////////////////////////////////////////////////////////////////////
+STATES
+*/ /////////////////////////////////////////////////////////////////////////////////
+
 // menuGame()
 // instructions
 function menuGame() {
@@ -367,10 +397,12 @@ function menuGame() {
 
     // MINIGAME 1
     if (minigame1) {
+
         push();
         fill(`#54d6`);
         displayText(56, TITLE_TEXT[0], width / 2.1, height / 15);
         pop();
+
         // Texts
         push();
         fill(`#2d67dc`);
@@ -381,10 +413,13 @@ function menuGame() {
     }
     // MINIGAME 2
     else if (minigame2) {
+
         push();
         fill(`#54d6`);
         displayText(56, TITLE_TEXT[1], width / 2.1, height / 15);
         pop();
+
+        // Texts
         push();
         fill(`#2d67dc`);
         displayText(28, INSTRUCTION_TEXT[6], width / 2.1, height / 3.5);
@@ -406,6 +441,7 @@ function startGame() {
 
     // Minigame 1
     if (minigame1) {
+
         displayHoles(125, height / 5, 150, 4, 250);
         displayHoles(125, height / 1.5, 150, 4, 250);
         displayMouse(125, height / 1.5, 150, 4, 250);
@@ -413,6 +449,7 @@ function startGame() {
 
     // Minigame 2
     else if (minigame2) {
+
         for (let i = 0; i < NUM_FISHIES; i++) {
             let fish = fishies[i];
             fish.display();
@@ -421,6 +458,7 @@ function startGame() {
         }
 
     }
+
     displayScore();
     displayCountdown();
 }
@@ -508,6 +546,10 @@ function resetGame() {
 }
 
 
+/*/////////////////////////////////////////////////////////////////////////////////
+JQUERY
+*/ /////////////////////////////////////////////////////////////////////////////////
+
 // addCoinImg()
 // Add an image element to the .coins div of the same value of the score money
 function addCoinImg() {
@@ -559,5 +601,3 @@ $(`.selectJob button`).on(`click`, function (event) {
             break;
     }
 });
-
-
