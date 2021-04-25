@@ -124,7 +124,8 @@
     bottom: unset;
 }
 
-.selectMachine {
+.selectMachine,
+.selectJob {
     display: flex;
     justify-content: space-around;
     position: absolute;
@@ -137,7 +138,12 @@
     margin-right: auto;
 }
 
-.selectMachine button {
+/*  */
+.selectJob {
+    justify-content: space-between;
+}
+
+.selectMachine button, .selectJob button {
     display: flex;
     align-self: center;
     font-size: 2rem;
@@ -145,3 +151,5 @@
     box-shadow: inset 6px -6px 6px #ffa565a3,
     inset -6px 6px 6px #fffa90;
 }
+
+

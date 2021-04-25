@@ -18,11 +18,13 @@ let btnDown = false;
 let colorNumb = 0;
 
 // Money
-const clawMPrice = 1;
-let walletAmount = 0;
+
+localStorage.setItem("dataMoney","5");
+let dataMoney = parseInt(localStorage.getItem("dataMoney"));
 let insertedCoins = 0;
 let amountPaid = false;
 let noRefund = false;
+const clawMPrice = 1;
 
 // Toys
 let plushToy;
@@ -31,6 +33,9 @@ let randNb;
 let plushies = [];
 let plushiesCollected = [];
 let isGrabbed = false;
+
+
+// LOCAL STORAGE FOR MONEY MONEY PLS HELP IDK 
 
 
 // Adding absolute class to all the claw-machine parts
@@ -47,7 +52,7 @@ $(`#claw-machine .user`).css({
     height: `400px`,
     bottom: `-18px`,
     right: `15%`,
-})
+});
 // $(`#paw-user`).attr()
 showCatPaw();
 
@@ -68,6 +73,13 @@ function showCatPaw() {
     });
 }
 
+updateUserWallet();
+// User's wallet
+function updateUserWallet() {
+    $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataMoney + `$`);
+    $(`.insertCoinsTxt`).text(`COIN INSERTED = ` + insertedCoins + `$`);
+}
+
 
 /*/////////////////////////////////////////////////////////////////////////////////
 COINS
@@ -78,6 +90,22 @@ COINS
 // Coin-2 -> 2$
 $(`.coin-1`).attr(`value`, `1`);
 $(`.coin-2`).attr(`value`, `2`);
+
+// let coins = [];
+
+// $(`.coin`).each(function (i) {
+//     coins.push(this);
+
+//     let randTop = (Math.random() * 172) + -27;
+//     let randLeft = (Math.random() * 221) + 18;
+
+//     for (let i = 0; i < coins.length; i++) {
+//         coins[i].style.top = randTop
+//         coins[i].style.left = randLeft;
+//         randTop = (Math.random() * 172) + -27;
+//         randLeft = (Math.random() * 221) + 18;
+//     }
+// })
 
 coinRandomPos();
 
@@ -112,7 +140,10 @@ $(`#claw-machine-coin-slot`).droppable({
         $(ui.draggable).addClass(`used`);
 
         // Updates the inserted coins amount
-        insertedCoins += $(ui.draggable).attr(`value`);
+        insertedCoins += parseInt($(ui.draggable).attr(`value`));
+        dataMoney -= parseInt($(ui.draggable).attr(`value`));
+        localStorage.setItem("dataMoney",dataMoney);
+        updateUserWallet();
 
         // If it is equals to the claw-machine price then allows to play
         if (insertedCoins == clawMPrice) {
@@ -127,19 +158,23 @@ $(`#claw-machine-coin-slot`).droppable({
 // Reset coins
 // If the player did not play yet and wants his coin back
 $(`#claw-machine-btn-reset`).on(`click`, function (event) {
-        refundCoin();
-        // show <> Button again
-        $(`.selectMachine button`).show();
+    refund();
 });
 
 // Resetting back to 0 and false
-function refundCoin() {
+function refund() {
     if (!noRefund) {
         $(`.used`).show("scale");
         $(`.used`).removeClass(`used`);
+        dataMoney += insertedCoins;
+        localStorage.setItem("dataMoney",dataMoney);
         insertedCoins = 0;
         amountPaid = false;
         noRefund = false
+
+        updateUserWallet();
+        // show <> Button again
+        $(`.selectMachine button`).show();
     }
 }
 
@@ -158,11 +193,15 @@ $(`#confirm-dialog`).dialog({
     buttons: {
         "Yew": function () {
             amountPaid = true;
+            noRefund = true;
             displayRandPlush();
+            removeCoin();
             $(this).dialog(`close`);
         },
         "Nyo": function () {
-            refundCoin();
+            refund();
+            $(`.selectMachine button`).show();
+
             $(this).dialog(`close`);
         }
     },
@@ -196,12 +235,11 @@ $(`<div>`).attr({
 
 }).appendTo(`#claw-machine #main-body`);
 
-// Adds elm to the plushies array (28-56)
-for (let i = 0; i <= 28; i++) {
+// Adds elm to the plushies array (28-55)
+for (let i = 0; i <= 27; i++) {
     plushies[i] = iNb;
     iNb++;
 }
-
 
 // 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple (machine)
 // 35-41        42-48       49-55       28-34         (plushies)
@@ -236,22 +274,23 @@ function displayRandPlush() {
         randNb = Math.floor(Math.random() * (maxRNb - minRNb + 1)) + minRNb;
     }
     while (plushies[randNb] == -1);
-    plushToy = plushies[randNb];
-    // only if they got the plushie
-    // ----------------------------------TO ADD
-    plushies[randNb] = -1;
 
+    // Assign the random number to the plushtoy
+    plushToy = randNb;
 
+    // Displays the plush toy on the screen
     $(`<img>`).attr({
         id: 'toy',
         src: `assets/images/collection/${randNb}.png`,
         class: `toy`
     }).appendTo(`#claw-machine .claw-machine-toys-container `)
 
+
     // Top position = min: 0 max: 125px
     // Left position = min: 0 max: 325px
     let randTop = (Math.random() * 125) + 0;
     let randLeft = (Math.random() * 325) + 0;
+
     // Assign random top & left pos for the toy
     $(`.toy`).css({
         top: randTop,
@@ -259,11 +298,6 @@ function displayRandPlush() {
     });
 }
 
-
-// Adds the grabbed plush into collection
-function addPlushCollection() {
-    plushiesCollected.push(randNb);
-}
 
 // Check if the claw touched the toy
 function collidePlush() {
@@ -290,20 +324,32 @@ function plushDropAnim() {
     $(`#toy`).animate({
         opacity: 1,
         animation: "easein"
-    },collectPlush);
+    }, collectPlush);
 }
 
-// When clicking on 
+// When clicking on the plush:
+//  Removes the plush
+//  Add to the collection
+//  Change the array pos to -1
 function collectPlush() {
-$(`#toy`).on(`click`, function (event) {
-    $(this).effect(`puff`, `slow`, function () {
-        $(this).remove();
-    });
-    // addPlushCollection();
-    isGrabbed = false;
-})
+    $(`#toy`).on(`click`, function (event) {
+        $(this).effect(`puff`, `slow`, function () {
+            $(this).remove();
+        });
+
+        addPlushCollection();
+        plushies[randNb] = -1;
+        isGrabbed = false;
+    })
 }
 
+// Adds the grabbed plush into collection
+function addPlushCollection() {
+    plushiesCollected.push(plushToy);
+
+    // $(`.plushie-${plushToy}`).css(`filter`,`none`);
+    $(`.plushie-${plushToy}`).addClass(`gotItem`);
+}
 
 /*/////////////////////////////////////////////////////////////////////////////////
 CLAW MACHINE DOWN BUTTON (↓) 

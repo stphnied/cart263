@@ -52,7 +52,7 @@ class Fish {
 
     }
 
-    // 
+    // Check if the fish is overlapping with the user
     checkFish() {
         if (!this.eaten) {
             if (this.overlap(mouseX, mouseY)) {
@@ -62,6 +62,12 @@ class Fish {
             }
         }
 
+    }
+
+    // Resets the bools 
+    reset() {
+        this.active = true;
+        this.eaten = false;
     }
 
     // overlap()

@@ -262,19 +262,31 @@ button:active {
   align-items: center;
 }
 
+#mini-games .left-side {
+position: absolute;
+left: 0;
+bottom: 5%;
+width: 15%;
+background: white;
+border-radius: 20px;
+box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+padding: 20px;
+margin-left: 2rem;
+}
+
 canvas {
   border: 10px solid #ccccff;
   border-radius: 1.5rem;
 }
 
 
-/* #claw-machine, */
+#claw-machine,
 #collection,
 #home,
 #gacha-machine,
 #menu,
-#instruction,
-#mini-games
+#instruction
+/* #mini-games */
  {
   display: none;
 }

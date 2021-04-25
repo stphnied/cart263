@@ -28,39 +28,43 @@ $(`#collection button`).on("click", function (event) {
     }
 });
 
+createCollection();
 
-//   $(`<img>`).attr({
-//         id:'toy',
-//         src: `assets/images/collection/${randNb}.png`,
-//         class: `toy`
-//     }).appendTo(`#claw-machine .claw-machine-toys-container `)
-
-
-
-function showStickers() {
+function createCollection() {
     for (let i = 0; i < numStickers; i++) {
         $(`<div>`).addClass(`stickers sticker-${i}`).appendTo(`.items`);
-        // $(`.items`).append(`<div class="stickers sticker-${i}"></div>`);
         $(`.sticker-${i}`).css(`background-image`, `url("assets/images/collection/${i}.png")`);
     }
-}
-
-function removeStickers() {
-    for (let i = 0; i < numStickers; i++) {
-        $(`.sticker-${i}`).remove();
-    }
-}
-
-
-function showPlushies() {
     for (let i = 28; i < numPlushies; i++) {
         $(`.items`).append(`<div class="plushies plushie-${i}"></div>`);
         $(`.plushie-${i}`).css(`background-image`, `url("assets/images/collection/${i}.png")`);
     }
 }
 
+// Displays all the stickers
+function showStickers() {
+    for (let i = 0; i < numStickers; i++) {
+        $(`.sticker-${i}`).show();
+    }
+}
+
+// Removes all the stickers
+function removeStickers() {
+    for (let i = 0; i < numStickers; i++) {
+        $(`.sticker-${i}`).hide();
+    }
+}
+
+// Displays all the plushies
+function showPlushies() {
+    for (let i = 28; i < numPlushies; i++) {
+        $(`.plushie-${i}`).show();
+    }
+}
+
+// Removes all the plushies
 function removePlushies() {
     for (let i = 0; i < numPlushies; i++) {
-        $(`.plushie-${i}`).remove();
+        $(`.plushie-${i}`).hide();
     }
 }

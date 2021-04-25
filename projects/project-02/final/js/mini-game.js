@@ -4,25 +4,46 @@ Stephanie Dang.
 
 This script is dedicated to the minigames functionalities.
 
-- Uses p5js
-- 
+We can find 2 minigames functions in here.
+
+MINIGAME 1: WHACK A MOUSE
+    - User has to click on the mouse to gain a point
+    - The mouse's position will change every miliseconds (random)
+    - The user only has 30 seconds to whack the most they can
+
+
+MINIGAME 2: GO FISH
+    - User has to hover around the fish to catch them
+    - The user only has 5 seconds to catch them all
+
+
+At the end of of both minigames/jobs, the user will earn a reward (coins) depending on their performance.
+Minigame 1 has a bigger reward sine it is harder. (varies from 0 to 5$).
+Minigame 2 has a reward of 0-2$.
+
 */
 
 // Variables
 //  ---------------------------------------------------------------------
+// general variables
 let minigameCanvas;
 let catsData;
 let myFont;
 let state = `menu`;
 
+// bool
 let minigame1 = true;
 let minigame2 = false;
 let gameOver = false;
 
+// money/score related
 let score = 0;
 let scoreMoney = 0;
 let timer = 0;
+let mousePosInterval;
+let dataM;
 
+// user
 let userMG = {
     x: 0,
     y: 0,
@@ -30,6 +51,7 @@ let userMG = {
     img: undefined
 };
 
+// mouse
 let mouse = {
     x: 0,
     y: 0,
@@ -39,13 +61,16 @@ let mouse = {
     spacing: 250,
     img: undefined,
 };
-
 let mice = [];
 let mouseImg;
 
+// fish
 let fishies = [];
 let fishImg;
 
+// constant
+// Unchanging num and text
+// URL
 const
     NUM_CATS = 3,
     NUM_FISHIES = 100;
@@ -73,8 +98,10 @@ CATS_URL = `assets/data/cats.json`,
         `You'll need precision.
         Use your paw and hover to catch the fishies.`,
         `1-90: 1$ | 91-100: 2$`,
-        `[CLICK TO ACCEPT JOB]`
+        `[CLICK TO ACCEPT JOB]`,
+        `[CLICK TO ACCEPT REWARD]`
     ];
+
 
 // FUNCTIONS
 //  ---------------------------------------------------------------------
@@ -89,7 +116,7 @@ function preload() {
 }
 
 // setup()
-// Setting up the canva and user
+// Setting up the canva, user and timer
 function setup() {
     minigameCanvas = createCanvas(1000, 800);
     minigameCanvas.parent("#mini-games");
@@ -97,16 +124,23 @@ function setup() {
     userSetup();
     noCursor();
 
+    timerSetup();
+
+    dataM = JSON.parse(localStorage.getItem(`dataMoney`));
+}
+
+function timerSetup() {
     // MINIGAME 1
     if (minigame1) {
         mouseSetup();
-        timer = 30;
+        timer = 10;
     }
     // MINIGAME 2
     else if (minigame2) {
         fishSetup();
         timer = 5;
     }
+
 }
 
 // userSetup()
@@ -181,8 +215,10 @@ function mouseSetup() {
     // rY: only 2 heights
     mouse.rY = [height / 1.5, height / 5];
 
+    // let minSpeed = 250;
+    // let maxSpeed = 760
     let rTime = random(250, 760);
-    setInterval(updateMouse, rTime);
+    mousePosInterval = setInterval(updateMouse, rTime);
 }
 
 // displayHoles()
@@ -232,8 +268,9 @@ function fishSetup() {
         let x = random(0, width);
         let y = random(0, height);
 
-        let fish = new Fish(x, y,fishImg);
+        let fish = new Fish(x, y, fishImg);
         fishies.push(fish);
+
     }
 }
 
@@ -264,21 +301,31 @@ function displayCountdown() {
 // mouseClicked()
 // click events
 // Switch states
-// Check if the user clicked on the mouse
 // Reinitialized money & score
 function mouseClicked() {
     if (state == `menu`) {
-
         // Click on text [CLICK TO ACCEPT JOB] to proceed
         let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
         if (d1 < userMG.size) {
             state = `startGame`
-            gameOver = false;
-            score = 0;
-            scoreMoney = 0;
+            $(`.selectJob button`).hide();
+        }
+    }
+    // when the game ends
+    // updates the datamoney 
+    // Reloads the page at the end
+    else if (state == `endGame`) {
+        let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
+        if (d1 < userMG.size) {
+            dataM += scoreMoney;
+            dataMoney = dataM;
+            localStorage.setItem(`dataMoney`, JSON.stringify(dataMoney));
+            resetGame();
+            $(`.selectJob button`).show();
         }
     }
 
+    // Check if the user clicked on the mouse when the game is not over
     if (!gameOver) {
         checkMouseOverlap();
     }
@@ -337,7 +384,7 @@ function menuGame() {
         pop();
     }
 
-    // PLAY FOR BOTH MINIGAMES
+    // CLICK TO PLAY
     push();
     fill(`#909eba`);
     displayText(24, INSTRUCTION_TEXT[9], width / 2.1, height / 1.1);
@@ -357,7 +404,6 @@ function startGame() {
 
     // Minigame 2
     else if (minigame2) {
-
         for (let i = 0; i < NUM_FISHIES; i++) {
             let fish = fishies[i];
             fish.display();
@@ -376,9 +422,13 @@ function startGame() {
 function endGame() {
 
     gameOver = true;
-
     // Calculating money earned based on performance
     // MINIGAME 1
+    // Score 1-10: 1$
+    // Score 11-20: 2$
+    // Score 21-30: 3$
+    // Score 31+: 5$
+    // Score 0: 0$
     if (minigame1) {
         if (score > 0 && score <= 10) {
             scoreMoney = 1;
@@ -394,6 +444,9 @@ function endGame() {
     }
 
     // MINIGAME 2
+    // Score 1-90: 1$
+    // Score 91-100: 2$
+    // Score 0: 0$
     if (minigame2) {
 
         if (score > 0 && score <= 90) {
@@ -405,10 +458,71 @@ function endGame() {
         }
     }
 
-
-    // Adds the money earned into the user's wallet
-    walletAmount += scoreMoney;
-
+    // Displays the money earned into the user's wallet
     displayText(42, `score: ` + score, width / 2, height / 2);
     displayText(42, `You earned: ` + scoreMoney + "$", width / 2, height / 1.75);
+
+    // CLICK TO ACCEPT REWARD
+    push();
+    fill(`#909eba`);
+    displayText(24, INSTRUCTION_TEXT[10], width / 2.1, height / 1.1);
+    pop();
 }
+
+
+// Resets the minigames
+// Puts everything back to initial states
+// Calls back the setup
+// ClearInterval
+// Recalls fishes 
+function resetGame() {
+
+    gameOver = false;
+    state = `menu`;
+
+    scoreMoney = 0;
+    score = 0;
+
+    setup();
+    
+    // clearInterval of mouse 
+    if(minigame1) {
+        clearInterval(mousePosInterval);
+    } 
+    // Resets the fishies
+    if (minigame2) {
+        for (let i = 0; i < NUM_FISHIES; i++) {
+            let fish = fishies[i];
+            fish.reset();
+        }
+    }
+}
+
+
+// Change between the minigames
+$(`.selectJob button`).on(`click`, function (event) {
+    switch ($(this).attr(`class`)) {
+        // PREVIOUS button
+        case `previous`:
+            if (minigame1) {
+                minigame1 = false;
+                minigame2 = true
+            }
+            else if (minigame2) {
+                minigame2 = false;
+                minigame1 = true
+            }
+            break;
+            // NEXT button
+        case `next`:
+            if (minigame2) {
+                minigame2 = false;
+                minigame1 = true
+            }
+            else if (minigame1){
+                minigame1 = false;
+                minigame2 = true
+            }
+            break;
+    }
+});

@@ -41,6 +41,10 @@ $(`.btn-return`).on("click", function (event) {
                     $(`#claw-machine`).css(`display`, `none`);
                     $(`#instruction`).css(`display`, `block`);
                     break;
+                case `mini-games`:
+                    $(`#mini-games`).css(`display`,`none`);
+                    $(`#instruction`).css(`display`, `block`);
+                    break;
             }
         }
     })
@@ -83,6 +87,9 @@ $(`#instruction button`).on("click", function (event) {
             $(`#instruction`).css(`display`, `none`);
             $(`#claw-machine`).css(`display`, `block`);
             break;
+        case `btn-job`:
+            $(`#instruction`).css(`display`, `none`);
+            $(`#mini-games`).css(`display`,`flex`);
     }
 });
 

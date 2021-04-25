@@ -1,7 +1,7 @@
 #collection {
     z-index: 10;
     position: absolute;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.609);
@@ -55,10 +55,6 @@
     background-position-x: center;
     background-position-y: center;
     filter: grayscale(100%);
-}
-
-.stickers:hover, .plushies:hover {
-    filter: none;
 }
 
 .plushies {
