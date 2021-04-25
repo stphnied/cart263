@@ -24,7 +24,7 @@ let dataMoney = parseInt(localStorage.getItem("dataMoney"));
 let insertedCoins = 0;
 let amountPaid = false;
 let noRefund = false;
-const clawMPrice = 1;
+const clawMPrice = 3;
 
 // Toys
 let plushToy;

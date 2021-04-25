@@ -3,6 +3,7 @@ Project 2: Gachapyon
 Stephanie Dang.
 
 This script is dedicated to the minigames functionalities.
+This script includes p5js and ome jquery codes.
 
 We can find 2 minigames functions in here.
 
@@ -32,8 +33,9 @@ let myFont;
 let state = `menu`;
 
 // bool
-let minigame1 = true;
-let minigame2 = false;
+let minigameNb = 1;
+let minigame1 = false;
+let minigame2 = true;
 let gameOver = false;
 
 // money/score related
@@ -121,9 +123,11 @@ function setup() {
     minigameCanvas = createCanvas(1000, 800);
     minigameCanvas.parent("#mini-games");
     textFont(myFont);
+
     userSetup();
     noCursor();
-
+    mouseSetup();
+    fishSetup();
     timerSetup();
 
     dataM = JSON.parse(localStorage.getItem(`dataMoney`));
@@ -132,12 +136,10 @@ function setup() {
 function timerSetup() {
     // MINIGAME 1
     if (minigame1) {
-        mouseSetup();
         timer = 10;
     }
     // MINIGAME 2
     else if (minigame2) {
-        fishSetup();
         timer = 5;
     }
 
@@ -279,7 +281,6 @@ function fishSetup() {
 // displayScore()
 // Displaying the player's current score
 function displayScore() {
-
     displayText(36, score, width / 2, height - 50);
 }
 
@@ -295,7 +296,10 @@ function displayCountdown() {
     } else if (timer == 0) {
         state = `endGame`;
     }
+    push();
+    fill(`#909eba`);
     displayText(24, timer, width / 2, 50);
+    pop();
 }
 
 // mouseClicked()
@@ -309,6 +313,7 @@ function mouseClicked() {
         if (d1 < userMG.size) {
             state = `startGame`
             $(`.selectJob button`).hide();
+            $(`.btn-return`).hide();
         }
     }
     // when the game ends
@@ -320,8 +325,12 @@ function mouseClicked() {
             dataM += scoreMoney;
             dataMoney = dataM;
             localStorage.setItem(`dataMoney`, JSON.stringify(dataMoney));
+
+            addCoinImg();
             resetGame();
+
             $(`.selectJob button`).show();
+            $(`.btn-return`).show();
         }
     }
 
@@ -484,11 +493,11 @@ function resetGame() {
     score = 0;
 
     setup();
-    
+
     // clearInterval of mouse 
-    if(minigame1) {
+    if (minigame1) {
         clearInterval(mousePosInterval);
-    } 
+    }
     // Resets the fishies
     if (minigame2) {
         for (let i = 0; i < NUM_FISHIES; i++) {
@@ -499,6 +508,32 @@ function resetGame() {
 }
 
 
+// addCoinImg()
+// Add an image element to the .coins div of the same value of the score money
+function addCoinImg() {
+    switch (scoreMoney) {
+        case 0:
+            break;
+        case 1:
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+            break;
+        case 2:
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+            break;
+        case 3:
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+            break;
+        case 4:
+            break;
+        case 5:
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+            break;
+    }
+}
+
 // Change between the minigames
 $(`.selectJob button`).on(`click`, function (event) {
     switch ($(this).attr(`class`)) {
@@ -506,23 +541,23 @@ $(`.selectJob button`).on(`click`, function (event) {
         case `previous`:
             if (minigame1) {
                 minigame1 = false;
-                minigame2 = true
-            }
-            else if (minigame2) {
+                minigame2 = true;
+            } else if (minigame2) {
                 minigame2 = false;
-                minigame1 = true
+                minigame1 = true;
             }
             break;
             // NEXT button
         case `next`:
             if (minigame2) {
                 minigame2 = false;
-                minigame1 = true
-            }
-            else if (minigame1){
+                minigame1 = true;
+            } else if (minigame1) {
                 minigame1 = false;
-                minigame2 = true
+                minigame2 = true;
             }
             break;
     }
 });
+
+
