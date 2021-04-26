@@ -98,7 +98,7 @@ CATS_URL = `assets/data/cats.json`,
         `You'll need precision.
         Use your paw and hover to catch the fishies.`,
         `1-90: 1$ | 91-100: 2$`,
-        `[CLICK TO ACCEPT JOB]`,
+        `[CLICK SPACE TO ACCEPT JOB]`,
         `[CLICK TO ACCEPT REWARD]`
     ];
 
@@ -132,8 +132,6 @@ function setup() {
     mouseSetup();
     // m-g2 setup
     fishSetup();
-    // getting the money data
-    dataM = JSON.parse(localStorage.getItem(`money-data`));
 }
 
 // timerSetup()
@@ -191,7 +189,10 @@ function draw() {
         default:
             break;
     }
+
     displayUser(125, height / 1.5, 150, 4, 250);
+    // getting the money data
+    dataM = JSON.parse(localStorage.getItem(`money-data`));
 }
 
 
@@ -320,28 +321,8 @@ function displayCountdown() {
 // Switch states
 // Reinitialized money & score
 function mouseClicked() {
-    // STATE MENU
-    if (state == `menu`) {
-        // Click on text [CLICK TO ACCEPT JOB] to proceed
+    if (state == `endGame`) {
         let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
-
-        if (d1 < userMG.size) {
-            // timer setup for both
-            timerSetup();
-
-            state = `startGame`
-            // hides the outside button
-            $(`.selectJob button`).hide();
-            $(`.btn-return`).hide();
-        }
-    }
-    // when the game ends
-    // updates the datamoney 
-    // Reloads the page at the end
-    else if (state == `endGame`) {
-
-        let d1 = dist(mouseX, mouseY, width / 2.1, height / 1.1);
-
         if (d1 < userMG.size) {
             // Updates the localstorage dataMoney
             dataM += scoreMoney;
@@ -360,12 +341,32 @@ function mouseClicked() {
             $(`.btn-return`).show();
         }
     }
-
-    // Check if the user clicked on the mouse when the game is not over
+        // Check if the user clicked on the mouse when the game is not over
     if (!gameOver) {
         checkMouseOverlap();
     }
 }
+
+// Switch states
+// Goes to the startgame
+// Disables outside button
+function keyPressed() {
+    // STATE MENU
+    if (state == `menu`) {
+
+        // SPACE
+        if (keyCode == `32`) {
+
+            state = `startGame`
+            timerSetup();
+            // hides the outside button
+            $(`.selectJob button`).hide();
+            $(`.btn-return`).hide();
+        }
+    }
+
+}
+
 
 // displayText()
 // template to display text

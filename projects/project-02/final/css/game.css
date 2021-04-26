@@ -138,18 +138,41 @@
     margin-right: auto;
 }
 
-/*  */
+/* MINIGAME */
 .selectJob {
     justify-content: space-between;
 }
 
-.selectMachine button, .selectJob button {
+.selectMachine button,
+.selectJob button {
     display: flex;
     align-self: center;
     font-size: 2rem;
     background: #fde796;
     box-shadow: inset 6px -6px 6px #ffa565a3,
-    inset -6px 6px 6px #fffa90;
+        inset -6px 6px 6px #fffa90;
 }
 
 
+/* Gacha-machine */
+
+#gacha-machine {
+    justify-content: center;
+    align-items: center;
+}
+
+#gacha-machine div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60vw;
+    height: 60vh;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 10px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+#gacha-machine p {
+    font-size: 1.5rem;
+}

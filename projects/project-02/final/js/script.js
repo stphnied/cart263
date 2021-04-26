@@ -13,7 +13,7 @@ Afterward, it will lead him to the INSTRUCTION screen where he can go to either 
 
 "use strict";
 // Variables
-let user ="";
+let user = "";
 let perksTxt = "";
 // Sound
 let sfxSrc;
@@ -63,6 +63,10 @@ $(`.btn-return`).on("click", function (event) {
                     musicBgSrc = aMusicBgSrc[0];
                     playMusic();
                     break;
+                case `gacha-machine`:
+                    $(`#gacha-machine`).css(`display`, `none`);
+                    $(`#instruction`).css(`display`, `block`);
+                    break;
             }
         }
     })
@@ -102,14 +106,12 @@ $(`#instruction button`).on("click", function (event) {
             showStickers();
             break;
         case `btn-play`:
-            $(`#instruction`).css(`display`, `none`);
-            $(`#claw-machine`).css(`display`, `block`);
-            musicBgSrc = aMusicBgSrc[1];
-            playMusic();
+            $(`#choosing-dialog`).dialog("open");
             break;
         case `btn-job`:
             $(`#instruction`).css(`display`, `none`);
             $(`#mini-games`).css(`display`, `flex`);
+            $(`.btn-return`).show();
             musicBgSrc = aMusicBgSrc[2];
             playMusic();
             break;
@@ -149,6 +151,41 @@ function showCat(catId) {
     });
 }
 
+
+// Choosing which game to play
+// Display a JQUERY UI Dialog
+$(`#choosing-dialog`).dialog({
+    buttons: {
+        "Claw machine": function () {
+            $(`#instruction`).css(`display`, `none`);
+            $(`#claw-machine`).css(`display`, `block`);
+            musicBgSrc = aMusicBgSrc[1];
+            playMusic();
+            $(this).dialog(`close`);
+        },
+        "Gacha machine": function () {
+            $(`#instruction`).css(`display`, `none`);
+            $(`#gacha-machine`).css(`display`, `flex`);
+            $(this).dialog(`close`);
+        }
+    },
+    autoOpen: false
+});
+
+$(`.ui-dialog`).css({
+    backgroundColor: `#97bcff`
+});
+$(`.ui-dialog-buttonset button`).css({
+    fontFamily: `Fredoka One`,
+    backgroundColor: `#97bcff`
+});
+
+$(`.ui-widget`).css(`font-family`, `Fredoka One`);
+
+
+
+
+
 /*//////////////////////////////////////////////////////////////
 COLLECTION
 */ ////////////////////////////////////////////////////////////
@@ -165,7 +202,7 @@ $(`.btn-collection`).on(`click`, function () {
 // Else : same bg music
 function playMusic() {
     $(`#music`).attr({
-        src: `assets/sounds/`+musicBgSrc,
+        src: `assets/sounds/` + musicBgSrc,
         type: `audio/mpeg`,
         autoplay: `autoplay`,
         loop: `loop`
@@ -174,8 +211,10 @@ function playMusic() {
     $(`#music`).prop(`volume`, 0.3);
 }
 
+
 // Button click sound effect
-$(`button`).on(`click`,function(){
+$(`button`).on(`click`, function () {
     let sfx = new Audio(`assets/sounds/btn.mp3`);
+    sfx.loop = false;
     sfx.play();
 });

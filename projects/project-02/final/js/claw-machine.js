@@ -104,7 +104,13 @@ function addPreviousCoins() {
 
 // Adding absolute class to all the claw-machine parts
 $(`#claw-machine img`).addClass(`claw-machine-parts`);
-$(`#claw-machine`).css(`background-image`, `url("assets/images/claw-machines/background1.png")`);
+$(`#claw-machine`).css({
+    backgroundImage: `url(assets/images/claw-machines/background.png)`,
+    backgroundSize: `cover`,
+    backgroundRepeat: `no-repeat`
+})
+    
+
 
 // Calling functions
 checkData();
@@ -201,8 +207,6 @@ $(`#claw-machine-coin-slot`).droppable({
         // Updates the inserted coins amount
         insertedCoins += parseInt($(ui.draggable).attr(`value`));
         data -= parseInt($(ui.draggable).attr(`value`));
-        // updateData(data);
-        // localStorage.setItem("dataMoney", dataMoney);
         updateMoneyText();
 
         // If it is equals to the claw-machine price then allows to play
@@ -212,6 +216,7 @@ $(`#claw-machine-coin-slot`).droppable({
 
         // Hides the <> buttons 
         $(`.selectMachine button`).hide();
+        $(`.btn-return`).hide();
     }
 });
 
@@ -244,6 +249,7 @@ function refund() {
         updateMoneyText();
         // show <> Button again
         $(`.selectMachine button`).show();
+        $(`.btn-return`).show();
     }
 }
 
@@ -277,6 +283,7 @@ $(`#confirm-dialog`).dialog({
         "Nyo": function () {
             refund();
             $(`.selectMachine button`).show();
+            $(`.btn-return`).show();
 
             $(this).dialog(`close`);
         }
@@ -418,8 +425,12 @@ function collectPlush() {
         plushies[randNb] = -1;
         isGrabbed = false;
 
+        // plays a collect sound
+        let sfx = new Audio(`assets/sounds/collect.mp3`);
+        sfx.play();
         // Shows the <> buttons 
         $(`.selectMachine button`).show();
+        $(`.btn-return`).show();
     })
 }
 
@@ -472,6 +483,10 @@ clawBtnDown.on({
         btnDown = false;
         amountPaid = false;
         noRefund = false;
+
+        // Play press btn sound
+        let sfx = new Audio(`assets/sounds/press-btn.mp3`);
+        sfx.play();
     }
 });
 
