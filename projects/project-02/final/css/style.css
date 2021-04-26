@@ -57,6 +57,7 @@ li {
   margin-bottom: 1rem;
   color: #587be4;
 }
+
 /* --------------------------------------- HOME ------------------------- */
 #home {
   display: flex;
@@ -67,6 +68,7 @@ li {
 }
 
 #home div {
+  position: absolute;
   width: 50%;
   height: 50%;
   display: flex;
@@ -258,15 +260,15 @@ button:active {
 }
 
 #mini-games .left-side {
-position: absolute;
-left: 0;
-bottom: 5%;
-width: 15%;
-background: white;
-border-radius: 20px;
-box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
-padding: 20px;
-margin-left: 2rem;
+  position: absolute;
+  left: 0;
+  bottom: 5%;
+  width: 15%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 15px 15px 3px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-left: 2rem;
 }
 
 canvas {
@@ -274,6 +276,41 @@ canvas {
   border-radius: 1.5rem;
 }
 
+#the-end {
+  justify-content: center;
+  align-items: center;
+}
+
+#the-end div {
+  position: absolute;
+  background-color: white;
+  border-radius: 20px;
+  width: 40vw;
+  height: 30vh;
+  padding: 2rem;
+}
+
+#the-end span {
+  font-family: QuietMeow;
+  font-size: 3rem;
+  vertical-align: top;
+}
+
+#the-end p {
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
+
+#the-end button {
+  position: absolute;
+  right: 10px;
+  bottom: 11px;
+}
+
+.capsules {
+  width: 50%;
+  height: auto;
+}
 
 #claw-machine,
 #collection,
@@ -281,7 +318,7 @@ canvas {
 #gacha-machine,
 #menu,
 #instruction,
-#mini-games
- {
+#mini-games,
+#the-end {
   display: none;
 }

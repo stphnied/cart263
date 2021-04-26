@@ -438,6 +438,11 @@ function collectPlush() {
 function addPlushCollection() {
     plushiesCollected.push(plushToy);
     $(`.plushie-${plushToy}`).addClass(`gotItem`);
+
+    // If all plushies are collected
+    if(plushiesCollected.length == 28) {
+         $(`#ending-dialog`).dialog("open");
+    }
 }
 
 /*/////////////////////////////////////////////////////////////////////////////////

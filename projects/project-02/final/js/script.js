@@ -118,6 +118,37 @@ $(`#instruction button`).on("click", function (event) {
     }
 });
 
+// Choosing which game to play
+// Display a JQUERY UI Dialog
+$(`#choosing-dialog`).dialog({
+    buttons: {
+        "Claw machine": function () {
+            $(`#instruction`).css(`display`, `none`);
+            $(`#claw-machine`).css(`display`, `block`);
+            musicBgSrc = aMusicBgSrc[1];
+            playMusic();
+            $(this).dialog(`close`);
+        },
+        "Gacha machine": function () {
+            $(`#instruction`).css(`display`, `none`);
+            $(`#gacha-machine`).css(`display`, `flex`);
+            $(this).dialog(`close`);
+        }
+    },
+    autoOpen: false
+});
+
+$(`.ui-dialog`).css({
+    backgroundColor: `#97bcff`
+});
+$(`.ui-dialog-buttonset button`).css({
+    fontFamily: `Fredoka One`,
+    backgroundColor: `#97bcff`
+});
+
+$(`.ui-widget`).css(`font-family`, `Fredoka One`);
+
+
 
 // Displaying the user's cat
 // Depending on which cat, different img and text
@@ -151,41 +182,6 @@ function showCat(catId) {
     });
 }
 
-
-// Choosing which game to play
-// Display a JQUERY UI Dialog
-$(`#choosing-dialog`).dialog({
-    buttons: {
-        "Claw machine": function () {
-            $(`#instruction`).css(`display`, `none`);
-            $(`#claw-machine`).css(`display`, `block`);
-            musicBgSrc = aMusicBgSrc[1];
-            playMusic();
-            $(this).dialog(`close`);
-        },
-        "Gacha machine": function () {
-            $(`#instruction`).css(`display`, `none`);
-            $(`#gacha-machine`).css(`display`, `flex`);
-            $(this).dialog(`close`);
-        }
-    },
-    autoOpen: false
-});
-
-$(`.ui-dialog`).css({
-    backgroundColor: `#97bcff`
-});
-$(`.ui-dialog-buttonset button`).css({
-    fontFamily: `Fredoka One`,
-    backgroundColor: `#97bcff`
-});
-
-$(`.ui-widget`).css(`font-family`, `Fredoka One`);
-
-
-
-
-
 /*//////////////////////////////////////////////////////////////
 COLLECTION
 */ ////////////////////////////////////////////////////////////
@@ -218,3 +214,34 @@ $(`button`).on(`click`, function () {
     sfx.loop = false;
     sfx.play();
 });
+
+/*//////////////////////////////////////////////////////////////
+THE ENDING
+*/ ////////////////////////////////////////////////////////////
+$(`<img>`).attr(`src`, `assets/images/capsules.png`).addClass(`capsules`).prependTo(`#the-end`);
+
+function displayEnding() {
+    $(`#gacha-machine`).css(`display`, `none`);
+    $(`#the-end`).css(`display`, `block`);
+}
+
+$(`#ending-dialog`).dialog({
+    buttons: {
+        "Okay": function () {
+            $(`#claw-machine`).css(`display`, `none`);
+            $(`#the-end`).css(`display`, `flex`);
+            $(this).dialog(`close`);
+        }
+    },
+    autoOpen: false
+});
+
+$(`.ui-dialog`).css({
+    backgroundColor: `#97bcff`
+});
+$(`.ui-dialog-buttonset button`).css({
+    fontFamily: `Fredoka One`,
+    backgroundColor: `#97bcff`
+});
+
+$(`.ui-widget`).css(`font-family`, `Fredoka One`);
