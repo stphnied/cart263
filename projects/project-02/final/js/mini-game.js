@@ -134,7 +134,7 @@ function setup() {
     // m-g2 setup
     fishSetup();
     // getting the money data
-    dataM = JSON.parse(localStorage.getItem(`dataMoney`));
+    dataM = JSON.parse(localStorage.getItem(`money-data`));
 }
 
 // timerSetup()
@@ -144,9 +144,9 @@ function timerSetup() {
     if (minigame1) {
         timer = 35;
     }
-    // MINIGAME 2: 10sec
+    // MINIGAME 2: 5sec
     else if (minigame2) {
-        timer = 10;
+        timer = 5;
     }
 }
 
@@ -348,7 +348,7 @@ function mouseClicked() {
             // Updates the localstorage dataMoney
             dataM += scoreMoney;
             dataMoney = dataM;
-            localStorage.setItem(`dataMoney`, JSON.stringify(dataMoney));
+            updateData(dataMoney);
 
             // Add coins images in a div and resets game
             addCoinImg();

@@ -51,6 +51,12 @@ button {
   font-size: 18px;
 }
 
+
+li {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: #587be4;
+}
 /* --------------------------------------- HOME ------------------------- */
 #home {
   display: flex;
