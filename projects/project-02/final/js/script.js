@@ -13,22 +13,25 @@ Afterward, it will lead him to the INSTRUCTION screen where he can go to either 
 
 "use strict";
 // Variables
-let user = "tofu";
+let user ="";
 let perksTxt = "";
-
+// Sound
+let sfxSrc;
+let musicBgSrc;
+// arraySource
+let aMusicBgSrc = [`happyDay.mp3`, `8bitParadise.mp3`, `blueSky.mp3`];
 
 // Updates the user's money
 function updateData(amount) {
     money = amount;
-    localStorage.setItem("money-data",JSON.stringify(money));
+    localStorage.setItem("money-data", JSON.stringify(money));
 }
-
-
 
 /*//////////////////////////////////////////////////////////////
 HOME
 */ /////////////////////////////////////////////////////////////
-
+musicBgSrc = aMusicBgSrc[0];
+playMusic();
 // Click events----
 
 // Hides home -> display menu 
@@ -51,10 +54,14 @@ $(`.btn-return`).on("click", function (event) {
                 case `claw-machine`:
                     $(`#claw-machine`).css(`display`, `none`);
                     $(`#instruction`).css(`display`, `block`);
+                    musicBgSrc = aMusicBgSrc[0];
+                    playMusic();
                     break;
                 case `mini-games`:
                     $(`#mini-games`).css(`display`, `none`);
                     $(`#instruction`).css(`display`, `block`);
+                    musicBgSrc = aMusicBgSrc[0];
+                    playMusic();
                     break;
             }
         }
@@ -97,10 +104,15 @@ $(`#instruction button`).on("click", function (event) {
         case `btn-play`:
             $(`#instruction`).css(`display`, `none`);
             $(`#claw-machine`).css(`display`, `block`);
+            musicBgSrc = aMusicBgSrc[1];
+            playMusic();
             break;
         case `btn-job`:
             $(`#instruction`).css(`display`, `none`);
             $(`#mini-games`).css(`display`, `flex`);
+            musicBgSrc = aMusicBgSrc[2];
+            playMusic();
+            break;
     }
 });
 
@@ -131,6 +143,9 @@ function showCat(catId) {
                 break;
         }
         $(`.left-side p`).text(perks);
+        // Setup the cat images
+        showCatPaw();
+        userSetup();
     });
 }
 
@@ -144,3 +159,23 @@ $(`.btn-collection`).on(`click`, function () {
     showStickers();
 });
 
+
+// Plays the background music
+// If it's the claw-machine section : plays a different song
+// Else : same bg music
+function playMusic() {
+    $(`#music`).attr({
+        src: `assets/sounds/`+musicBgSrc,
+        type: `audio/mpeg`,
+        autoplay: `autoplay`,
+        loop: `loop`
+    })
+
+    $(`#music`).prop(`volume`, 0.3);
+}
+
+// Button click sound effect
+$(`button`).on(`click`,function(){
+    let sfx = new Audio(`assets/sounds/btn.mp3`);
+    sfx.play();
+});

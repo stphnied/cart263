@@ -21,7 +21,6 @@ MINIGAME 2: GO FISH
 At the end of of both minigames/jobs, the user will earn a reward (coins) depending on their performance.
 Minigame 1 has a bigger reward sine it is harder. (varies from 0 to 5$).
 Minigame 2 has a reward of 0-2$.
-
 */
 
 // Variables
@@ -192,7 +191,6 @@ function draw() {
         default:
             break;
     }
-
     displayUser(125, height / 1.5, 150, 4, 250);
 }
 
@@ -353,6 +351,8 @@ function mouseClicked() {
             // Add coins images in a div and resets game
             addCoinImg();
             resetGame();
+            let sfx = new Audio(`assets/sounds/coin-reward.mp3`);
+            sfx.play();
 
             // Displays the current $ and outside button
             $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataMoney + `$`);
@@ -574,6 +574,8 @@ function addCoinImg() {
             $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
             break;
     }
+    //Makes the coin draggable
+    draggableCoin();
 }
 
 // Change between the minigames

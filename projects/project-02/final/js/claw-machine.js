@@ -111,6 +111,7 @@ checkData();
 showCatPaw();
 updateMoneyText();
 coinRandomPos();
+draggableCoin();
 
 /*/////////////////////////////////////////////////////////////////////////////////
 USER
@@ -159,28 +160,13 @@ COINS
 $(`.coin-1`).attr(`value`, `1`);
 $(`.coin-2`).attr(`value`, `2`);
 
-// let coins = [];
-
-// $(`.coin`).each(function (i) {
-//     coins.push(this);
-
-//     let randTop = (Math.random() * 172) + -27;
-//     let randLeft = (Math.random() * 221) + 18;
-
-//     for (let i = 0; i < coins.length; i++) {
-//         coins[i].style.top = randTop
-//         coins[i].style.left = randLeft;
-//         randTop = (Math.random() * 172) + -27;
-//         randLeft = (Math.random() * 221) + 18;
-//     }
-// })
 
 // Randomly assign a position
 function coinRandomPos() {
-    // Top position = min: 0 max: 125px
-    // Left position = min: 0 max: 325px
+    // Top position = min: -27 max: 125px
+    // Left position = min: 18 max: 325px
     let randTop = (Math.random() * 172) + -27;
-    let randLeft = (Math.random() * 221) + 18;
+    let randLeft = (Math.random() * 50) + 18;
 
     $(`.coin`).css({
         top: randTop,
@@ -189,9 +175,12 @@ function coinRandomPos() {
 }
 
 // Coins are draggable
-$(`.coin`).draggable({
-    revert: "valid"
-});
+function draggableCoin() {
+    $(`.coin`).draggable({
+        revert: "valid"
+    });
+}
+
 
 // Coin-slot is now droppable
 // Coins can be dragged in it
@@ -205,11 +194,14 @@ $(`#claw-machine-coin-slot`).droppable({
         });
 
         $(ui.draggable).addClass(`used`);
+        // Plays a coin sfx
+        let sfx = new Audio(`assets/sounds/coin-slot.mp3`);
+        sfx.play();
 
         // Updates the inserted coins amount
         insertedCoins += parseInt($(ui.draggable).attr(`value`));
         data -= parseInt($(ui.draggable).attr(`value`));
-        updateData(data);
+        // updateData(data);
         // localStorage.setItem("dataMoney", dataMoney);
         updateMoneyText();
 
@@ -225,8 +217,13 @@ $(`#claw-machine-coin-slot`).droppable({
 
 // Reset coins
 // If the player did not play yet and wants his coin back
+// Plays a refund sfx
 $(`#claw-machine-btn-reset`).on(`click`, function (event) {
+
     refund();
+
+    let sfx = new Audio(`assets/sounds/coin-reward.mp3`);
+    sfx.play();
 });
 
 // Undo the payment
