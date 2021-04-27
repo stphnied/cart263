@@ -22,6 +22,7 @@ class Fish {
         this.eaten = false;
     }
 
+    // calls the functions in one place
     update() {
         this.move();
         this.display();

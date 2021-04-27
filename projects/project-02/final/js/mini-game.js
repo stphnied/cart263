@@ -193,6 +193,7 @@ function draw() {
     displayUser(125, height / 1.5, 150, 4, 250);
     // getting the money data
     dataM = JSON.parse(localStorage.getItem(`money-data`));
+    $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataM + `$`);
 }
 
 
@@ -326,8 +327,8 @@ function mouseClicked() {
         if (d1 < userMG.size) {
             // Updates the localstorage dataMoney
             dataM += scoreMoney;
-            dataMoney = dataM;
-            updateData(dataMoney);
+            // dataMoney = dataM;
+            updateData(dataM);
 
             // Add coins images in a div and resets game
             addCoinImg();
@@ -336,7 +337,7 @@ function mouseClicked() {
             sfx.play();
 
             // Displays the current $ and outside button
-            $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataMoney + `$`);
+            $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + dataM + `$`);
             $(`.selectJob button`).show();
             $(`.btn-return`).show();
         }
@@ -453,13 +454,12 @@ function startGame() {
 
         for (let i = 0; i < NUM_FISHIES; i++) {
             let fish = fishies[i];
-            fish.display();
-            fish.move();
-            fish.checkFish();
+            fish.update();
         }
 
     }
 
+    // Displays for both minigames
     displayScore();
     displayCountdown();
 }
@@ -561,7 +561,8 @@ function addCoinImg() {
             $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
             break;
         case 2:
-            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
+            $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
             break;
         case 3:
             $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
@@ -577,6 +578,7 @@ function addCoinImg() {
     }
     //Makes the coin draggable
     draggableCoin();
+    addCoinValue();
 }
 
 // Change between the minigames

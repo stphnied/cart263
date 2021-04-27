@@ -30,7 +30,6 @@ let btnDown = false;
 let colorNumb = 0;
 
 // Money
-let money;
 let insertedCoins = 0;
 let amountPaid = false;
 let noRefund = false;
@@ -45,79 +44,23 @@ let plushiesCollected = [];
 let isGrabbed = false;
 
 
-/*//////////////////////////////////////////////////////////////
-MONEY DATA
-*/ /////////////////////////////////////////////////////////////
-let data = JSON.parse(localStorage.getItem("money-data"));
-
-// If there's no data: set the money count to 5$
-//  Else : reloads the datra
-function checkData() {
-    // No data:
-    if (localStorage.getItem("money-data", money) == null) {
-        money = 5;
-        localStorage.setItem("money-data", JSON.stringify(money));
-
-        // Gives 5 coins
-        $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
-        $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
-        $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
-    }
-    // Saved Data:
-    else if (localStorage.getItem("money-data", money) !== null) {
-        localStorage.getItem("money-data", money);
-        addPreviousCoins();
-    }
-}
-
-
-// Adding coins depending if there is data or not
-// If no data  :5$
-// Else if there is data, adding accordingly
-function addPreviousCoins() {
-    // store the previous amount in a variable
-    let previousAmount = parseInt(localStorage.getItem("money-data"));
-
-    // Previous number is odd and not 1
-    if (previousAmount % 2 !== 0 && previousAmount !== 1) {
-        for (let i = 0; i < parseInt(previousAmount / 2); i++) {
-            // 2 coins
-            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
-        }
-        // 1 coins
-        $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
-    }
-
-    // Previous number is 1
-    else if (previousAmount == 1) {
-        // 1 coins
-        $(`<img>`).attr(`src`, `assets/images/coins/coin-1.png`).addClass(`coin coin-1`).appendTo(`.coins`);
-    }
-
-    // Previous number is even
-    else if (previousAmount % 2 !== 0)
-        for (let i = 0; i < previousAmount; i++) {
-            $(`<img>`).attr(`src`, `assets/images/coins/coin-2.png`).addClass(`coin coin-2`).appendTo(`.coins`);
-        }
-}
-
-
-// Adding absolute class to all the claw-machine parts
-$(`#claw-machine img`).addClass(`claw-machine-parts`);
-$(`#claw-machine`).css({
-    backgroundImage: `url(assets/images/claw-machines/background.png)`,
-    backgroundSize: `cover`,
-    backgroundRepeat: `no-repeat`
-})
-    
-
-
 // Calling functions
 checkData();
 showCatPaw();
 updateMoneyText();
 coinRandomPos();
 draggableCoin();
+addCoinValue();
+
+
+// Adding absolute class to all the claw-machine parts
+$(`#claw-machine img`).addClass(`claw-machine-parts`);
+// Adding the background image for the claw-machine section
+$(`#claw-machine`).css({
+    backgroundImage: `url(assets/images/claw-machines/background.png)`,
+    backgroundSize: `cover`,
+    backgroundRepeat: `no-repeat`
+});
 
 /*/////////////////////////////////////////////////////////////////////////////////
 USER
@@ -143,16 +86,9 @@ function showCatPaw() {
                 break;
             case `kosper`:
                 $(`#paw-user`).attr(`src`, catsData.cats.kosper.paw_url);
-                1
                 break;
         }
     });
-}
-
-// Display the updated user's wallet
-function updateMoneyText() {
-    $(`.walletMoneyTxt`).text(`CURRENT BALANCE = ` + data + `$`);
-    $(`.insertCoinsTxt`).text(`COIN INSERTED = ` + insertedCoins + `$`);
 }
 
 
@@ -163,9 +99,10 @@ COINS
 // Adding values to the coins 
 // Coin-1 -> 1$
 // Coin-2 -> 2$
-$(`.coin-1`).attr(`value`, `1`);
-$(`.coin-2`).attr(`value`, `2`);
-
+function addCoinValue() {
+    $(`.coin-1`).attr(`value`, `1`);
+    $(`.coin-2`).attr(`value`, `2`);
+}
 
 // Randomly assign a position
 function coinRandomPos() {
@@ -187,7 +124,6 @@ function draggableCoin() {
     });
 }
 
-
 // Coin-slot is now droppable
 // Coins can be dragged in it
 $(`#claw-machine-coin-slot`).droppable({
@@ -199,6 +135,7 @@ $(`#claw-machine-coin-slot`).droppable({
             duration: 500
         });
 
+        // Add an used coin to mark them
         $(ui.draggable).addClass(`used`);
         // Plays a coin sfx
         let sfx = new Audio(`assets/sounds/coin-slot.mp3`);
@@ -207,11 +144,13 @@ $(`#claw-machine-coin-slot`).droppable({
         // Updates the inserted coins amount
         insertedCoins += parseInt($(ui.draggable).attr(`value`));
         data -= parseInt($(ui.draggable).attr(`value`));
+        updateData(data);
         updateMoneyText();
 
         // If it is equals to the claw-machine price then allows to play
         if (insertedCoins == clawMPrice) {
             $(`#confirm-dialog`).dialog("open");
+            $(`.coins`).hide();
         }
 
         // Hides the <> buttons 
@@ -220,18 +159,16 @@ $(`#claw-machine-coin-slot`).droppable({
     }
 });
 
-// Reset coins
-// If the player did not play yet and wants his coin back
+// When the user clicks on the reset button ==> calls for refund()
 // Plays a refund sfx
 $(`#claw-machine-btn-reset`).on(`click`, function (event) {
-
     refund();
 
     let sfx = new Audio(`assets/sounds/coin-reward.mp3`);
     sfx.play();
 });
 
-// Undo the payment
+// If the user did not play yet:
 // Remove the used class and show the coin
 // Updated the user's wallet
 // Sets back to initial
@@ -239,14 +176,16 @@ function refund() {
     if (!noRefund) {
         $(`.used`).show("scale");
         $(`.used`).removeClass(`used`);
+
         data += insertedCoins;
         updateData(data);
-        // localStorage.setItem("dataMoney", dataMoney);
-        insertedCoins = 0;
-        amountPaid = false;
-        noRefund = false
 
+        insertedCoins = 0;
         updateMoneyText();
+
+        amountPaid = false;
+        noRefund = false;
+    
         // show <> Button again
         $(`.selectMachine button`).show();
         $(`.btn-return`).show();
@@ -265,8 +204,7 @@ function removeCoin() {
 PAYMENT DIALOG
 */ /////////////////////////////////////////////////////////////////////////////////
 
-// Confirm the payment 
-// Display a JQUERY UI Dialog
+// Display a JQUERY UI DIALOG to confirm the payment
 // Yes: proceed payment
 // No: refund payment
 $(`#confirm-dialog`).dialog({
@@ -275,21 +213,27 @@ $(`#confirm-dialog`).dialog({
             amountPaid = true;
             noRefund = true;
             insertedCoins = 0;
+
             updateMoneyText();
             displayRandPlush();
             removeCoin();
+
             $(this).dialog(`close`);
         },
         "Nyo": function () {
             refund();
+
             $(`.selectMachine button`).show();
             $(`.btn-return`).show();
+            $(`.coins`).show();
 
             $(this).dialog(`close`);
         }
     },
     autoOpen: false
 });
+
+// Changing the style of the Dialog
 $(`.ui-dialog`).css({
     backgroundColor: `#97bcff`
 });
@@ -299,7 +243,6 @@ $(`.ui-dialog-buttonset button`).css({
 });
 
 $(`.ui-widget`).css(`font-family`, `Fredoka One`);
-
 
 
 /*/////////////////////////////////////////////////////////////////////////////////
@@ -329,7 +272,6 @@ for (let i = 0; i <= 27; i++) {
 // Excluding the previous pull
 // 0 -> orange | 1 -> blue | 2 -> pink | 3 -> purple (machine)
 // 35-41        42-48       49-55       28-34         (plushies)
-
 function displayRandPlush() {
     let minRNb;
     let maxRNb;
@@ -388,8 +330,9 @@ function collidePlush() {
     isColliding($(`#toy`), $(`#handle-box-collider`));
 }
 
-// Plays a drop animation on picked toy
-// Displays it in the drop-container
+// Plays a drop animation once the claw's position is back to 0
+// Displays the toy in the drop-container
+// Enable de collecPlush()
 function plushDropAnim() {
     // Drop animation
     $(`#toy`).animate({
@@ -412,9 +355,9 @@ function plushDropAnim() {
 }
 
 // When clicking on the plush:
-//  Removes the plush
-//  Add to the collection
-//  Change the item value to -1
+// Plays a removing animation
+// Adds the plush to the collection
+// Change the value to -1 (keeping the position of item without deleting it from array)
 function collectPlush() {
     $(`#toy`).on(`click`, function (event) {
         $(this).effect(`puff`, `slow`, function () {
@@ -428,20 +371,24 @@ function collectPlush() {
         // plays a collect sound
         let sfx = new Audio(`assets/sounds/collect.mp3`);
         sfx.play();
+
         // Shows the <> buttons 
         $(`.selectMachine button`).show();
         $(`.btn-return`).show();
-    })
+        $(`.coins`).show();
+
+    });
 }
 
 // Adds the grabbed plush into collection
+// If all the plushies are collected ===> GAME ENDS
 function addPlushCollection() {
     plushiesCollected.push(plushToy);
     $(`.plushie-${plushToy}`).addClass(`gotItem`);
 
     // If all plushies are collected
-    if(plushiesCollected.length == 28) {
-         $(`#ending-dialog`).dialog("open");
+    if (plushiesCollected.length == 28) {
+        $(`#ending-dialog`).dialog("open");
     }
 }
 
@@ -521,6 +468,7 @@ clawJoystick.on({
         let mouseposMin = 20;
         let mousePosMax = 33;
 
+        // If the user paid the exact amount, they can control the joystick
         if (amountPaid) {
             if (jsDown && !btnDown) {
                 // to the right
@@ -534,6 +482,8 @@ clawJoystick.on({
                     jsLeft = true;
 
                 }
+
+                // Calls the joystick that will control the claws
                 joystickControl();
             }
             // Return to normal position
@@ -544,6 +494,7 @@ clawJoystick.on({
         }
 
     },
+    // Stops movement once the mouse is not on the joystick
     mouseleave: function () {
         jsDown = false;
         $(this).css(`transform`, `rotate(0)`);
@@ -552,7 +503,7 @@ clawJoystick.on({
 });
 
 // Joystick movement control
-// constraining movement within the claw machine
+// Controling the claw inside the machine
 function joystickControl(event) {
     // to the right
     if (clawHandle.position().left < 400 && !jsLeft) {
@@ -597,11 +548,11 @@ function isColliding(div1, div2) {
             left: ``
         });
 
-    } else {
+    } 
+    
+    else {
         isGrabbed = false;
-    };
-    // return !(d1Top < d2Offset.top || d1Offset.top > d2Top || d1Left < d2Offset.left || d1Offset.left > d2Left);
-
+    }
 };
 
 /*/////////////////////////////////////////////////////////////////////////////////
@@ -614,19 +565,19 @@ $(`.selectMachine button`).on(`click`, function (event) {
     switch ($(this).attr(`class`)) {
         // PREVIOUS button
         case `previous`:
-
             if (colorNumb > 0) {
                 colorNumb -= 1;
-            } else if (colorNumb < 1) {
+            }
+            else if (colorNumb < 1) {
                 colorNumb = 3;
             }
             break;
             // NEXT button
         case `next`:
-
             if (colorNumb < 3) {
                 colorNumb += 1;
-            } else if (colorNumb == 3) {
+            }
+            else if (colorNumb == 3) {
                 colorNumb = 0;
             }
             break;

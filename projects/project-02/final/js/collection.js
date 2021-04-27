@@ -31,7 +31,8 @@ $(`#collection button`).on("click", function (event) {
     }
 });
 
-
+// Creates the stickers and plushies collection
+// creates a div and assign each a bg-img 
 function createCollection() {
     for (let i = 0; i < numStickers; i++) {
         $(`<div>`).addClass(`stickers sticker-${i}`).appendTo(`.items`);

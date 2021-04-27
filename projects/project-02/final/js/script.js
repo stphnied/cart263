@@ -21,11 +21,6 @@ let musicBgSrc;
 // arraySource
 let aMusicBgSrc = [`happyDay.mp3`, `8bitParadise.mp3`, `blueSky.mp3`];
 
-// Updates the user's money
-function updateData(amount) {
-    money = amount;
-    localStorage.setItem("money-data", JSON.stringify(money));
-}
 
 /*//////////////////////////////////////////////////////////////
 HOME
