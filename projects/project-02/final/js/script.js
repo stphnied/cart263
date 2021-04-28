@@ -25,14 +25,14 @@ let aMusicBgSrc = [`happyDay.mp3`, `8bitParadise.mp3`, `blueSky.mp3`];
 /*//////////////////////////////////////////////////////////////
 HOME
 */ /////////////////////////////////////////////////////////////
-musicBgSrc = aMusicBgSrc[0];
-playMusic();
 // Click events----
 
 // Hides home -> display menu 
 $(`#home button`).on("click", function (event) {
     $(`#home`).css(`display`, `none`);
     $(`#menu`).css(`display`, `block`);
+    musicBgSrc = aMusicBgSrc[0];
+    playMusic();
 });
 
 // Return button available on section
@@ -170,7 +170,7 @@ function showCat(catId) {
                 perks = catsData.cats.kosper.perk
                 break;
         }
-        $(`.left-side p`).text(perks);
+        $(`#instruction .left-side p`).text(perks);
         // Setup the cat images
         showCatPaw();
         userSetup();
