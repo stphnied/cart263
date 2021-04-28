@@ -11,7 +11,7 @@ From a more technical part, I was able to achieve the overall functionalities of
 Html3/CSS5, JavaScript, JQuery/JqueryUI, LocalStorage, JSON, and P5.js. I was able to assemble my assets together and add multiple interactivities with JS and JQuery. As for the minigames, P5.js was the way to go as it is easier to create quick and simple interactive games.
 By combining everything, I was able to create my game Gachapon. Due to lack of time,  I had to cut out a few parts of my game, including the gacha section and storing the items in localStorage. I also added perks for each cats but it is only relevant to the gacha section. Although I knew this was a project of a big scale, I think I might have underestimated the amount of work implied. Nonetheless, I was able to challenge myself with new technologies and I must say, I am quite satisfied with the current version of this project. I do intend on working on it again this summer to complete the missing section. 
 
-##Credits
+## Credits
 Arts by Stephanie Dang <br/>
 Cats profile  by ネコにんげん <br/>
 
