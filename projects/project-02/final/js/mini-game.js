@@ -224,8 +224,8 @@ function mouseSetup() {
     // rY: only 2 heights
     mouse.rY = [height / 1.5, height / 5];
 
-    // let minSpeed = 250;
-    // let maxSpeed = 760
+    // let minSpeed = 350
+    // let maxSpeed = 559
     let rTime = random(350, 550);
 
     // Calls and update the position at random
@@ -365,7 +365,6 @@ function keyPressed() {
             $(`.btn-return`).hide();
         }
     }
-
 }
 
 
@@ -478,6 +477,7 @@ function endGame() {
     // Score 31+: 5$
     // Score 0: 0$
     if (minigame1) {
+        
         if (score > 0 && score <= 10) {
             scoreMoney = 1;
         } else if (score > 10 && score <= 20) {

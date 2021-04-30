@@ -45,8 +45,6 @@
     height: 253px;
     right: 60px;
     bottom: 39%;
-    /* opacity: 0.6; */
-
 }
 
 #claw-machine-handle-container {
@@ -58,12 +56,6 @@
     height: 377px;
     padding-top: 1.75rem;
     margin-left: 4.75rem;
-}
-
-#claw-machine-handle {
-    /* /* width: 96px; */
-    /* padding-top: 2.2rem;
-  margin-left: 4.75rem; */
 }
 
 #handle-box-collider {
@@ -161,7 +153,6 @@
 
 
 /* Gacha-machine */
-
 #gacha-machine {
     justify-content: center;
     align-items: center;

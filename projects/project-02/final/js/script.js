@@ -92,8 +92,8 @@ INSTRUCTION
 */ ////////////////////////////////////////////////////////////
 
 // Click event---
-// Shows the Collection
-// Proceed to gameplay
+// Shows another section while hiding the instruction
+// Play different BGM depending on screen
 $(`#instruction button`).on("click", function (event) {
     switch ($(this).attr(`class`)) {
         case `btn-collection`:
@@ -213,6 +213,9 @@ $(`button`).on(`click`, function () {
 /*//////////////////////////////////////////////////////////////
 THE ENDING
 */ ////////////////////////////////////////////////////////////
+
+// Displays a background image and text
+// User can still access their collection
 $(`<img>`).attr(`src`, `assets/images/capsules.png`).addClass(`capsules`).prependTo(`#the-end`);
 
 function displayEnding() {

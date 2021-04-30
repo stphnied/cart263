@@ -29,7 +29,6 @@ function checkData() {
     }
 
     // create another var to update the money count
-    // too scared to mess up the money var itself
     data = JSON.parse(localStorage.getItem("money-data"));
 }
 
